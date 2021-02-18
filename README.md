@@ -1,2 +1,2 @@
-# Projekt
-## Kozacki projekt pozdro 600
+# ColorPost
+## This project is in development phase
