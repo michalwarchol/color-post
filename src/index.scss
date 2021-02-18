@@ -1,0 +1,10 @@
+@import "./_config.scss";
+@import "./utils.scss";
+@import "./pages/Login/Login.scss";
+@import "./pages/SignUp/SignUp.scss";
+@import "./components/ColorWheel/ColorWheel.scss";
+
+.square{
+    width: 300px;
+    height: 300px;
+}

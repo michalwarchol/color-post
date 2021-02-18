@@ -1,0 +1,37 @@
+.login_page{
+    color: white;
+    min-height: 100vh;
+    .form_login{
+        background-color: rgba($color: #000000, $alpha: 0.2);
+        form{
+            width: 100%;
+            padding: 0 20px;
+            label{
+                font-weight: 500;
+            }
+            input{
+                width: 100%;
+                height: 50px;
+                @include textInput();
+            }
+            span{
+                height: 20px;
+                margin-bottom: 20px;
+            }
+            .submit_button{
+                button{
+                    width: 100px;
+                    height: 40px;
+                    @include submitButton();
+                }
+                span{
+                    text-align: center;
+                    margin: 0;
+                    a{
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+    }
+}

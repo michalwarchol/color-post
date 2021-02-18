@@ -1,0 +1,29 @@
+//mixins
+
+@mixin textInput() {
+    padding: 10px;
+    border: 0;
+    border-radius: 4px;
+    box-sizing: border-box;
+    appearance: none;
+    font-family: inherit;
+    box-shadow: none;
+    outline: none;
+    font-weight: 400;
+    &:focus{
+        padding-left: 8px;
+        border: 2px solid $color_1;
+        box-sizing: border-box;
+    }
+}
+
+@mixin submitButton {
+    border: 1px solid $color_1;
+    background-color: $color_2;
+    color: white;
+    border-radius: 2px;
+    box-shadow: #000000 -1px -1px 10px inset;
+    &:active{
+        box-shadow: #000000 1px 1px 10px inset;
+    }
+}

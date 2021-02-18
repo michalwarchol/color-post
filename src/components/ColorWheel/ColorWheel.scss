@@ -1,0 +1,24 @@
+$length: 514px;
+
+.canvas_container{
+    width: $length;
+    width: $length;
+    position: relative;
+    canvas{
+        border-radius: 50%;
+        border: 1px solid white;
+        box-sizing: border-box;
+    }
+    .pointer{
+        width: 20px;
+        height: 20px;
+        border: 1px solid black;
+        border-radius: 50%;
+        pointer-events: none;
+        position: absolute;
+    }
+
+    .main_pointer{
+        border: 2px solid black;
+    }
+}
