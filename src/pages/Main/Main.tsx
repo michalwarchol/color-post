@@ -47,11 +47,11 @@ const Main = () => {
 			<button onClick={api_findById}>findById</button>
 			<ColorWheel />
 			<div className="d-flex flex-row">
-				<Square id={0}/>
-				<Square id={1}/>
-				<Square id={2}/>
-				<Square id={3}/>
-				<Square id={4}/>
+				<Square id={0} />
+				<Square id={1} />
+				<Square id={2} />
+				<Square id={3} />
+				<Square id={4} />
 			</div>
 
 		</div>

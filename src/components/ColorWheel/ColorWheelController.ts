@@ -4,7 +4,6 @@ import store from "../../reducers/colorStore"
 export type Coordinates = {
     x: number,
     y: number,
-    type: string
 }
 
 export const radius: number = 255;
@@ -14,7 +13,6 @@ export const degreesToRadians = (degrees: number) => {
 }
 
 export const generateColorWheel = (ctx: any) => {
-
     var size = 512;
     var centerColor = "white";
     //Generate main canvas to return
@@ -33,7 +31,6 @@ export const generateColorWheel = (ctx: any) => {
     while (angle++ < 360) {
         //find index immediately before and after our pivot
         var pivotPointerbefore = (pivotPointer + 3 - 1) % 3;
-        var pivotPointerAfter = (pivotPointer + 3 + 1) % 3;
         //Modify colors
         if (hexCode[pivotPointer] < 255) {
             //If main points isn't full, add to main pointer
@@ -87,8 +84,7 @@ export const updatePointerPosition = (e: React.MouseEvent, canvas: HTMLCanvasEle
 }
 
 export const movePointInCircle = (point: HTMLDivElement) => {
-    let x = store.getState().x;
-    let y = store.getState().y;
+    let {x, y} = store.getState();
     let pointToCircleCenterLength = Math.sqrt(Math.pow(x - 257, 2) + Math.pow(y - 257, 2));
     if (radius > pointToCircleCenterLength) {  //is point in circle
         point.style.left = x - 10 + "px";
@@ -96,34 +92,19 @@ export const movePointInCircle = (point: HTMLDivElement) => {
     }
 }
 
-
-export const getPointerColor = (context: CanvasRenderingContext2D) => {
-    let x = store.getState().x;
-    let y = store.getState().y;
-    let pointToCircleCenterLength = Math.floor(Math.sqrt(Math.pow(x - 255, 2) + Math.pow(y - 255, 2)));
-    if (radius >= pointToCircleCenterLength) {
-        let color;
-        if (x <= 255 && y <= 255) color = context.getImageData(x, y, 1, 1).data;
-        else if (x >= 255 && y <= 255) color = context.getImageData(x, y, -1, 1).data;
-        else if (x <= 255 && y >= 255) color = context.getImageData(x, y, 1, -1).data;
-        else color = context.getImageData(x, y, -1, -1).data;
-        let red = color[0];
-        let green = color[1];
-        let blue = color[2];
-        return "rgb(" + red + "," + green + "," + blue + ")";
-    } else {
-        return null;
-    }
-}
-
 export const setPointerColor = (context: CanvasRenderingContext2D, id: number, x: number, y: number) => {
     let pointToCircleCenterLength = Math.floor(Math.sqrt(Math.pow(x - 255, 2) + Math.pow(y - 255, 2)));
     if (radius >= pointToCircleCenterLength) {
         let color;
-        if (x <= 255 && y <= 255) color = context.getImageData(Math.floor(x), Math.floor(y), 1, 1).data;
-        else if (x >= 255 && y <= 255) color = context.getImageData(Math.floor(x), Math.floor(y), -1, 1).data;
-        else if (x <= 255 && y >= 255) color = context.getImageData(Math.floor(x), Math.floor(y), 1, -1).data;
-        else color = context.getImageData(Math.floor(x), Math.floor(y), -1, -1).data;
+        if (x <= 255 && y <= 255) 
+            color = context.getImageData(Math.floor(x), Math.floor(y), 1, 1).data;
+        else if (x >= 255 && y <= 255) 
+            color = context.getImageData(Math.floor(x), Math.floor(y), -1, 1).data;
+        else if (x <= 255 && y >= 255) 
+            color = context.getImageData(Math.floor(x), Math.floor(y), 1, -1).data;
+        else 
+            color = context.getImageData(Math.floor(x), Math.floor(y), -1, -1).data;
+            
         let red = color[0];
         let green = color[1];
         let blue = color[2];
@@ -133,8 +114,17 @@ export const setPointerColor = (context: CanvasRenderingContext2D, id: number, x
             index: id,
             color: "rgb(" + red + "," + green + "," + blue + ")"
         })
-        return "rgb(" + red + "," + green + "," + blue + ")";
-    } else {
-        return null;
-    }
+    } 
+}
+
+export const moveByVector = (id: number) => {
+    let mainX = store.getState().x - radius;
+    let mainY = store.getState().y - radius;
+    let degrees = id % 2 == 0 
+        ? -30 * id / 2 
+        : 30 * (id + 1) / 2;
+    let x = mainX * Math.cos(degreesToRadians(degrees)) - mainY * Math.sin(degreesToRadians(degrees)) + radius;
+    let y = mainX * Math.sin(degreesToRadians(degrees)) + mainY * Math.cos(degreesToRadians(degrees)) + radius;
+
+    return {x, y} as Coordinates;
 }
