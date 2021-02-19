@@ -7,26 +7,30 @@ import Pointer from '../Pointer/Pointer';
 import { movePointInCircle, 
   radius, 
   getPointerColor,
+  updatePointerPosition,
   generateColorWheel,
   Coordinates} from "./ColorWheelController";
 
-interface Props {
+  interface Props {
     mainColor: string,
-    setMainColor: (color: string) => void
+    setMainColor: (color: string) => void,
+    mainPointerX: number,
+    mainPointerY: number,
+    colors: number[]
 }
 
 
-const ColorWheel:React.FC<Props> = ({mainColor, setMainColor}) => {
+const ColorWheel:React.FC<Props> = ({mainColor, setMainColor, mainPointerX, mainPointerY, colors}) => {
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mainPointerRef = useRef<HTMLDivElement>(null);
   const [pointerTaken, setPointerTaken] = useState<boolean>(false)
-  const [pointerColor, setPointerColor] = useState<string>(mainColor);
 
   const dispatch: Dispatch<any> = useDispatch();
 
   useEffect(() => {
     const canvas = canvasRef.current as any;
+    console.log(canvas)
     const context = canvas.getContext("2d");
     generateColorWheel(context);
 
@@ -36,9 +40,15 @@ const ColorWheel:React.FC<Props> = ({mainColor, setMainColor}) => {
   }, [])
 
   useEffect(()=>{
-    let pointer = mainPointerRef.current as any;
-    pointer.style.backgroundColor=pointerColor;
-  }, [pointerColor, setPointerColor])
+    let mainPointer = mainPointerRef.current as any;
+    let canvas = canvasRef.current as any;
+    let context = canvas.getContext("2d");
+    movePointInCircle(mainPointer);
+    let newPointerColor = getPointerColor(context);
+    if(newPointerColor!=null){
+      setMainPointerColor(newPointerColor);
+    }
+  }, [mainPointerX, mainPointerY])
 
   const takePointer = () => {
     setPointerTaken(true);
@@ -54,14 +64,7 @@ const ColorWheel:React.FC<Props> = ({mainColor, setMainColor}) => {
   const canvasMove = (e: React.MouseEvent) => {
     if (pointerTaken) {
       let canvas = canvasRef.current as any;
-      let context = canvas.getContext("2d");
-      let mainPointer = mainPointerRef.current as any;
-      movePointInCircle(e, canvas, mainPointer);
-      let newPointerColor = getPointerColor(e, canvas, context);
-      if(newPointerColor!=undefined){
-        setPointerColor(newPointerColor);
-        setMainPointerColor(newPointerColor);
-      }
+      updatePointerPosition(e, canvas);
     }
   }
 
@@ -82,7 +85,9 @@ const ColorWheel:React.FC<Props> = ({mainColor, setMainColor}) => {
       <div className="pointer main_pointer" ref={mainPointerRef}>
       </div>
       <Pointer id={1} key={1} />
-      <Pointer id={1} key={2} />
+      <Pointer id={2} key={2} />
+      <Pointer id={3} key={3} />
+      <Pointer id={4} key={4} />
     </div>
   )
 }

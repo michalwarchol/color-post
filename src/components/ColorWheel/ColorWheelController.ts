@@ -86,37 +86,49 @@ export const updatePointerPosition = (e: React.MouseEvent, canvas: HTMLCanvasEle
     })
 }
 
-export const movePointInCircle = (e: React.MouseEvent, canvas: HTMLCanvasElement, point: HTMLDivElement) => {
-    let x = e.pageX - canvas.getBoundingClientRect().x;
-    let y = e.pageY - canvas.getBoundingClientRect().y;
-    let pointToCircleCenterLength = Math.sqrt(Math.pow(x-257, 2)+Math.pow(y-257, 2));
-    if(radius>pointToCircleCenterLength){  //is point in circle
-        point.style.left = x -10+ "px";
-        point.style.top = y -10+ "px";
-    } 
-    store.dispatch({
-        type: "MOVE_MAIN_POINTER",
-        x: x,
-        y: y
-    })
+export const movePointInCircle = (point: HTMLDivElement) => {
+    let x = store.getState().x;
+    let y = store.getState().y;
+    let pointToCircleCenterLength = Math.sqrt(Math.pow(x - 257, 2) + Math.pow(y - 257, 2));
+    if (radius > pointToCircleCenterLength) {  //is point in circle
+        point.style.left = x - 10 + "px";
+        point.style.top = y - 10 + "px";
+    }
 }
 
 
-export const getPointerColor = (e: React.MouseEvent, canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) => {
-    let x = store.getState().x;//e.pageX - canvas.getBoundingClientRect().x;
-    let y = store.getState().y;//e.pageY - canvas.getBoundingClientRect().y;
-    let pointToCircleCenterLength = Math.floor(Math.sqrt(Math.pow(x-255, 2)+Math.pow(y-255, 2)));
-    if(radius>=pointToCircleCenterLength){
+export const getPointerColor = (context: CanvasRenderingContext2D) => {
+    let x = store.getState().x;
+    let y = store.getState().y;
+    let pointToCircleCenterLength = Math.floor(Math.sqrt(Math.pow(x - 255, 2) + Math.pow(y - 255, 2)));
+    if (radius >= pointToCircleCenterLength) {
         let color;
-        if(x<=255 && y<=255) color = context.getImageData(x, y, 1, 1).data;
-        else if(x>=255 && y<=255) color = context.getImageData(x, y, -1, 1).data;
-        else if(x<=255 && y>=255) color = context.getImageData(x, y, 1, -1).data;
+        if (x <= 255 && y <= 255) color = context.getImageData(x, y, 1, 1).data;
+        else if (x >= 255 && y <= 255) color = context.getImageData(x, y, -1, 1).data;
+        else if (x <= 255 && y >= 255) color = context.getImageData(x, y, 1, -1).data;
         else color = context.getImageData(x, y, -1, -1).data;
         let red = color[0];
         let green = color[1];
         let blue = color[2];
-        return "rgb("+red+","+green+","+blue+")";
-    }else{
-        return;
+        return "rgb(" + red + "," + green + "," + blue + ")";
+    } else {
+        return null;
     }
+}
+
+export const setPointerColor = (pointer: HTMLDivElement, context: CanvasRenderingContext2D, id: number, x: number, y: number) => {
+    let color;
+    if (x <= 255 && y <= 255) color = context.getImageData(x, y, 1, 1).data;
+    else if (x >= 255 && y <= 255) color = context.getImageData(x, y, -1, 1).data;
+    else if (x <= 255 && y >= 255) color = context.getImageData(x, y, 1, -1).data;
+    else color = context.getImageData(x, y, -1, -1).data;
+    let red = color[0];
+    let green = color[1];
+    let blue = color[2];
+
+    store.dispatch({
+        type: "SET_COLOR",
+        index: id,
+        color: "rgb(" + red + "," + green + "," + blue + ")"
+    })
 }
