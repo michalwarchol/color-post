@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { connect, useDispatch } from 'react-redux'
-import { AnyAction, Dispatch } from 'redux';
+import { connect } from 'react-redux'
 import {degreesToRadians, radius} from '../ColorWheel/ColorWheelController'
 import {StateType} from '../../reducers/types';
 
@@ -8,11 +7,12 @@ interface Props {
     id: number,
     mainPointerX: number,
     mainPointerY: number,
-    colors: number[]
+    colors: string[],
+    setPointerColor: (x: number, y: number, id: number) => void
 }
 
 
-const Pointer:React.FC<Props> = ({id, mainPointerX, mainPointerY, colors}) => {
+const Pointer:React.FC<Props> = ({id, mainPointerX, mainPointerY, colors, setPointerColor}) => {
 
     const [positionX, setPositionX] = useState<number>(245);
     const [positionY, setPositionY] = useState<number>(245);
@@ -24,21 +24,19 @@ const Pointer:React.FC<Props> = ({id, mainPointerX, mainPointerY, colors}) => {
         let degrees = id%2==0 ? -30*id/2 : 30*(id+1)/2;
         let x = mainX * Math.cos(degreesToRadians(degrees)) - mainY*Math.sin(degreesToRadians(degrees));
         let y = mainX * Math.sin(degreesToRadians(degrees)) + mainY*Math.cos(degreesToRadians(degrees));
-        setPositionX(radius+x-10);
-        setPositionY(radius+y-10);
-        let pointer = pointerRef.current as any;
-        pointer.style.left=radius+x-10 + "px";
-        pointer.style.top=radius+y-10 + "px";
+        setPositionX(radius+x);
+        setPositionY(radius+y);
     }
 
     useEffect(()=> {
         let pointer = pointerRef.current as any;
-        pointer.style.left=positionX + "px";
-        pointer.style.top=positionY + "px";
-    },[])
+        pointer.style.left=positionX-10 + "px";
+        pointer.style.top=positionY-10 + "px";
+    },[positionX, positionY])
 
     useEffect(()=>{
         moveByVector()
+        setPointerColor(positionX, positionY, id)
     }, [mainPointerX, mainPointerY])
 
     return (

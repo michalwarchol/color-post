@@ -9,6 +9,7 @@ import { movePointInCircle,
   getPointerColor,
   updatePointerPosition,
   generateColorWheel,
+  setPointerColor,
   Coordinates} from "./ColorWheelController";
 
   interface Props {
@@ -30,7 +31,6 @@ const ColorWheel:React.FC<Props> = ({mainColor, setMainColor, mainPointerX, main
 
   useEffect(() => {
     const canvas = canvasRef.current as any;
-    console.log(canvas)
     const context = canvas.getContext("2d");
     generateColorWheel(context);
 
@@ -68,6 +68,12 @@ const ColorWheel:React.FC<Props> = ({mainColor, setMainColor, mainPointerX, main
     }
   }
 
+  const setMinorPointerColor = (x: number, y: number, id: number) => {
+    let canvas = canvasRef.current as any;
+    let context = canvas.getContext("2d");
+    setPointerColor(context, id, x, y);
+  }
+
   const setMainPointerColor = useCallback(
     (color: string)=> dispatch(setMainColor(color)),
     [dispatch, setMainColor]
@@ -82,29 +88,26 @@ const ColorWheel:React.FC<Props> = ({mainColor, setMainColor, mainPointerX, main
         onMouseDown={takePointer} 
         onMouseUp={dropPointer} 
         onMouseMove={canvasMove}></canvas>
-      <div className="pointer main_pointer" ref={mainPointerRef}>
+      <div className="pointer main_pointer" ref={mainPointerRef} style={{background: mainColor}}>
       </div>
-      <Pointer id={1} key={1} />
-      <Pointer id={2} key={2} />
-      <Pointer id={3} key={3} />
-      <Pointer id={4} key={4} />
+      <Pointer id={1} key={1} setPointerColor={setMinorPointerColor}/>
+      <Pointer id={2} key={2} setPointerColor={setMinorPointerColor}/>
+      <Pointer id={3} key={3} setPointerColor={setMinorPointerColor}/>
+      <Pointer id={4} key={4} setPointerColor={setMinorPointerColor}/>
     </div>
   )
 }
 
-const mapStateToProps = (state: StateType) => {
-  return {
+const mapStateToProps = (state: StateType) => ({
     mainColor: state.mainColor,
     mainPointerX: state.x,
-    mainPointerY: state.y
-  }
-}
+    mainPointerY: state.y,
+    colors: state.colors
+})
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) =>{
-  return {
+const mapDispatchToProps = (dispatch: Dispatch) =>({
     setMainColor: (payload: string) => dispatch({type: "CHANGE_MAIN_COLOR", color: payload}),
     setMainPointerPosition: (payload: Coordinates) => dispatch({type: "MOVE_MAIN_POINTER", x: payload.x, y: payload.y})
-  }
-}
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(ColorWheel);

@@ -10,9 +10,11 @@ const initialState = {
 export const reducer = (state: StateType = initialState, action: ActionTypes) => {
     switch (action.type) {
         case "CHANGE_MAIN_COLOR":
-            return { ...state, mainColor: action.color };
-        case "SET_COLOR":
             let colors = state.colors;
+            colors[0]=action.color;
+            return { ...state, mainColor: action.color, colors: colors };
+        case "SET_COLOR":
+            colors = state.colors;
             colors[action.index] = action.color;
             return { ...state, colors: colors }
         case "MOVE_MAIN_POINTER":

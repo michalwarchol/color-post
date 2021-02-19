@@ -7,15 +7,15 @@ export type Coordinates = {
     type: string
 }
 
-export const radius:number = 255;
+export const radius: number = 255;
 
 export const degreesToRadians = (degrees: number) => {
     return degrees * (Math.PI / 180);
 }
 
 export const generateColorWheel = (ctx: any) => {
-    
-    var size=512;
+
+    var size = 512;
     var centerColor = "white";
     //Generate main canvas to return
     var canvas = document.createElement("canvas");
@@ -116,19 +116,25 @@ export const getPointerColor = (context: CanvasRenderingContext2D) => {
     }
 }
 
-export const setPointerColor = (pointer: HTMLDivElement, context: CanvasRenderingContext2D, id: number, x: number, y: number) => {
-    let color;
-    if (x <= 255 && y <= 255) color = context.getImageData(x, y, 1, 1).data;
-    else if (x >= 255 && y <= 255) color = context.getImageData(x, y, -1, 1).data;
-    else if (x <= 255 && y >= 255) color = context.getImageData(x, y, 1, -1).data;
-    else color = context.getImageData(x, y, -1, -1).data;
-    let red = color[0];
-    let green = color[1];
-    let blue = color[2];
+export const setPointerColor = (context: CanvasRenderingContext2D, id: number, x: number, y: number) => {
+    let pointToCircleCenterLength = Math.floor(Math.sqrt(Math.pow(x - 255, 2) + Math.pow(y - 255, 2)));
+    if (radius >= pointToCircleCenterLength) {
+        let color;
+        if (x <= 255 && y <= 255) color = context.getImageData(Math.floor(x), Math.floor(y), 1, 1).data;
+        else if (x >= 255 && y <= 255) color = context.getImageData(Math.floor(x), Math.floor(y), -1, 1).data;
+        else if (x <= 255 && y >= 255) color = context.getImageData(Math.floor(x), Math.floor(y), 1, -1).data;
+        else color = context.getImageData(Math.floor(x), Math.floor(y), -1, -1).data;
+        let red = color[0];
+        let green = color[1];
+        let blue = color[2];
 
-    store.dispatch({
-        type: "SET_COLOR",
-        index: id,
-        color: "rgb(" + red + "," + green + "," + blue + ")"
-    })
+        store.dispatch({
+            type: "SET_COLOR",
+            index: id,
+            color: "rgb(" + red + "," + green + "," + blue + ")"
+        })
+        return "rgb(" + red + "," + green + "," + blue + ")";
+    } else {
+        return null;
+    }
 }
