@@ -84,7 +84,7 @@ export const updatePointerPosition = (e: React.MouseEvent, canvas: HTMLCanvasEle
 }
 
 export const movePointInCircle = (point: HTMLDivElement) => {
-    let {x, y} = store.getState();
+    let { x, y } = store.getState();
     let pointToCircleCenterLength = Math.sqrt(Math.pow(x - 257, 2) + Math.pow(y - 257, 2));
     if (radius > pointToCircleCenterLength) {  //is point in circle
         point.style.left = x - 10 + "px";
@@ -96,15 +96,15 @@ export const setPointerColor = (context: CanvasRenderingContext2D, id: number, x
     let pointToCircleCenterLength = Math.floor(Math.sqrt(Math.pow(x - 255, 2) + Math.pow(y - 255, 2)));
     if (radius >= pointToCircleCenterLength) {
         let color;
-        if (x <= 255 && y <= 255) 
+        if (x <= 255 && y <= 255)
             color = context.getImageData(Math.floor(x), Math.floor(y), 1, 1).data;
-        else if (x >= 255 && y <= 255) 
+        else if (x >= 255 && y <= 255)
             color = context.getImageData(Math.floor(x), Math.floor(y), -1, 1).data;
-        else if (x <= 255 && y >= 255) 
+        else if (x <= 255 && y >= 255)
             color = context.getImageData(Math.floor(x), Math.floor(y), 1, -1).data;
-        else 
+        else
             color = context.getImageData(Math.floor(x), Math.floor(y), -1, -1).data;
-            
+
         let red = color[0];
         let green = color[1];
         let blue = color[2];
@@ -114,17 +114,62 @@ export const setPointerColor = (context: CanvasRenderingContext2D, id: number, x
             index: id,
             color: "rgb(" + red + "," + green + "," + blue + ")"
         })
-    } 
+    }
 }
 
-export const moveByVector = (id: number) => {
+const positionMode = (mode: string, id: number): Coordinates => {
     let mainX = store.getState().x - radius;
     let mainY = store.getState().y - radius;
-    let degrees = id % 2 == 0 
-        ? -30 * id / 2 
-        : 30 * (id + 1) / 2;
-    let x = mainX * Math.cos(degreesToRadians(degrees)) - mainY * Math.sin(degreesToRadians(degrees)) + radius;
-    let y = mainX * Math.sin(degreesToRadians(degrees)) + mainY * Math.cos(degreesToRadians(degrees)) + radius;
+    let degrees;
+    let x, y;
+    switch (mode) {
+        case "primary":
+            degrees = id % 2 == 0
+                ? -30 * id / 2
+                : 30 * (id + 1) / 2;
+            x = mainX * Math.cos(degreesToRadians(degrees)) - mainY * Math.sin(degreesToRadians(degrees)) + radius;
+            y = mainX * Math.sin(degreesToRadians(degrees)) + mainY * Math.cos(degreesToRadians(degrees)) + radius;
+            return { x, y } as Coordinates;
 
-    return {x, y} as Coordinates;
+        case "secondary":
+            degrees = id % 2 == 0
+                ? -72 * id / 2
+                : 72 * (id + 1) / 2;
+            x = mainX * Math.cos(degreesToRadians(degrees)) - mainY * Math.sin(degreesToRadians(degrees)) + radius;
+            y = mainX * Math.sin(degreesToRadians(degrees)) + mainY * Math.cos(degreesToRadians(degrees)) + radius;
+            return { x, y } as Coordinates;
+
+        case "triad":
+            degrees = id % 2 == 0
+                ? -120 * id / 2
+                : 120 * (id + 1) / 2;
+
+            x = (mainX * Math.cos(degreesToRadians(degrees)) - mainY * Math.sin(degreesToRadians(degrees)));
+            y = (mainX * Math.sin(degreesToRadians(degrees)) + mainY * Math.cos(degreesToRadians(degrees)));
+            if (id > 2) {
+                let length = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+                x *= (length / (length + 30));
+                y *= (length / (length + 30));
+            }
+            x += radius;
+            y += radius;
+            return { x, y } as Coordinates;
+        default:
+            degrees = id % 2 == 0
+                ? -30 * id / 2
+                : 30 * (id + 1) / 2;
+            x = mainX * Math.cos(degreesToRadians(degrees)) - mainY * Math.sin(degreesToRadians(degrees)) + radius;
+            y = mainX * Math.sin(degreesToRadians(degrees)) + mainY * Math.cos(degreesToRadians(degrees)) + radius;
+            return { x, y } as Coordinates;
+    }
+}
+
+export const moveByVector = (mode: string, id: number, pointer: HTMLDivElement, setColor: (x: number, y: number, id: number) => void) => {
+    let {x, y} = positionMode(mode, id);
+    let pointToCircleCenterLength = Math.sqrt(Math.pow(x - 257, 2) + Math.pow(y - 257, 2));
+    if(radius>pointToCircleCenterLength){
+        pointer.style.left = x - 10 + "px";
+        pointer.style.top = y - 10 + "px";
+        setColor(x, y, id);
+    }
 }

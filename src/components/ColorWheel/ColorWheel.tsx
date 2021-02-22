@@ -1,24 +1,26 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux';
-import {StateType} from '../../reducers/types';
+import { StateType } from '../../reducers/types';
 import Pointer from '../Pointer/Pointer';
-import { movePointInCircle, 
-  radius, 
+import {
+  movePointInCircle,
+  radius,
   updatePointerPosition,
   generateColorWheel,
   setPointerColor,
-  Coordinates} from "./ColorWheelController";
+  Coordinates
+} from "./ColorWheelController";
 
-  interface Props {
-    setMainColor: (color: string) => void,
-    mainPointerX: number,
-    mainPointerY: number,
-    colors: string[]
+interface Props {
+  mode: string,
+  mainPointerX: number,
+  mainPointerY: number,
+  colors: string[]
 }
 
 
-const ColorWheel:React.FC<Props> = ({mainPointerX, mainPointerY, colors}) => {
+const ColorWheel: React.FC<Props> = ({ mode, mainPointerX, mainPointerY, colors }) => {
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mainPointerRef = useRef<HTMLDivElement>(null);
@@ -30,11 +32,11 @@ const ColorWheel:React.FC<Props> = ({mainPointerX, mainPointerY, colors}) => {
     generateColorWheel(context);
 
     let pointer = mainPointerRef.current as any;
-    pointer.style.left = radius-10+"px";
-    pointer.style.top = radius-10+"px";
+    pointer.style.left = radius - 10 + "px";
+    pointer.style.top = radius - 10 + "px";
   }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     let mainPointer = mainPointerRef.current as any;
     let canvas = canvasRef.current as any;
     let context = canvas.getContext("2d");
@@ -42,11 +44,12 @@ const ColorWheel:React.FC<Props> = ({mainPointerX, mainPointerY, colors}) => {
     setPointerColor(context, 0, mainPointerX, mainPointerY);
   }, [mainPointerX, mainPointerY])
 
-  const takePointer = () => {
+  const takePointer = (e: React.MouseEvent) => {
     setPointerTaken(true);
-    document.addEventListener('mouseup', ()=>{
+    canvasMove(e);
+    document.addEventListener('mouseup', () => {
       setPointerTaken(false);
-    }, {once: true})
+    }, { once: true })
   }
 
   const dropPointer = () => {
@@ -54,10 +57,8 @@ const ColorWheel:React.FC<Props> = ({mainPointerX, mainPointerY, colors}) => {
   }
 
   const canvasMove = (e: React.MouseEvent) => {
-    if (pointerTaken) {
-      let canvas = canvasRef.current as any;
-      updatePointerPosition(e, canvas);
-    }
+    let canvas = canvasRef.current as any;
+    updatePointerPosition(e, canvas);
   }
 
   const setMinorPointerColor = (x: number, y: number, id: number) => {
@@ -68,31 +69,31 @@ const ColorWheel:React.FC<Props> = ({mainPointerX, mainPointerY, colors}) => {
 
   return (
     <div className="canvas_container">
-      <canvas 
-        ref={canvasRef} 
-        width="512px" 
-        height="512px" 
-        onMouseDown={takePointer} 
-        onMouseUp={dropPointer} 
-        onMouseMove={canvasMove}></canvas>
-      <div className="pointer main_pointer" ref={mainPointerRef} style={{background: colors[0]}}>
+      <canvas
+        ref={canvasRef}
+        width="512px"
+        height="512px"
+        onMouseDown={takePointer}
+        onMouseUp={dropPointer}
+        onMouseMove={pointerTaken ? canvasMove : undefined}></canvas>
+      <div className="pointer main_pointer" ref={mainPointerRef} style={{ background: colors[0] }}>
       </div>
-      <Pointer id={1} key={1} setPointerColor={setMinorPointerColor}/>
-      <Pointer id={2} key={2} setPointerColor={setMinorPointerColor}/>
-      <Pointer id={3} key={3} setPointerColor={setMinorPointerColor}/>
-      <Pointer id={4} key={4} setPointerColor={setMinorPointerColor}/>
+      <Pointer id={1} key={1} setPointerColor={setMinorPointerColor} mode={mode} />
+      <Pointer id={2} key={2} setPointerColor={setMinorPointerColor} mode={mode} />
+      <Pointer id={3} key={3} setPointerColor={setMinorPointerColor} mode={mode} />
+      <Pointer id={4} key={4} setPointerColor={setMinorPointerColor} mode={mode} />
     </div>
   )
 }
 
 const mapStateToProps = (state: StateType) => ({
-    mainPointerX: state.x,
-    mainPointerY: state.y,
-    colors: state.colors
+  mainPointerX: state.x,
+  mainPointerY: state.y,
+  colors: state.colors
 })
 
-const mapDispatchToProps = (dispatch: Dispatch) =>({
-    setMainPointerPosition: (payload: Coordinates) => dispatch({type: "MOVE_MAIN_POINTER", x: payload.x, y: payload.y})
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  setMainPointerPosition: (payload: Coordinates) => dispatch({ type: "MOVE_MAIN_POINTER", x: payload.x, y: payload.y })
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ColorWheel);

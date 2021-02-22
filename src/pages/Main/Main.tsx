@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import ColorWheel from "../../components/ColorWheel/ColorWheel";
 import Square from '../../components/colorSquare/Square';
@@ -40,12 +40,23 @@ const Main = () => {
 			.then(res => console.log(res));
 	}
 
+	const [mode, setMode] = useState<string>("primary");
+
+	const handleModeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setMode(e.target.value);
+	}
+
 	return (
 		<div className="main">
 			<button onClick={api_create}>create</button>
 			<button onClick={api_findAll}>findAll</button>
 			<button onClick={api_findById}>findById</button>
-			<ColorWheel />
+			<ColorWheel mode={mode}/>
+			<div className="modes" onChange={handleModeChange}>
+				<input type="radio" name="mode" value="primary" defaultChecked /> Primary
+				<input type="radio" name="mode" value="secondary" /> secondary
+				<input type="radio" name="mode" value="triad" /> triad
+			</div>
 			<div className="d-flex flex-row">
 				<Square id={0} />
 				<Square id={1} />

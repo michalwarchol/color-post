@@ -1,34 +1,25 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import { moveByVector } from "../ColorWheel/ColorWheelController"
 import { StateType } from '../../reducers/types';
 
 interface Props {
   id: number,
+  mode: string,
   mainPointerX: number,
   mainPointerY: number,
   colors: string[],
   setPointerColor: (x: number, y: number, id: number) => void
 }
 
-const Pointer: React.FC<Props> = ({ id, mainPointerX, mainPointerY, colors, setPointerColor }) => {
+const Pointer: React.FC<Props> = ({ id, mode, mainPointerX, mainPointerY, colors, setPointerColor }) => {
 
-  const [positionX, setPositionX] = useState<number>(245);
-  const [positionY, setPositionY] = useState<number>(245);
   const pointerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let pointer = pointerRef.current as any;
-    pointer.style.left = positionX - 10 + "px";
-    pointer.style.top = positionY - 10 + "px";
-  }, [positionX, positionY])
-
-  useEffect(() => {
-    let { x, y } = moveByVector(id);
-    setPositionX(x);
-    setPositionY(y);
-    setPointerColor(positionX, positionY, id)
-  }, [mainPointerX, mainPointerY])
+      moveByVector(mode, id, pointer, setPointerColor);
+  }, [mainPointerX, mainPointerY, mode])
 
   return (
     <div className="pointer" ref={pointerRef} style={{ background: colors[id] }}>
