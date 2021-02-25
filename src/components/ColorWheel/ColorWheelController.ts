@@ -6,7 +6,16 @@ export type Coordinates = {
     y: number,
 }
 
+type Factors = {
+    a: number,
+    b: number
+}
+
 export const radius: number = 255;
+
+export const decToHex = (dec: number) => {
+    return dec.toString(16)
+}
 
 export const degreesToRadians = (degrees: number) => {
     return degrees * (Math.PI / 180);
@@ -73,22 +82,60 @@ export const generateColorWheel = (ctx: any) => {
     }
 }
 
-export const updatePointerPosition = (e: React.MouseEvent, canvas: HTMLCanvasElement) => {
+export const updateMousePosition = (e: React.MouseEvent, canvas: HTMLCanvasElement) => {
     let x = e.pageX - canvas.getBoundingClientRect().x;
     let y = e.pageY - canvas.getBoundingClientRect().y;
     store.dispatch({
-        type: "MOVE_MAIN_POINTER",
-        x: x,
-        y: y
+        type: "SET_MOUSE_POSITION",
+        mouseX: x,
+        mouseY: y
     })
 }
 
+const commonPoint = (o: Factors, p: Coordinates): Coordinates => {
+    let a = o.a;
+    let b = o.b;
+    let c = (o.b-p.y)/(o.a-p.x);
+    let d = o.b-(c*o.a);
+    let e = d-b;
+    let delta = 4*((e*e*c*c) - (2*a*c*e) + (a*a) - (a*a+e*e-radius*radius)*(c*c+1));
+    let x, y;
+    if(p.x>=radius && p.y>=radius){
+        x = (-2*c*e + 2*a + Math.sqrt(delta)) / ((c*c+1) * 2);
+        y = Math.sqrt(radius * radius-Math.pow(x - radius, 2)) + radius;
+    }else if(p.x>=radius && p.y<radius){
+        x = (-2*c*e + 2*a + Math.sqrt(delta)) / ((c*c+1) * 2);
+        y = -Math.sqrt(radius * radius-Math.pow(x - radius, 2)) + radius;
+    }else if(p.x<radius && p.y>=radius){
+        x = (-2*c*e + 2*a - Math.sqrt(delta)) / ((c*c+1) * 2);
+        y = Math.sqrt(radius * radius-Math.pow(x - radius, 2)) + radius;
+    }else{
+        x = (-2*c*e + 2*a - Math.sqrt(delta)) / ((c*c+1) * 2);
+        y = -Math.sqrt(radius * radius-Math.pow(x - radius, 2)) + radius;
+    }
+    return {x, y};
+}
+
 export const movePointInCircle = (point: HTMLDivElement) => {
-    let { x, y } = store.getState();
-    let pointToCircleCenterLength = Math.sqrt(Math.pow(x - 257, 2) + Math.pow(y - 257, 2));
+    let { mouseX, mouseY } = store.getState();
+    let pointToCircleCenterLength = Math.sqrt(Math.pow(mouseX - 257, 2) + Math.pow(mouseY - 257, 2));
     if (radius > pointToCircleCenterLength) {  //is point in circle
-        point.style.left = x - 10 + "px";
-        point.style.top = y - 10 + "px";
+        store.dispatch({
+            type: "SET_MAIN_POINTER_POSITION",
+            x: mouseX,
+            y: mouseY
+        })
+        point.style.left = mouseX - 10 + "px";
+        point.style.top = mouseY - 10 + "px";
+    } else {
+        let {x: newX, y: newY} = commonPoint({a:255,b:255}, {x:mouseX,y:mouseY});
+        store.dispatch({
+            type: "SET_MAIN_POINTER_POSITION",
+            x: newX,
+            y: newY
+        })
+        point.style.left = newX - 10 + "px";
+        point.style.top = newY - 10 + "px";
     }
 }
 
@@ -97,13 +144,13 @@ export const setPointerColor = (context: CanvasRenderingContext2D, id: number, x
     if (radius >= pointToCircleCenterLength) {
         let color;
         if (x <= 255 && y <= 255)
-            color = context.getImageData(Math.floor(x), Math.floor(y), 1, 1).data;
+            color = context.getImageData(Math.floor(x)+1, Math.floor(y)+1, 1, 1).data;
         else if (x >= 255 && y <= 255)
-            color = context.getImageData(Math.floor(x), Math.floor(y), -1, 1).data;
+            color = context.getImageData(Math.floor(x), Math.floor(y)+1, -1, 1).data;
         else if (x <= 255 && y >= 255)
-            color = context.getImageData(Math.floor(x), Math.floor(y), 1, -1).data;
+            color = context.getImageData(Math.floor(x)+1, Math.floor(y)-1, 1, -1).data;
         else
-            color = context.getImageData(Math.floor(x), Math.floor(y), -1, -1).data;
+            color = context.getImageData(Math.floor(x)-1, Math.floor(y)-1, -1, -1).data;
 
         let red = color[0];
         let green = color[1];
@@ -112,7 +159,7 @@ export const setPointerColor = (context: CanvasRenderingContext2D, id: number, x
         store.dispatch({
             type: "SET_COLOR",
             index: id,
-            color: "rgb(" + red + "," + green + "," + blue + ")"
+            color: {r: red, g: green, b: blue}
         })
     }
 }
@@ -144,8 +191,8 @@ const positionMode = (mode: string, id: number): Coordinates => {
                 ? -120 * id / 2
                 : 120 * (id + 1) / 2;
 
-            x = (mainX * Math.cos(degreesToRadians(degrees)) - mainY * Math.sin(degreesToRadians(degrees)));
-            y = (mainX * Math.sin(degreesToRadians(degrees)) + mainY * Math.cos(degreesToRadians(degrees)));
+            x = mainX * Math.cos(degreesToRadians(degrees)) - mainY * Math.sin(degreesToRadians(degrees));
+            y = mainX * Math.sin(degreesToRadians(degrees)) + mainY * Math.cos(degreesToRadians(degrees));
             if (id > 2) {
                 let length = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
                 x *= (length / (length + 30));
@@ -154,6 +201,24 @@ const positionMode = (mode: string, id: number): Coordinates => {
             x += radius;
             y += radius;
             return { x, y } as Coordinates;
+        case "complementary":
+            degrees = 180*id;
+            x = mainX * Math.cos(degreesToRadians(degrees)) - mainY * Math.sin(degreesToRadians(degrees));
+            y = mainX * Math.sin(degreesToRadians(degrees)) + mainY * Math.cos(degreesToRadians(degrees));
+            let length = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+            if (id > 1 && id < 4) {
+                x *= (length / (length + 60));
+                y *= (length / (length + 60));
+            }else if(id>3){
+                x *= (length / (length + 360));
+                y *= (length / (length + 360));
+            }
+            x += radius;
+            y += radius;
+            return {x,y}
+
+        case "shades":
+            return {x:store.getState().x, y:store.getState().y}
         default:
             degrees = id % 2 == 0
                 ? -30 * id / 2
@@ -165,11 +230,8 @@ const positionMode = (mode: string, id: number): Coordinates => {
 }
 
 export const moveByVector = (mode: string, id: number, pointer: HTMLDivElement, setColor: (x: number, y: number, id: number) => void) => {
-    let {x, y} = positionMode(mode, id);
-    let pointToCircleCenterLength = Math.sqrt(Math.pow(x - 257, 2) + Math.pow(y - 257, 2));
-    if(radius>pointToCircleCenterLength){
+    let { x, y } = positionMode(mode, id);
         pointer.style.left = x - 10 + "px";
         pointer.style.top = y - 10 + "px";
         setColor(x, y, id);
-    }
 }

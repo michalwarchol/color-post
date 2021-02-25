@@ -1,9 +1,13 @@
 $length: 514px;
 
 .canvas_container{
-    width: $length;
-    width: $length;
-    position: relative;
+    width: 100%;
+    min-height: 50vh;
+    .canvas_inner_container{
+        position: relative;
+        width: $length;
+        height: $length;
+    }
     canvas{
         border-radius: 50%;
         border: 1px solid white;
@@ -14,11 +18,14 @@ $length: 514px;
         height: 20px;
         border: 1px solid black;
         border-radius: 50%;
-        pointer-events: none;
+        //pointer-events: none;
         position: absolute;
+        z-index: 1;
     }
 
     .main_pointer{
+        z-index: 2;
+        cursor: crosshair;
         border: 2px solid black;
     }
 }

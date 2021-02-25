@@ -1,12 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 interface Props {
+    id: number,
+    mode: string,
     handleRangeInput(value: number): void
 }
 
-const RangeInput: React.FC<Props> = ({handleRangeInput}) => {
+const RangeInput: React.FC<Props> = ({ id, mode, handleRangeInput }) => {
 
-    const [value, setValue] = useState<number>(128);
+    const [value, setValue] = useState<number>(100);
+
+    useEffect(() => {
+        if (mode == "shades") {
+            handleRangeInput(100 - (id) * 15);
+            setValue(100 - (id) * 15);
+        }else{
+            handleRangeInput(100);
+            setValue(100);
+        }
+    }, [mode])
 
     const handleInput = (event: React.SyntheticEvent) => {
         handleRangeInput(parseInt((event.target as HTMLInputElement).value))
@@ -14,7 +26,7 @@ const RangeInput: React.FC<Props> = ({handleRangeInput}) => {
     }
 
     return (
-        <><input type="range" min="0" max="255" value={value} onChange={handleInput} />{value}</>
+        <><input type="range" min="0" max="100" value={value} onChange={handleInput}/>{value}</>
     )
 }
 

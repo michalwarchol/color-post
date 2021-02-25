@@ -56,13 +56,15 @@ const Main = () => {
 				<input type="radio" name="mode" value="primary" defaultChecked /> Primary
 				<input type="radio" name="mode" value="secondary" /> secondary
 				<input type="radio" name="mode" value="triad" /> triad
+				<input type="radio" name="mode" value="complementary" /> complementary
+				<input type="radio" name="mode" value="shades" /> shades
 			</div>
 			<div className="d-flex flex-row">
-				<Square id={0} />
-				<Square id={1} />
-				<Square id={2} />
-				<Square id={3} />
-				<Square id={4} />
+				<Square id={0} mode={mode}/>
+				<Square id={1} mode={mode}/>
+				<Square id={2} mode={mode}/>
+				<Square id={3} mode={mode}/>
+				<Square id={4} mode={mode}/>
 			</div>
 
 		</div>
