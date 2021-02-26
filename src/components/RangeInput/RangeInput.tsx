@@ -26,7 +26,7 @@ const RangeInput: React.FC<Props> = ({ id, mode, handleRangeInput }) => {
     }
 
     return (
-        <><input type="range" min="0" max="100" value={value} onChange={handleInput}/>{value}</>
+        <input type="range" min="0" max="100" value={value} onChange={handleInput}/>
     )
 }
 

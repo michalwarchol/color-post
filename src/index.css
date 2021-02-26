@@ -1,3 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+.button {
+  background-color: #1e2022;
+  color: #d7d8d7;
+  border-radius: 10px;
+  width: 150px;
+  cursor: pointer;
+  margin: 10px 20px;
+  text-align: center;
+  padding: 5px 10px;
+}
+.button:hover {
+  background-color: #42464b;
+}
+
 .login_page {
   color: white;
   min-height: 100vh;
@@ -110,21 +125,78 @@
   text-decoration: none;
 }
 
-.canvas_container {
+.main {
+  font-family: "Lato", sans-serif;
+  min-height: 100vh;
+  background-color: #52616b;
+  color: #d7d8d7;
+}
+.main .canvasContainer {
+  padding: 20px 0;
+}
+.main .canvasContainer .modes {
+  color: #1e2022;
+  margin-bottom: 20px;
+}
+.main .canvasContainer .modes select {
+  width: 200px;
+  background-color: #52616b;
+  color: #d7d8d7;
+  border: none;
+  outline: 0;
+}
+.main .canvasContainer .modes select:hover {
+  color: #f1f1f1;
+}
+.main .canvasContainer .modes select::-ms-expand {
+  display: none;
+}
+.main .canvasContainer .modes select option {
+  background-color: transparent;
+}
+.main .canvasContainer .modes select option:hover {
+  background-color: #52616b;
+}
+.main .canvasContainer .modes .radioButton {
+  margin: 10px;
+}
+.main .canvasContainer .modes .radioButton label {
+  margin: 0;
+  margin-left: 5px;
+}
+
+.topbar {
+  background-color: #1e2022;
+  padding: 10px 0;
+  font-size: 110%;
+}
+.topbar .logo {
+  font-size: 130%;
+}
+.topbar .buttons .loginButton, .topbar .buttons .signupButton {
+  padding: 5px 15px;
+  margin: 0 4px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.topbar .buttons .loginButton:hover, .topbar .buttons .signupButton:hover {
+  background-color: black;
+}
+
+.colorWheel_container {
   width: 100%;
   min-height: 50vh;
 }
-.canvas_container .canvas_inner_container {
+.colorWheel_container .colorWheel_inner_container {
   position: relative;
   width: 514px;
   height: 514px;
 }
-.canvas_container canvas {
+.colorWheel_container canvas {
   border-radius: 50%;
-  border: 1px solid white;
   box-sizing: border-box;
 }
-.canvas_container .pointer {
+.colorWheel_container .pointer {
   width: 20px;
   height: 20px;
   border: 1px solid black;
@@ -132,19 +204,51 @@
   position: absolute;
   z-index: 1;
 }
-.canvas_container .main_pointer {
+.colorWheel_container .main_pointer {
   z-index: 2;
   cursor: crosshair;
   border: 2px solid black;
 }
 
-input[type=range] {
-  background-color: red;
+@media screen and (max-width: 1199px) {
+  .colorSquare .square {
+    width: 150px;
+    height: 150px;
+  }
+}
+@media screen and (max-width: 991px) {
+  .colorSquare .square {
+    width: 110px;
+    height: 110px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .colorSquare .square {
+    width: 70px;
+    height: 70px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .colorSquare .square {
+    width: 190px;
+    height: 190px;
+  }
+}
+@media screen and (min-width: 1400px) {
+  .colorSquare .square {
+    width: 230px;
+    height: 230px;
+  }
+}
+.colorSquare .hexValue, .colorSquare .rgbValue {
+  text-align: center;
+}
+.colorSquare .brightnessValue {
+  width: 100%;
 }
 
-.square {
-  width: 300px;
-  height: 300px;
+input[type=range] {
+  background-color: red;
 }
 
 /*# sourceMappingURL=index.css.map */

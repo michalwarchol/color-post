@@ -1,7 +1,10 @@
-import React, {useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
+import Topbar from "../../components/Topbar/Topbar";
 import ColorWheel from "../../components/ColorWheel/ColorWheel";
-import Square from '../../components/colorSquare/Square';
+import Square from '../../components/Square/Square';
+import RadioButtonModes from "../../components/RadioButtonModes/RadioButtonModes";
+import SelectModes from "../../components/SelectModes/SelectModes";
 
 const Main = () => {
 
@@ -41,30 +44,30 @@ const Main = () => {
 	}
 
 	const [mode, setMode] = useState<string>("primary");
+	const [width, setWidth] = useState<number>(window.innerWidth);
 
 	const handleModeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setMode(e.target.value);
 	}
-
+	useEffect(() => {
+		window.addEventListener("resize", () => setWidth(window.innerWidth))
+	})
 	return (
 		<div className="main">
-			<button onClick={api_create}>create</button>
-			<button onClick={api_findAll}>findAll</button>
-			<button onClick={api_findById}>findById</button>
-			<ColorWheel mode={mode}/>
-			<div className="modes" onChange={handleModeChange}>
-				<input type="radio" name="mode" value="primary" defaultChecked /> Primary
-				<input type="radio" name="mode" value="secondary" /> secondary
-				<input type="radio" name="mode" value="triad" /> triad
-				<input type="radio" name="mode" value="complementary" /> complementary
-				<input type="radio" name="mode" value="shades" /> shades
+			<Topbar />
+			<div className="canvasContainer container d-flex flex-column flex-lg-row">
+				{width >= 992
+				? <RadioButtonModes handleModeChange={handleModeChange} /> 
+				: <SelectModes handleModeChange={handleModeChange} />}
+
+				<ColorWheel mode={mode} />
 			</div>
-			<div className="d-flex flex-row">
-				<Square id={0} mode={mode}/>
-				<Square id={1} mode={mode}/>
-				<Square id={2} mode={mode}/>
-				<Square id={3} mode={mode}/>
-				<Square id={4} mode={mode}/>
+			<div className="container-fluid d-flex flex-row justify-content-center">
+				<Square id={0} mode={mode} />
+				<Square id={1} mode={mode} />
+				<Square id={2} mode={mode} />
+				<Square id={3} mode={mode} />
+				<Square id={4} mode={mode} />
 			</div>
 
 		</div>

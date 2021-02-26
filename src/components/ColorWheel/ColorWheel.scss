@@ -1,16 +1,16 @@
 $length: 514px;
 
-.canvas_container{
+.colorWheel_container{
     width: 100%;
     min-height: 50vh;
-    .canvas_inner_container{
+    .colorWheel_inner_container{
         position: relative;
         width: $length;
         height: $length;
     }
     canvas{
         border-radius: 50%;
-        border: 1px solid white;
+        //border: 1px solid white;
         box-sizing: border-box;
     }
     .pointer{

@@ -1,0 +1,40 @@
+.main{
+    font-family: 'Lato', sans-serif;
+    min-height: 100vh;
+    background-color: $color_2;
+    color: $color_3;
+    .canvasContainer{
+        padding: 20px 0;
+        .modes{
+            color: $color_1;
+            margin-bottom: 20px;
+            select{
+                width: 200px;
+                background-color: $color_2;
+                color: $color_3;
+                border: none;
+                outline: 0;
+                &:hover{
+                    color: lighten($color: $color_3, $amount: 10);
+                }
+                &::-ms-expand {
+                    display: none;
+                  }
+                option{
+                    background-color: transparent;
+                    &:hover{
+                        background-color: $color_2;
+                    }
+                    
+                }
+            }
+            .radioButton{
+                margin: 10px;
+                label{
+                    margin: 0;
+                    margin-left: 5px;
+                }
+            }
+        }
+    }
+}

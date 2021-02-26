@@ -71,10 +71,10 @@ const ColorWheel: React.FC<Props> = ({ mode, mainPointerX, mainPointerY, mouseX,
   }
 
   return (
-    <div className="canvas_container d-flex justify-content-center align-items-center"
+    <div className="colorWheel_container col-12 col-lg-9 d-flex justify-content-center align-items-center"
       onMouseUp={dropPointer}
       onMouseMove={pointerTaken ? canvasMove : undefined}>
-      <div className="canvas_inner_container">
+      <div className="colorWheel_inner_container">
         <canvas
           onMouseDown={takePointer}
           ref={canvasRef}

@@ -1,11 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 @import "./_config.scss";
 @import "./utils.scss";
+@import "./components/Button/Button.scss";
 @import "./pages/Login/Login.scss";
 @import "./pages/SignUp/SignUp.scss";
+@import "./pages/Main/Main.scss";
+@import "./components//Topbar/Topbar.scss";
 @import "./components/ColorWheel/ColorWheel.scss";
+@import "./components/Square/Square.scss";
 @import "./components/RangeInput/RangeInput.scss";
-
-.square{
-    width: 300px;
-    height: 300px;
-}
