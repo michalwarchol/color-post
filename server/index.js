@@ -11,7 +11,7 @@ if(result.error){
 
 const authRoutes = require("./routes/authRoutes");
 const paletteRoutes = require("./routes/paletteRoutes");
-const { requireAuth } = require("./middleware/authMiddleware");
+const {requireAuth} = require("./middleware/authMiddleware");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -49,6 +49,14 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/signup', (req, res) => {
+    res.sendFile(HTML_FILE);
+});
+
+app.get('/my-patterns', requireAuth, (req, res) => {
+    res.sendFile(HTML_FILE);
+});
+
+app.get('/liked-patterns', requireAuth, (req, res) => {
     res.sendFile(HTML_FILE);
 });
 

@@ -10,17 +10,19 @@ import "./index.css";
 import Main from "./pages/Main/Main"
 import Login from "./pages/Login/Login"
 import SignUp from "./pages/SignUp/SignUp"
+import Patterns from "./pages/Patterns/Patterns"
 
 const Index: React.FC = () => {
-
 	return (
 		<>
 			<Provider store={store}>
 				<BrowserRouter>
 					<Switch>
 						<Route exact path="/" component={Main} />
-						<Route path="/login" component={Login} />
-						<Route path="/signup" component={SignUp} />
+						<Route exact path="/login" component={Login} />
+						<Route exact path="/signup" component={SignUp} />
+						<Route exact path="/my-patterns" component={Patterns} />
+						<Route exact path="/liked-patterns" component={Patterns} />
 					</Switch>
 				</BrowserRouter>
 			</Provider>

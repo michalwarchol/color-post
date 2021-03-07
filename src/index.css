@@ -1,16 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 .button {
+  padding: 5px 15px;
+  margin: 0 4px;
+  border-radius: 4px;
+  cursor: pointer;
   background-color: #1e2022;
   color: #d7d8d7;
+  text-align: center;
   border-radius: 10px;
   width: 150px;
-  cursor: pointer;
   margin: 10px 20px;
-  text-align: center;
   padding: 5px 10px;
 }
 .button:hover {
-  background-color: #42464b;
+  background-color: black;
+}
+.button a {
+  text-decoration: none;
+  color: #d7d8d7;
 }
 
 .login_page {
@@ -167,20 +174,48 @@
 
 .topbar {
   background-color: #1e2022;
+}
+.topbar .upperTopbar {
   padding: 10px 0;
   font-size: 110%;
 }
-.topbar .logo {
+.topbar .upperTopbar .logo {
   font-size: 130%;
 }
-.topbar .buttons .loginButton, .topbar .buttons .signupButton {
+.topbar .upperTopbar .buttons .loginButton, .topbar .upperTopbar .buttons .signupButton, .topbar .upperTopbar .buttons .logoutButton {
   padding: 5px 15px;
   margin: 0 4px;
   border-radius: 4px;
   cursor: pointer;
+  background-color: #d7d8d7;
 }
-.topbar .buttons .loginButton:hover, .topbar .buttons .signupButton:hover {
+.topbar .upperTopbar .buttons .loginButton:hover, .topbar .upperTopbar .buttons .signupButton:hover, .topbar .upperTopbar .buttons .logoutButton:hover {
+  background-color: #a3a6a3;
+}
+.topbar .upperTopbar .buttons .loginButton a, .topbar .upperTopbar .buttons .signupButton a, .topbar .upperTopbar .buttons .logoutButton a {
+  text-decoration: none;
+  color: #1e2022;
+}
+.topbar .lowerTopbar {
+  background-color: #52616b;
+  border-bottom: 1px solid #1e2022;
+  padding: 10px 0;
+}
+.topbar .lowerTopbar .myPatterns, .topbar .lowerTopbar .likedPatterns {
+  padding: 5px 15px;
+  margin: 0 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #1e2022;
+  color: #d7d8d7;
+  color: #d7d8d7;
+}
+.topbar .lowerTopbar .myPatterns:hover, .topbar .lowerTopbar .likedPatterns:hover {
   background-color: black;
+}
+.topbar .lowerTopbar .myPatterns a, .topbar .lowerTopbar .likedPatterns a {
+  text-decoration: none;
+  color: #d7d8d7;
 }
 
 .colorWheel_container {
@@ -249,6 +284,34 @@
 
 input[type=range] {
   background-color: red;
+}
+
+.pattern .colors .color {
+  text-align: center;
+  padding: 5px;
+}
+.pattern .username {
+  margin-left: 15px;
+  margin-bottom: 5px;
+}
+.pattern .likes {
+  margin-left: 15px;
+}
+.pattern .likes span {
+  margin: 0;
+  padding: 5px 15px;
+  margin: 0 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #1e2022;
+  color: #d7d8d7;
+}
+.pattern .likes span:hover {
+  background-color: black;
+}
+.pattern .likes span a {
+  text-decoration: none;
+  color: #d7d8d7;
 }
 
 /*# sourceMappingURL=index.css.map */

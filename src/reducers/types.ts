@@ -14,3 +14,12 @@ export type StateType = {
     y: number,
     colors: ColorType[]
 }
+
+export type PatternType = {
+    _id: string,
+    user: string,
+    likes: number,
+    palette: ColorType[],
+    created_at: string,
+    updated_at: string
+}

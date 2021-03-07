@@ -6,13 +6,13 @@ const errorHandler = (err) => {
 }
 
 module.exports.create = async (req, res) => {
-    const {verified, user, palette} = req.body;
+    const {user, palette} = req.body;
     try{
         const newPalette = await Palette.create({
             user: user,
             palette: palette
         })
-        res.status(200).json(newPalette);
+        res.status(200).json({palette: newPalette});
     }
     catch(err){
         const error = errorHandler(err);
@@ -40,5 +40,44 @@ module.exports.findAll = async (req, res) => {
             res.status(400).json(error);
         }
         res.status(200).json(palletes);
+    })
+}
+
+module.exports.findLatest = async (req, res) => {
+    Palette.find({}, {}, {sort: {"created_at": 1}, limit: 4}, (err, result) => {
+        if(err){
+            res.status(404).json({message: "resource not found"});
+        }
+        res.status(200).json({message: "found", resource: result});
+    })
+}
+
+module.exports.findMostPopular = async (req, res) => {
+    Palette.find({}, {}, {sort: {likes: 1}, limit: 4}, (err, result) => {
+        if(err){
+            res.status(404).json({message: "resource not found"});
+        }
+        res.status(200).json({message: "found", resource: result});
+    })
+}
+
+module.exports.incrementLikes = async (req, res) => {
+    const {id} = req.body;
+    Palette.updateOne({_id: id}, {$inc: {likes: 1}}, (err, result)=>{
+        if(err){
+            res.status(400).json({message: "cant update doc"});
+        }
+        res.status(200).json({message: "Document updated"});
+    });
+    
+}
+
+module.exports.decrementLikes = async (req, res) => {
+    const {id} = req.body;
+    Palette.updateOne({_id: id}, {$inc: {likes: -1}}, (err, result)=>{
+        if(err){
+            res.status(400).json({message: "cant update doc"})
+        }
+        res.status(200).json({message: "Document updated"})
     })
 }

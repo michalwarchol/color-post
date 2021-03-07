@@ -27,3 +27,32 @@
         box-shadow: #000000 1px 1px 10px inset;
     }
 }
+
+@mixin button($variation) {
+    padding: 5px 15px;
+    margin: 0 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    
+    @if $variation==1 {
+        background-color: $color_3;
+        &:hover{
+            background-color: darken($color: $color_3, $amount: 20);
+        }
+        a{
+            text-decoration: none;
+            color: $color_1;
+        }
+    }
+    @else if $variation==2 {
+        background-color: $color_1;
+        color: $color_3;
+        &:hover{
+            background-color: darken($color: $color_1, $amount: 20);
+        }
+        a{
+            text-decoration: none;
+            color: $color_3;
+        }
+    }
+}

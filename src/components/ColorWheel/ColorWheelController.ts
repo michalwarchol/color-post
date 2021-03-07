@@ -14,7 +14,9 @@ type Factors = {
 export const radius: number = 255;
 
 export const decToHex = (dec: number) => {
-    return dec.toString(16)
+    let hexValue = dec.toString(16);
+    if(hexValue=="0") hexValue+="0";
+    return hexValue;
 }
 
 export const degreesToRadians = (degrees: number) => {

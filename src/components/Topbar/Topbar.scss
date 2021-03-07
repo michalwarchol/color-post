@@ -1,19 +1,24 @@
 .topbar{
     background-color: $color_1;
-    padding: 10px 0;
-    font-size: 110%;
-    .logo{
-        font-size: 130%;
-    }
-    .buttons{
-        .loginButton, .signupButton{
-            padding: 5px 15px;
-            margin: 0 4px;
-            border-radius: 4px;
-            cursor: pointer;
-            &:hover{
-                background-color: darken($color: $color_1, $amount: 20);
+    .upperTopbar{
+        padding: 10px 0;
+        font-size: 110%;
+        .logo{
+            font-size: 130%;
+        }
+        .buttons{
+            .loginButton, .signupButton, .logoutButton{
+                @include button(1);
             }
+        }
+    }
+    .lowerTopbar{
+        background-color: $color_2;
+        border-bottom: 1px solid $color_1;
+        padding: 10px 0;
+        .myPatterns, .likedPatterns{
+            @include button(2);
+            color: $color_3;
         }
     }
 }

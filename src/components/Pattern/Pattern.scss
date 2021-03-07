@@ -1,0 +1,19 @@
+.pattern{
+    .colors{
+        .color{
+            text-align: center;
+            padding: 5px;
+        }
+    }
+    .username{
+        margin-left: 15px;
+        margin-bottom: 5px;
+    }
+    .likes{
+        margin-left: 15px;
+        span{
+            margin: 0;
+            @include button(2);
+        }
+    }
+}

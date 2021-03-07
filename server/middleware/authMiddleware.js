@@ -3,20 +3,36 @@ const { verify } = require("jsonwebtoken")
 
 const requireAuth = (req, res, next) => {
     const token = req.cookies.jwt;
-
-    if(token){
-        try{
-            const decodedToken = verify(token, "project secret") //not quite good to keep secret that way
-            next()                                               //better keep it in .env file
-        }catch(err){                                             //install dotenv, create .env file and store it there
-            res.redirect("/login");
+    if (token) {
+        try {
+            const decodedToken = verify(token, process.env.JWT_SECRET);
+            next();
+        } catch (err) {
+            res.redirect(301, "/login");
         }
     }
     else {
-        res.redirect("/login");
+        res.redirect(301, "/login");
+    }
+}
+
+const checkUser = (req, res, next) => {
+    const token = req.cookies.jwt;
+    if (token) {
+        jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
+            if (err) {
+                res.redirect(301, "/login");
+            } else {
+                let user = await User.findById(decodedToken.id);
+                res.locals.user = user;
+                next();
+            }
+        });
+    } else {
+        res.redirect(301, "/login")
     }
 }
 
 
 
-module.exports = { requireAuth };
+module.exports = { requireAuth, checkUser };

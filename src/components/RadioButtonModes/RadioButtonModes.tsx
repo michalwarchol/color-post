@@ -1,14 +1,28 @@
 import React from 'react'
+import { connect } from "react-redux"
+import { StateType, ColorType } from "../../reducers/types";
 import Button from "../Button/Button";
 
 interface Props {
 	handleModeChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+	palette: ColorType[]
 }
 
-const RadioButtonModes: React.FC<Props> = ({ handleModeChange }) => {
+const RadioButtonModes: React.FC<Props> = ({ handleModeChange, palette }) => {
 	const savePattern = () => {
-		//todo
-		console.log("save pattern");
+		fetch("/api/v1/palette/create", {
+			method: "post",
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				palette: palette
+			})
+		}).then(response => {
+			if (response.redirected == true) {
+				location.assign(response.url)
+			}
+		}).catch(err => {
+			console.log(err)
+		})
 	}
 
 	const createCustomPattern = () => {
@@ -39,4 +53,8 @@ const RadioButtonModes: React.FC<Props> = ({ handleModeChange }) => {
 	)
 }
 
-export default RadioButtonModes;
+const mapStateToProps = (state: StateType) => ({
+	palette: state.colors
+})
+
+export default connect(mapStateToProps)(RadioButtonModes);

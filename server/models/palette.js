@@ -5,7 +5,8 @@ const Schema = mongoose.Schema;
 const paletteSchema = new Schema({
     user: {
         type: String,
-        required: false
+        required: false,
+        default: "Guest"
     },
     palette: {
         type: Array,
