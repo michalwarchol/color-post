@@ -1,0 +1,13 @@
+.footer{
+    background-color: $color_1;
+    color: $color_3;
+    width: 100%;
+    .innerFooter{
+        p{
+            padding: 10px;
+            margin: 0;
+            width: 100%;
+            text-align: center;
+        }
+    }
+}
