@@ -5,10 +5,11 @@ import Button from "../Button/Button";
 
 interface Props {
 	handleModeChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+	createCustomPattern: () => void
 	palette: ColorType[]
 }
 
-const RadioButtonModes: React.FC<Props> = ({ handleModeChange, palette }) => {
+const RadioButtonModes: React.FC<Props> = ({ handleModeChange, palette, createCustomPattern }) => {
 	const savePattern = () => {
 		fetch("/api/v1/palette/create", {
 			method: "post",
@@ -17,6 +18,7 @@ const RadioButtonModes: React.FC<Props> = ({ handleModeChange, palette }) => {
 				palette: palette
 			})
 		}).then(response => {
+			console.log(response)
 			if (response.redirected == true) {
 				location.assign(response.url)
 			}
@@ -25,10 +27,6 @@ const RadioButtonModes: React.FC<Props> = ({ handleModeChange, palette }) => {
 		})
 	}
 
-	const createCustomPattern = () => {
-		//todo
-		console.log("customized pattern");
-	}
 	return (
 		<div className="modes d-flex flex-column col-3" onChange={handleModeChange}>
 			<h5>Select color rule mode: </h5>

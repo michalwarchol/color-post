@@ -37,4 +37,12 @@
             }
         }
     }
+    .showMore{
+        text-align: center;
+        span{
+            @include button(2);
+            border-radius: 4px 4px 12px 12px;
+            padding: 6px 10px;
+        }
+    }
 }

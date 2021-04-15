@@ -3,17 +3,15 @@ import Button from "../Button/Button";
 
 interface Props {
     handleModeChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+    createCustomPattern: () => void
 }
 
-const SelectModes: React.FC<Props> = ({ handleModeChange }) => {
+const SelectModes: React.FC<Props> = ({ handleModeChange, createCustomPattern }) => {
+
+
     const savePattern = () => {
         //todo
         console.log("save pattern");
-    }
-
-    const createCustomPattern = () => {
-        //todo
-        console.log("customized pattern");
     }
     return (
         <div className="modes d-flex flex-row justify-content-around" onChange={handleModeChange}>
