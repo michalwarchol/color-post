@@ -11,6 +11,7 @@ import Main from "./pages/Main/Main"
 import Login from "./pages/Login/Login"
 import SignUp from "./pages/SignUp/SignUp"
 import Patterns from "./pages/Patterns/Patterns"
+import NotFound from "./pages/404/404"
 
 const Index: React.FC = () => {
 	return (
@@ -23,6 +24,8 @@ const Index: React.FC = () => {
 						<Route exact path="/signup" component={SignUp} />
 						<Route exact path="/my-patterns" component={Patterns} />
 						<Route exact path="/liked-patterns" component={Patterns} />
+						<Route path="/user" component={Patterns} />
+						<Route path="/" component={NotFound} />
 					</Switch>
 				</BrowserRouter>
 			</Provider>
