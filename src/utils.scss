@@ -33,15 +33,13 @@
     margin: 0 4px;
     border-radius: 4px;
     cursor: pointer;
+    text-decoration: none;
     
     @if $variation==1 {
         background-color: $color_3;
+        color: $color_1;
         &:hover{
             background-color: darken($color: $color_3, $amount: 20);
-        }
-        a{
-            text-decoration: none;
-            color: $color_1;
         }
     }
     @else if $variation==2 {
@@ -49,10 +47,6 @@
         color: $color_3;
         &:hover{
             background-color: darken($color: $color_1, $amount: 20);
-        }
-        a{
-            text-decoration: none;
-            color: $color_3;
         }
     }
 }
