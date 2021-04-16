@@ -34,7 +34,6 @@ app.use(express.json());
 app.use(express.static(DIST_DIR));
 app.use(cookieParser());
 
-
 //routes
 app.use("/", authRoutes);
 app.use("/api/v1/palette", paletteRoutes);
@@ -57,6 +56,14 @@ app.get('/my-patterns', requireAuth, (req, res) => {
 });
 
 app.get('/liked-patterns', requireAuth, (req, res) => {
+    res.sendFile(HTML_FILE);
+});
+
+app.get('/*', (req, res) => {
+    res.sendFile(HTML_FILE);
+})
+
+app.get('/user', (req, res) => {
     res.sendFile(HTML_FILE);
 });
 

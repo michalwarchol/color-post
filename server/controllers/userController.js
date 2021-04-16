@@ -33,6 +33,8 @@ module.exports.addLikedPattern = async (req, res) => {
                 res.status(200).json({message: "Document updated"});
             })
         })
+    }else{
+        res.status(400).json({message: "cant add pattern to favourites"});
     }
 }
 
@@ -50,6 +52,8 @@ module.exports.removeLikedPattern = async (req, res) => {
                 res.status(200).json({message: "Document updated"});
             })
         })
+    }else{
+        res.status(400).json({message: "cant remove pattern from favourites"})
     }
 }
 
@@ -72,5 +76,7 @@ module.exports.isPatternLiked = async (req, res) => {
                 }
             })
         })
+    }else{
+        res.status(200).json({message: "pattern not found in favourites", isFound: false});
     }
 }

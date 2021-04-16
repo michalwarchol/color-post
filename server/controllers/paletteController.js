@@ -30,7 +30,16 @@ module.exports.findById = async (req, res) => {
         const error = errorHandler(err);
         res.status(400).json(error);
     }
-    
+}
+
+module.exports.findByUser = async (req, res) => {
+    const user = req.query.user;
+    Palette.find({user}, (err, palettes)=>{
+        if(err){
+            res.status(404).json({message: "not found"})
+        }
+        res.status(200).json({palettes})
+    })
 }
 
 module.exports.findAll = async (req, res) => {
@@ -44,7 +53,9 @@ module.exports.findAll = async (req, res) => {
 }
 
 module.exports.findLatest = async (req, res) => {
-    Palette.find({}, {}, {sort: {"created_at": 1}, limit: 4}, (err, result) => {
+    let limit = parseInt(req.query.more)+4;
+
+    Palette.find({}, {}, {sort: {"created_at": 1}, limit: limit}, (err, result) => {
         if(err){
             res.status(404).json({message: "resource not found"});
         }
@@ -53,7 +64,8 @@ module.exports.findLatest = async (req, res) => {
 }
 
 module.exports.findMostPopular = async (req, res) => {
-    Palette.find({}, {}, {sort: {likes: 1}, limit: 4}, (err, result) => {
+    let limit = parseInt(req.query.more)+4;
+    Palette.find({}, {}, {sort: {likes: -1}, limit: limit}, (err, result) => {
         if(err){
             res.status(404).json({message: "resource not found"});
         }
