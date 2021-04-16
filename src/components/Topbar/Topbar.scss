@@ -5,6 +5,10 @@
         font-size: 110%;
         .logo{
             font-size: 130%;
+            a{
+                text-decoration: none;
+                color: $color_3;
+            }
         }
         .buttons{
             .loginButton, .signupButton, .logoutButton{

@@ -17,18 +17,18 @@ const Topbar = () => {
 		<div className="topbar">
 			<div className="upperTopbar container d-flex flex-row">
 				<div className="logo col-6 d-flex align-items-center">
-					Color Post
+					<a href="/">Color Post</a>
 					</div>
 				<div className="buttons col-6 d-flex flex-row justify-content-end d-flex align-items-center">
 					{
 						username ?
 							<>
 								<div className="welcomeBox">Welcome {username}!</div>
-								<div className="loginButton"><a href="/logout">Logout</a></div>
+								<a href="/logout" className="loginButton">Logout</a>
 							</>
 							: <>
-								<div className="loginButton"><a href="/login">Login</a></div>
-								<div className="signupButton"><a href="/signup">Sign up</a></div>
+								<a href="/login" className="loginButton">Login</a>
+								<a href="/signup" className="signupButton">Sign up</a>
 							</>
 					}
 
