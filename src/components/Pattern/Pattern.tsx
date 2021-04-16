@@ -41,6 +41,7 @@ const Pattern: React.FC<Props> = ({ id, user, palette, likes }) => {
                 id: id
             })
         }).then(response => {
+            console.log("response")
             if (response.redirected == true) {
                 location.assign(response.url);
                 return;
@@ -134,7 +135,7 @@ const Pattern: React.FC<Props> = ({ id, user, palette, likes }) => {
                 }
             </div>
             <div className="username">
-                <span>Added by {writeUsername(user)}</span>
+                <span>Added by <a href={"/user?name="+user}>{writeUsername(user)}</a></span>
             </div>
             <div className="likes" onClick={isLiked ? removeFromFavourites : addToFavourites}>
                 <span>&hearts; {writeLikes(likes)} {isLiked ? "Unlike" : "Like"}</span>
