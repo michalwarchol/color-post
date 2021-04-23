@@ -9,14 +9,23 @@ import {PatternType} from "../../reducers/types";
 
 const Patterns = () => {
     const [patterns, setPatterns] = useState<PatternType[]|null>(null);
-    const location=useLocation();
+    const thisLocation=useLocation();
 
     useEffect(()=>{
-        getUserPatterns();
+        console.log(thisLocation.pathname)
+        if(thisLocation.pathname==="/user"){
+            getRandomUserPatterns();
+        }
+        else if(thisLocation.pathname==="/my-patterns"){
+            getUserPatterns();
+        }
+        else if(thisLocation.pathname==="/liked-patterns"){
+            getUserLikedPatterns();
+        }
     }, [])
 
-    const getUserPatterns = () => {
-        const query = new URLSearchParams(location.search);
+    const getRandomUserPatterns = () => {
+        const query = new URLSearchParams(thisLocation.search);
         const name = query.get('name');
         fetch("/api/v1/palette/findByUser?user="+name, {
 			method: "get",
@@ -24,7 +33,40 @@ const Patterns = () => {
 		})
         .then(response=>response.json())
         .then(res=>{
+            console.log(res)
+            if(res.redirect){
+                location.assign(res.url)
+            }else{
+                setPatterns(res.palettes);
+            }
+        })
+    }
+
+    const getUserPatterns = () => {
+        fetch("/api/v1/palette/findByUser", {
+			method: "get",
+			headers: { 'Content-Type': 'application/json' },
+		})
+        .then(response=>response.json())
+        .then(res=>{
+            console.log(res)
             setPatterns(res.palettes);
+        })
+        .catch(err=>console.log(err))
+    }
+
+    const getUserLikedPatterns = () => {
+        fetch("/api/v1/palette/findLikedByUser", {
+			method: "get",
+			headers: { 'Content-Type': 'application/json' },
+		})
+        .then(response=>response.json())
+        .then(res=>{
+            if(res.redirect){
+                location.assign(res.url);
+            }else{
+                setPatterns(res.palettes);
+            }
         })
     }
 
@@ -34,10 +76,10 @@ const Patterns = () => {
         }else if(patterns.length===0){
             return <div>no patterns</div>
         }else{
-            const query = new URLSearchParams(location.search);
+            const query = new URLSearchParams(thisLocation.search);
             const name = query.get('name');
-            return <div>
-                <h2>Patterns created by {name}</h2>
+            return <div className="col-12">
+                <h2>{thisLocation.pathname==="/liked-patterns"?"Favourite patterns":"Patterns created by "+name}</h2>
                 <div className="d-flex flex-row justify-content-start flex-wrap">{
                     patterns.map((elem, i)=>(<Pattern key={i} id={elem._id} palette={elem.palette} user={elem.user} likes={elem.likes}/>))
                 }</div>
