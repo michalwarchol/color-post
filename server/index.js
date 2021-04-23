@@ -39,33 +39,10 @@ app.use("/", authRoutes);
 app.use("/api/v1/palette", paletteRoutes);
 
 //responds index.html from dist folder
-app.get('/', (req, res) => {
-    res.sendFile(HTML_FILE);
-});
-
-app.get('/login', (req, res) => {
-    res.sendFile(HTML_FILE);
-});
-
-app.get('/signup', (req, res) => {
-    res.sendFile(HTML_FILE);
-});
-
-app.get('/my-patterns', requireAuth, (req, res) => {
-    res.sendFile(HTML_FILE);
-});
-
-app.get('/liked-patterns', requireAuth, (req, res) => {
-    res.sendFile(HTML_FILE);
-});
-
 app.get('/*', (req, res) => {
     res.sendFile(HTML_FILE);
 })
 
-app.get('/user', (req, res) => {
-    res.sendFile(HTML_FILE);
-});
 
 app.listen(port, function () {
  console.log('App listening on port: ' + port);
