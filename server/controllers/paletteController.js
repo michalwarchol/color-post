@@ -12,7 +12,7 @@ module.exports.create = async (req, res) => {
     const { palette } = req.body;
     try {
         const decodedToken = verify(token, process.env.JWT_SECRET);
-        User.findOne({_id: decodedToken.id}, (err, result)=>{
+        User.findOne({ _id: decodedToken.id }, (err, result) => {
             try {
                 const newPalette = Palette.create({
                     user: result.name,
@@ -26,7 +26,8 @@ module.exports.create = async (req, res) => {
             }
         })
     } catch (err) {
-        res.redirect(301, "/login");
+        console.log("eee")
+        //res.redirect(301, "/login");
     }
 }
 
@@ -44,12 +45,74 @@ module.exports.findById = async (req, res) => {
 
 module.exports.findByUser = async (req, res) => {
     const user = req.query.user;
-    Palette.find({ user }, (err, palettes) => {
-        if (err) {
-            res.status(404).json({ message: "not found" })
+    const token = req.cookies.jwt;
+    //get a name of logged user
+    if (token) {
+        try {
+            //if user name equals query user - redirect to /my-patterns
+            const decodedToken = verify(token, process.env.JWT_SECRET);
+            await User.findOne({ _id: decodedToken.id }, (err, result) => {
+                if (err) {
+                    res.status(400).end();
+                }
+                //if user specified in query equals logged user name, redirect to /my-patterns
+                console.log(user, result.name)
+                if (user && user === result.name) {
+                    res.status(301).json({redirect: true, url: "/my-patterns"})
+                } else if (user && user !== result.name) { //if user specified in a query is not equal to logged user name, 
+                    //find palletes of user specified in the query
+                    Palette.find({ user }, (err, palettes) => {
+                        if (err) {
+                            res.status(404).json({redirect: false, message: "not found" })
+                        }
+                        res.status(200).json({redirect: false, palettes });
+                    })
+                } else { //if there is no user parameter specified, get palettes of logged user
+                    Palette.find({ user: result.name }, (err, palettes) => {
+                        if (err) {
+                            res.status(404).json({redirect: false, message: "not found" })
+                        }
+                        res.status(200).json({redirect: false, palettes });
+                    })
+                }
+            })
+        } catch (err) {
+            console.log(err.message)
+            errorHandler(err);
         }
-        res.status(200).json({ palettes })
-    })
+    }else{
+        Palette.find({ user: user }, (err, palettes) => {
+            if (err) {
+                res.status(404).json({redirect: false, message: "not found" })
+            }
+            res.status(200).json({redirect: false, palettes });
+        })
+    }
+}
+
+module.exports.findLikedByUser = async (req, res) => {
+    const token = req.cookies.jwt;
+    try{
+        const decodedToken = verify(token, process.env.JWT_SECRET);
+        await User.findOne({ _id: decodedToken.id }, (err, result) => {
+            if(err){
+                res.status(400).end();
+            }
+            try{
+                Palette.find({_id: {$in: result.likedPalettes}}, (err, palettes)=>{
+                    if(err){
+                        console.log(err)
+                    }
+                    res.status(200).json({redirect: false, palettes})
+                })
+            }catch(err){
+                console.log(err)
+            }
+        })
+    }
+    catch(err){
+        res.status(301).json({redirect: true, url: "/login"});
+    }
 }
 
 module.exports.findAll = async (req, res) => {
@@ -65,7 +128,7 @@ module.exports.findAll = async (req, res) => {
 module.exports.findLatest = async (req, res) => {
     let limit = parseInt(req.query.more) + 4;
 
-    Palette.find({}, {}, { sort: { "created_at": 1 }, limit: limit }, (err, result) => {
+    Palette.find({}, {}, { sort: { "created_at": -1 }, limit: limit }, (err, result) => {
         if (err) {
             res.status(404).json({ message: "resource not found" });
         }
