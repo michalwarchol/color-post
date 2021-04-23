@@ -11,6 +11,7 @@ router.post("/create", paletteController.create);
 router.post("/findById", paletteController.findById);
 router.get("/findAll", paletteController.findAll);
 router.get("/findByUser", paletteController.findByUser);
+router.get("/findLikedByUser", paletteController.findLikedByUser);
 router.get("/findLatest", paletteController.findLatest);
 router.get("/findPopular", paletteController.findMostPopular);
 router.put("/incrementLikes", paletteController.incrementLikes);
