@@ -71,13 +71,16 @@ const Patterns = () => {
     }
 
     const generatePatterns = () => {
+        const query = new URLSearchParams(thisLocation.search);
+        const name = query.get('name');
         if(patterns===null){
             return <div className="d-flex col-12 justify-content-center align-items-center"><Spinner /></div>
         }else if(patterns.length===0){
-            return <div>no patterns</div>
+            return <div className="col-12">
+                        <h2>Patterns created by {name}</h2>
+                        <h3>This user doesn't created any pattern</h3>
+                    </div>
         }else{
-            const query = new URLSearchParams(thisLocation.search);
-            const name = query.get('name');
             return <div className="col-12">
                 <h2>{thisLocation.pathname==="/liked-patterns"?"Favourite patterns":"Patterns created by "+name}</h2>
                 <div className="d-flex flex-row justify-content-start flex-wrap">{
