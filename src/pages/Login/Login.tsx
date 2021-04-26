@@ -17,13 +17,12 @@ const Login = () => {
         })
         .then(response=>response.json())
         .then(res=>{
-            console.log(res)
-            console.log("xxxxxxxxxxxx")
             if(res.errors){
-                console.log("13213232")
                 setNameError(res.errors.name);
                 setPasswordError(res.errors.password);
             }else{
+                console.log(res);
+                localStorage.setItem("user", JSON.stringify(res.user))
                 location.assign("/");
             }
         })
