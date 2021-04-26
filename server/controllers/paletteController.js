@@ -90,6 +90,26 @@ module.exports.findByUser = async (req, res) => {
     }
 }
 
+module.exports.findCreatedByUser = async (req, res) => {
+    const token = req.cookies.jwt;
+    if(token){
+        try{
+            const decodedToken = verify(token, process.env.JWT_SECRET);
+            await User.findOne({_id: decodedToken.id}, (err, user)=>{
+                Palette.find({user: user.name}, (err, palettes)=>{
+                    if(err){
+                        res.status(400).json({message: "Somathing went wrong!"});
+                    }
+                    res.status(200).json({palettes});
+                })
+            })
+            
+        }catch(err){
+            res.status(500).json({message: "Something went wrong!"});
+        }
+    }
+}
+
 module.exports.findLikedByUser = async (req, res) => {
     const token = req.cookies.jwt;
     try{
