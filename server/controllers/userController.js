@@ -9,7 +9,7 @@ module.exports.findUserById = async (req, res) => {
             if(err){
                 res.status(404).error("ee");
             }
-            User.findById(decodedToken.id, (err, result)=>{
+            User.findOne({_id: decodedToken.id}, (err, result)=>{
                 if(err){
                     res.status(403).json({message: "cant find user"});
                 }
