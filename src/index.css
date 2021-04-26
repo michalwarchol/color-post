@@ -185,6 +185,12 @@
   font-size: 600%;
 }
 
+.profile {
+  min-height: 100vh;
+  background-color: #52616b;
+  color: #d7d8d7;
+}
+
 .button {
   padding: 5px 15px;
   margin: 0 4px;
@@ -201,6 +207,39 @@
 }
 .button:hover {
   background-color: black;
+}
+
+.myCarousel {
+  overflow: hidden;
+  padding: 0;
+}
+.myCarousel .carouselWrapper {
+  padding: 0;
+  transition: transform 0.8s ease-in-out;
+}
+.myCarousel .carouselWrapper .myCarouselItem {
+  width: 100%;
+  z-index: 1;
+  padding: 0;
+}
+.myCarousel .arrow {
+  cursor: pointer;
+  z-index: 2;
+  height: 100%;
+  width: 50px;
+  font-size: 400%;
+}
+.myCarousel .arrow:hover {
+  background-color: #1e2022;
+}
+.myCarousel .left {
+  transform: rotate(360deg);
+  position: absolute;
+  left: 0;
+}
+.myCarousel .right {
+  position: absolute;
+  right: 0;
 }
 
 .topbar {
