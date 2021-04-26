@@ -10,6 +10,7 @@ router.use("/decrementLikes", requireAuth);
 router.post("/create", paletteController.create);
 router.post("/findById", paletteController.findById);
 router.get("/findAll", paletteController.findAll);
+router.get("/findCreatedByUser", paletteController.findCreatedByUser);
 router.get("/findByUser", paletteController.findByUser);
 router.get("/findLikedByUser", paletteController.findLikedByUser);
 router.get("/findLatest", paletteController.findLatest);
