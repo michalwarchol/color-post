@@ -13,6 +13,11 @@ const Topbar = () => {
 			.catch(err => console.log(err))
 	}, [])
 
+	const logout = () => {
+		localStorage.clear();
+		location.assign("/logout");
+	}
+
 	return (
 		<div className="topbar">
 			<div className="upperTopbar container d-flex flex-row">
@@ -24,7 +29,7 @@ const Topbar = () => {
 						username ?
 							<>
 								<div className="welcomeBox">Welcome {username}!</div>
-								<a href="/logout" className="loginButton">Logout</a>
+								<a className="loginButton" onClick={logout}>Logout</a>
 							</>
 							: <>
 								<a href="/login" className="loginButton">Login</a>
