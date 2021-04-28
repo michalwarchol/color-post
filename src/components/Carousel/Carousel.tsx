@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import {BsChevronRight, BsChevronLeft} from "react-icons/bs";
 import Pattern from "../Pattern/Pattern";
 import { PatternType } from "../../reducers/types";
 
@@ -29,34 +30,35 @@ const Carousel: React.FC<Props> = ({ patterns }) => {
     const moveCarousel = (direction: boolean) => {
         if (direction) {
             setSlide(slide - 1);
-            if (-slide+2 > patterns.length / 4) {
+            if (-slide + 3 > patterns.length / 4) {
                 setRightVisible(false);
             }
             setLeftVisible(true);
         } else {
             setSlide(slide + 1);
-            if (-slide===1) {
+            if (-slide === 1) {
                 setLeftVisible(false);
             }
             setRightVisible(true);
         }
     }
     return (
-        <div className="myCarousel d-flex col-12 flex-nowrap">
-            {leftVisible
-                && <div className="arrow left d-flex align-items-center justify-content-center"
-                    onClick={() => moveCarousel(false)}>
-                    &#10096;
-                    </div>}
-            <div className="carouselWrapper d-flex col-12" style={{ transform: "translateX(" + slide + "00%)" }}>
-                {processPatterns()}
+        <div className="myCarousel d-flex col-12 flex-nowrap align-items-center">
+            <div className="arrow left d-flex align-items-center justify-content-center"
+                onClick={() => moveCarousel(false)}
+                style={{ visibility: leftVisible ? "visible" : "hidden" }}>
+                <BsChevronLeft />
             </div>
-            {rightVisible
-                && <div className="arrow right d-flex align-items-center justify-content-center"
-                    onClick={() => moveCarousel(true)}>
-                    &#10097;
-                    </div>}
-
+            <div className="carouselWrapper d-flex col-12">
+                <div className="carouselInner d-flex col-12" style={{ transform: "translateX(" + slide + "00%)" }}>
+                    {processPatterns()}
+                </div>
+            </div>
+            <div className="arrow right d-flex align-items-center justify-content-center"
+                onClick={() => moveCarousel(true)}
+                style={{ visibility: rightVisible ? "visible" : "hidden" }}>
+                <BsChevronRight />
+            </div>
         </div>
     )
 }
