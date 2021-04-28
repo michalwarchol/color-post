@@ -23,8 +23,6 @@ const Index: React.FC = () => {
 						<Route exact path="/" component={Main} />
 						<Route exact path="/login" component={Login} />
 						<Route exact path="/signup" component={SignUp} />
-						<Route exact path="/my-patterns" component={Patterns} />
-						<Route exact path="/liked-patterns" component={Patterns} />
 						<Route path="/user" component={Patterns} />
 						<Route path="/profile" component={Profile} />
 						<Route path="/" component={NotFound} />
