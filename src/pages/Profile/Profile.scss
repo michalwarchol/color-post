@@ -2,4 +2,15 @@
     min-height: 100vh;
     background-color: $color_2;
     color: $color_3;
+    .content{
+        .information{
+            margin-bottom: 20px;
+            h1{
+                font-size: 72px;
+            }
+        }
+        .carouselBox{
+            margin-bottom: 20px;
+        }
+    }
 }
