@@ -43,8 +43,8 @@ const Topbar = () => {
 				username &&
 				<div className="lowerTopbar">
 					<div className="container d-flex flex-row justify-content-end">
-						<div className="myPatterns"><a href="/my-patterns">My patterns</a></div>
-						<div className="likedPatterns"><a href="/liked-patterns">Liked patterns</a></div>
+						<a href="/">Home</a>
+						<a href="/profile">Profile</a>
 					</div>
 				</div>
 			}

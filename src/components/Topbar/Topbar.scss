@@ -20,8 +20,9 @@
         background-color: $color_2;
         border-bottom: 1px solid $color_1;
         padding: 10px 0;
-        .myPatterns, .likedPatterns{
+        a{
             @include button(2);
+            text-decoration: none;
             color: $color_3;
         }
     }
