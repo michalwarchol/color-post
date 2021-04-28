@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import {BsHeartFill} from "react-icons/bs"
 import { ColorType } from "../../reducers/types";
 import { decToHex } from "../ColorWheel/ColorWheelController";
 
@@ -138,7 +139,7 @@ const Pattern: React.FC<Props> = ({ id, user, palette, likes }) => {
                 <span>Added by <a href={"/user?name="+user}>{writeUsername(user)}</a></span>
             </div>
             <div className="likes" onClick={isLiked ? removeFromFavourites : addToFavourites}>
-                <span>&hearts; {writeLikes(likes)} {isLiked ? "Unlike" : "Like"}</span>
+                <span style={{background:isLiked?"#ff3d8b":"#1e2022"}}><BsHeartFill /> {writeLikes(likes)}</span>
             </div>
         </div>
     )
