@@ -45,93 +45,57 @@ module.exports.findById = async (req, res) => {
 
 module.exports.findByUser = async (req, res) => {
     const user = req.query.user;
-    const token = req.cookies.jwt;
-    //get a name of logged user
-    if (token) {
-        try {
-            //if user name equals query user - redirect to /my-patterns
-            const decodedToken = verify(token, process.env.JWT_SECRET);
-            await User.findOne({ _id: decodedToken.id }, (err, result) => {
-                if (err) {
-                    res.status(400).end();
-                }
-                //if user specified in query equals logged user name, redirect to /my-patterns
-                console.log(user, result.name)
-                if (user && user === result.name) {
-                    res.status(301).json({redirect: true, url: "/my-patterns"})
-                } else if (user && user !== result.name) { //if user specified in a query is not equal to logged user name, 
-                    //find palletes of user specified in the query
-                    Palette.find({ user }, (err, palettes) => {
-                        if (err) {
-                            res.status(404).json({redirect: false, message: "not found" })
-                        }
-                        res.status(200).json({redirect: false, palettes });
-                    })
-                } else { //if there is no user parameter specified, get palettes of logged user
-                    Palette.find({ user: result.name }, (err, palettes) => {
-                        if (err) {
-                            res.status(404).json({redirect: false, message: "not found" })
-                        }
-                        res.status(200).json({redirect: false, palettes });
-                    })
-                }
-            })
-        } catch (err) {
-            console.log(err.message)
-            errorHandler(err);
+    Palette.find({ user }, (err, palettes) => {
+        if (err) {
+            res.status(404).json({ redirect: false, message: "not found" })
         }
-    }else{
-        Palette.find({ user: user }, (err, palettes) => {
-            if (err) {
-                res.status(404).json({redirect: false, message: "not found" })
-            }
-            res.status(200).json({redirect: false, palettes });
-        })
-    }
+        res.status(200).json({ redirect: false, palettes });
+    })
+
 }
 
 module.exports.findCreatedByUser = async (req, res) => {
     const token = req.cookies.jwt;
-    if(token){
-        try{
+    if (token) {
+        try {
             const decodedToken = verify(token, process.env.JWT_SECRET);
-            await User.findOne({_id: decodedToken.id}, (err, user)=>{
-                Palette.find({user: user.name}, (err, palettes)=>{
-                    if(err){
-                        res.status(400).json({message: "Somathing went wrong!"});
+            await User.findOne({ _id: decodedToken.id }, (err, user) => {
+                Palette.find({ user: user.name }, (err, palettes) => {
+                    if (err) {
+                        res.status(400).json({ message: "Somathing went wrong!" });
                     }
-                    res.status(200).json({palettes});
+                    res.status(200).json({ palettes });
                 })
             })
-            
-        }catch(err){
-            res.status(500).json({message: "Something went wrong!"});
+
+        } catch (err) {
+            res.status(500).json({ message: "Something went wrong!" });
         }
     }
 }
 
 module.exports.findLikedByUser = async (req, res) => {
     const token = req.cookies.jwt;
-    try{
+    try {
         const decodedToken = verify(token, process.env.JWT_SECRET);
         await User.findOne({ _id: decodedToken.id }, (err, result) => {
-            if(err){
+            if (err) {
                 res.status(400).end();
             }
-            try{
-                Palette.find({_id: {$in: result.likedPalettes}}, (err, palettes)=>{
-                    if(err){
+            try {
+                Palette.find({ _id: { $in: result.likedPalettes } }, (err, palettes) => {
+                    if (err) {
                         console.log(err)
                     }
-                    res.status(200).json({redirect: false, palettes})
+                    res.status(200).json({ redirect: false, palettes })
                 })
-            }catch(err){
+            } catch (err) {
                 console.log(err)
             }
         })
     }
-    catch(err){
-        res.status(301).json({redirect: true, url: "/login"});
+    catch (err) {
+        res.status(301).json({ redirect: true, url: "/login" });
     }
 }
 
