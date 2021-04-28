@@ -12,19 +12,15 @@ const Patterns = () => {
     const thisLocation=useLocation();
 
     useEffect(()=>{
-        console.log(thisLocation.pathname)
-        if(thisLocation.pathname==="/user"){
-            getRandomUserPatterns();
+        const query = new URLSearchParams(thisLocation.search);
+        const name = query.get('name');
+        if(name===undefined || name===null || name===""){
+            location.assign("/");
         }
-        else if(thisLocation.pathname==="/my-patterns"){
-            getUserPatterns();
-        }
-        else if(thisLocation.pathname==="/liked-patterns"){
-            getUserLikedPatterns();
-        }
+        getUserPatterns();
     }, [])
 
-    const getRandomUserPatterns = () => {
+    const getUserPatterns = () => {
         const query = new URLSearchParams(thisLocation.search);
         const name = query.get('name');
         fetch("/api/v1/palette/findByUser?user="+name, {
@@ -36,34 +32,6 @@ const Patterns = () => {
             console.log(res)
             if(res.redirect){
                 location.assign(res.url)
-            }else{
-                setPatterns(res.palettes);
-            }
-        })
-    }
-
-    const getUserPatterns = () => {
-        fetch("/api/v1/palette/findByUser", {
-			method: "get",
-			headers: { 'Content-Type': 'application/json' },
-		})
-        .then(response=>response.json())
-        .then(res=>{
-            console.log(res)
-            setPatterns(res.palettes);
-        })
-        .catch(err=>console.log(err))
-    }
-
-    const getUserLikedPatterns = () => {
-        fetch("/api/v1/palette/findLikedByUser", {
-			method: "get",
-			headers: { 'Content-Type': 'application/json' },
-		})
-        .then(response=>response.json())
-        .then(res=>{
-            if(res.redirect){
-                location.assign(res.url);
             }else{
                 setPatterns(res.palettes);
             }
@@ -82,7 +50,7 @@ const Patterns = () => {
                     </div>
         }else{
             return <div className="col-12">
-                <h2>{thisLocation.pathname==="/liked-patterns"?"Favourite patterns":"Patterns created by "+name}</h2>
+                <h2>Patterns created by {name}</h2>
                 <div className="d-flex flex-row justify-content-start flex-wrap">{
                     patterns.map((elem, i)=>(<Pattern key={i} id={elem._id} palette={elem.palette} user={elem.user} likes={elem.likes}/>))
                 }</div>
