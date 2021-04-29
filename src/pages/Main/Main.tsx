@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import Topbar from "../../components/Topbar/Topbar";
 import ColorWheel from "../../components/ColorWheel/ColorWheel";
 import Square from '../../components/Square/Square';
-import RadioButtonModes from "../../components/RadioButtonModes/RadioButtonModes";
 import SelectModes from "../../components/SelectModes/SelectModes";
 import CustomPattern from "../../components/CustomPattern/CustomPattern";
 import Pattern from "../../components/Pattern/Pattern";
@@ -15,15 +14,11 @@ const Main: React.FC = () => {
 
 	const [mode, setMode] = useState<string>("primary");
 	const [customVisible, setCustomVisible] = useState<boolean>(false);
-	const [width, setWidth] = useState<number>(window.innerWidth);
 	const [latestPatterns, setLatestPatterns] = useState<PatternType[]>([]);
 	const [moreLatest, setMoreLatest] = useState<number>(0);
 	const [popularPatterns, setPopularPatterns] = useState<PatternType[]>([]);
 	const [morePopular, setMorePopular] = useState<number>(0);
 
-	useEffect(() => {
-		window.addEventListener("resize", () => setWidth(window.innerWidth))
-	})
 	useEffect(() => {
 		findLatest();
 	}, [moreLatest])
@@ -86,7 +81,6 @@ const Main: React.FC = () => {
 				palette: palette
 			})
 		}).then(response => {
-			console.log(response)
 			if (response.redirected == true) {
 				location.assign(response.url)
 			}
@@ -99,12 +93,10 @@ const Main: React.FC = () => {
 	return (
 		<div className="main">
 			<Topbar />
-			<div className="canvasContainer container d-flex flex-column flex-lg-row">
-				{width >= 992
-					? <RadioButtonModes handleModeChange={handleModeChange} createCustomPattern={createCustomPattern} />
-					: <SelectModes handleModeChange={handleModeChange} createCustomPattern={createCustomPattern} />}
+			<div className="canvasContainer container d-flex flex-column">
 
 				<ColorWheel mode={mode} />
+				<SelectModes handleModeChange={handleModeChange} createCustomPattern={createCustomPattern} />
 			</div>
 			<div className="container-fluid d-flex flex-row justify-content-center">
 				<Square id={0} mode={mode} />
