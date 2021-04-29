@@ -162,7 +162,7 @@ export const movePointInCircle = (point: HTMLDivElement) => {
     }
 }
 
-export const setPointerColor = (context: CanvasRenderingContext2D, id: number, x: number, y: number) => {
+export const setPointerColor = (context: CanvasRenderingContext2D, id: number, x: number, y: number, mode: string) => {
     let pointToCircleCenterLength = Math.floor(Math.sqrt(Math.pow(x - 255, 2) + Math.pow(y - 255, 2)));
     if (radius >= pointToCircleCenterLength) {
         let color;
@@ -175,9 +175,21 @@ export const setPointerColor = (context: CanvasRenderingContext2D, id: number, x
         else
             color = context.getImageData(Math.floor(x) - 1, Math.floor(y) - 1, -1, -1).data;
 
-        let red = color[0];
-        let green = color[1];
-        let blue = color[2];
+        
+        let red;
+        let green;
+        let blue;
+        if(mode==="shades"){
+            let shade = 100 - (id) * 15;
+            red = color[0]*shade/100;
+            green = color[1]*shade/100;
+            blue = color[2]*shade/100;
+
+        }else{
+            red = color[0];
+            green = color[1];
+            blue = color[2];
+        }
 
         store.dispatch({
             type: "SET_COLOR",

@@ -44,7 +44,7 @@ const ColorWheel: React.FC<Props> = ({ mode, mainPointerX, mainPointerY, mouseX,
   useEffect(() => {
     let canvas = canvasRef.current as any;
     let context = canvas.getContext("2d");
-    setPointerColor(context, 0, mainPointerX, mainPointerY);
+    setPointerColor(context, 0, mainPointerX, mainPointerY, mode);
   }, [mainPointerX, mainPointerY])
 
   const takePointer = (e: React.MouseEvent | React.PointerEvent) => {
@@ -69,7 +69,7 @@ const ColorWheel: React.FC<Props> = ({ mode, mainPointerX, mainPointerY, mouseX,
   const setMinorPointerColor = (x: number, y: number, id: number) => {
     let canvas = canvasRef.current as any;
     let context = canvas.getContext("2d");
-    setPointerColor(context, id, x, y);
+    setPointerColor(context, id, x, y, mode);
   }
 
   return (

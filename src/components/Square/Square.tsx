@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { StateType, ColorType } from "../../reducers/types"
 import {decToHex} from "../ColorWheel/ColorWheelController"
@@ -18,10 +18,6 @@ const Square: React.FC<Props> = ({ id, mode, colors }) => {
     const handleRangeInput = (value: number) => {
         setShade(value);
     }
-
-    useEffect(()=> {
-        decToHex(254);
-    })
 
     return (
         <div className="colorSquare d-flex flex-column col-2 align-items-center">
