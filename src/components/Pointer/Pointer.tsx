@@ -23,7 +23,6 @@ const Pointer: React.FC<Props> = ({ id, mode, mainPointerX, mainPointerY, colors
 
   return (
     <div className="pointer" ref={pointerRef} style={{ background: "rgb("+colors[id].r+","+colors[id].g+","+colors[id].b+")" }}>
-      {id}
     </div>
   )
 }

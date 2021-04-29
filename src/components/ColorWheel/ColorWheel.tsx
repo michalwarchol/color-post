@@ -24,7 +24,8 @@ const ColorWheel: React.FC<Props> = ({ mode, mainPointerX, mainPointerY, mouseX,
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mainPointerRef = useRef<HTMLDivElement>(null);
-  const [pointerTaken, setPointerTaken] = useState<boolean>(false)
+  const [pointerTaken, setPointerTaken] = useState<boolean>(false);
+  const [width, setWidth] = useState<number>(window.innerWidth);
 
   useEffect(() => {
     const canvas = canvasRef.current as any;
@@ -34,6 +35,8 @@ const ColorWheel: React.FC<Props> = ({ mode, mainPointerX, mainPointerY, mouseX,
     let pointer = mainPointerRef.current as any;
     pointer.style.left = radius - 10 + "px";
     pointer.style.top = radius - 10 + "px";
+
+    window.addEventListener("resize", () => setWidth(window.innerWidth))
   }, [])
 
   useEffect(() => {
@@ -63,7 +66,7 @@ const ColorWheel: React.FC<Props> = ({ mode, mainPointerX, mainPointerY, mouseX,
   const canvasMove = (e: React.MouseEvent | React.PointerEvent) => {
     console.log(e)
     let canvas = canvasRef.current as any;
-    updateMousePosition(e, canvas);
+    updateMousePosition(e, canvas, width);
   }
 
   const setMinorPointerColor = (x: number, y: number, id: number) => {
@@ -77,7 +80,8 @@ const ColorWheel: React.FC<Props> = ({ mode, mainPointerX, mainPointerY, mouseX,
       onMouseUp={dropPointer}
       onPointerUp={dropPointer}
       onMouseMove={pointerTaken ? canvasMove : undefined}
-      onPointerMove={pointerTaken?canvasMove: undefined}>
+      onPointerMove={pointerTaken?canvasMove: undefined}
+      style={width<=768?{transform: "scale(0.5)"}:undefined}>
       <div className="colorWheel_inner_container">
         <canvas
           onMouseDown={takePointer}

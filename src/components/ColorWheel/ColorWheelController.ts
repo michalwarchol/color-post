@@ -105,9 +105,13 @@ export const generateColorWheel = (ctx: any) => {
     }
 }
 
-export const updateMousePosition = (e: React.MouseEvent, canvas: HTMLCanvasElement) => {
+export const updateMousePosition = (e: React.MouseEvent, canvas: HTMLCanvasElement, width: number) => {
     let x = e.clientX - canvas.getBoundingClientRect().x;
     let y = e.clientY - canvas.getBoundingClientRect().y;
+    if(width<=768){
+        x*=2;
+        y*=2;
+    }
     store.dispatch({
         type: "SET_MOUSE_POSITION",
         mouseX: x,
