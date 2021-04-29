@@ -20,16 +20,15 @@ const Topbar = () => {
 
 	return (
 		<div className="topbar">
-			<div className="upperTopbar container d-flex flex-row">
-				<div className="logo col-6 d-flex align-items-center">
+			<div className="upperTopbar container d-flex flex-column flex-sm-row">
+				<div className="logo col-12 col-sm-6 d-flex align-items-center justify-content-center  justify-content-sm-start">
 					<a href="/">Color Post</a>
-					</div>
-				<div className="buttons col-6 d-flex flex-row justify-content-end d-flex align-items-center">
+				</div>
+				<div className="buttons col-12 col-sm-6 d-flex flex-row justify-content-center justify-content-sm-end d-flex align-items-center">
 					{
 						username ?
 							<>
 								<div className="welcomeBox">Welcome {username}!</div>
-								<a className="loginButton" onClick={logout}>Logout</a>
 							</>
 							: <>
 								<a href="/login" className="loginButton">Login</a>
@@ -45,6 +44,7 @@ const Topbar = () => {
 					<div className="container d-flex flex-row justify-content-end">
 						<a href="/">Home</a>
 						<a href="/profile">Profile</a>
+						<a onClick={logout}>Logout</a>
 					</div>
 				</div>
 			}
