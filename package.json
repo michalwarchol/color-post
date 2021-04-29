@@ -1,7 +1,12 @@
 {
-  "name": "test",
+  "name": "colorpost",
   "version": "1.0.0",
-  "description": "",
+  "description": "Webpage, you can make and save your color palettes on!",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/michalwarchol/color-post.git"
+  },
+  "private": "false",
   "main": "index.js",
   "scripts": {
     "bundle": "webpack",
@@ -17,9 +22,10 @@
     "webpack",
     "typescript"
   ],
-  "author": "",
+  "author": "Michał Warchoł",
   "license": "ISC",
   "dependencies": {
+    "@types/cookie-parser": "^1.4.2",
     "@types/react": "^16.9.46",
     "@types/react-dom": "^16.9.8",
     "@types/react-redux": "^7.1.16",
@@ -64,6 +70,11 @@
     "validator": "^13.1.1",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
+  },
+  "engines": {
+    "node": ">= 14.15.4",
+    "vscode": "^1.22.0",
+    "npm": ">= 6.14.10"
   },
   "proxy": "http://localhost:3000"
 }
