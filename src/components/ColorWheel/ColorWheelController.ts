@@ -15,7 +15,7 @@ export const radius: number = 255;
 
 export const decToHex = (dec: number) => {
     let hexValue = dec.toString(16);
-    if (hexValue == "0") hexValue += "0";
+    if (hexValue.length == 1) hexValue = "0"+hexValue;
     return hexValue;
 }
 
