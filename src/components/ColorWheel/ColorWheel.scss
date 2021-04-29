@@ -1,6 +1,7 @@
 $length: 514px;
 
 .colorWheel_container{
+    touch-action: none;
     width: 100%;
     min-height: 50vh;
     .colorWheel_inner_container{

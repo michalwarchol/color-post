@@ -47,7 +47,7 @@ const ColorWheel: React.FC<Props> = ({ mode, mainPointerX, mainPointerY, mouseX,
     setPointerColor(context, 0, mainPointerX, mainPointerY);
   }, [mainPointerX, mainPointerY])
 
-  const takePointer = (e: React.MouseEvent) => {
+  const takePointer = (e: React.MouseEvent | React.PointerEvent) => {
     setPointerTaken(true);
     canvasMove(e);
     document.addEventListener('mouseup', () => {
@@ -55,11 +55,13 @@ const ColorWheel: React.FC<Props> = ({ mode, mainPointerX, mainPointerY, mouseX,
     }, { once: true })
   }
 
+
   const dropPointer = () => {
     setPointerTaken(false)
   }
 
-  const canvasMove = (e: React.MouseEvent) => {
+  const canvasMove = (e: React.MouseEvent | React.PointerEvent) => {
+    console.log(e)
     let canvas = canvasRef.current as any;
     updateMousePosition(e, canvas);
   }
@@ -73,10 +75,13 @@ const ColorWheel: React.FC<Props> = ({ mode, mainPointerX, mainPointerY, mouseX,
   return (
     <div className="colorWheel_container col-12 col-lg-9 d-flex justify-content-center align-items-center"
       onMouseUp={dropPointer}
-      onMouseMove={pointerTaken ? canvasMove : undefined}>
+      onPointerUp={dropPointer}
+      onMouseMove={pointerTaken ? canvasMove : undefined}
+      onPointerMove={pointerTaken?canvasMove: undefined}>
       <div className="colorWheel_inner_container">
         <canvas
           onMouseDown={takePointer}
+          onPointerDown={takePointer}
           ref={canvasRef}
           width="512px"
           height="512px"
