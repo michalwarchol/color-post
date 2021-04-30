@@ -64,7 +64,6 @@ const ColorWheel: React.FC<Props> = ({ mode, mainPointerX, mainPointerY, mouseX,
   }
 
   const canvasMove = (e: React.MouseEvent | React.PointerEvent) => {
-    console.log(e)
     let canvas = canvasRef.current as any;
     updateMousePosition(e, canvas, width);
   }

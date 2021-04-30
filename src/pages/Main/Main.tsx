@@ -5,6 +5,7 @@ import Topbar from "../../components/Topbar/Topbar";
 import ColorWheel from "../../components/ColorWheel/ColorWheel";
 import Square from '../../components/Square/Square';
 import SelectModes from "../../components/SelectModes/SelectModes";
+import SquareControls from "../../components/SquareControls/SquareControls";
 import CustomPattern from "../../components/CustomPattern/CustomPattern";
 import Pattern from "../../components/Pattern/Pattern";
 import Button from "../../components/Button/Button";
@@ -21,7 +22,8 @@ const Main: React.FC<Props> = ({palette}) => {
 	const [mode, setMode] = useState<string>("primary");
 	const [customVisible, setCustomVisible] = useState<boolean>(false);
 	const [width, setWidth] = useState<number>(window.innerWidth);
-	const [squareActive, setSquareActive] = useState<number | null>(window.innerWidth >= 768 ? null : 1);
+	const [squareActive, setSquareActive] = useState<number | null>(window.innerWidth >= 768 ? null : 0);
+	const [squareShades, setSquareShades] = useState<number[]>([100, 100, 100, 100, 100]);
 	const [latestPatterns, setLatestPatterns] = useState<PatternType[]>([]);
 	const [moreLatest, setMoreLatest] = useState<number>(0);
 	const [popularPatterns, setPopularPatterns] = useState<PatternType[]>([]);
@@ -35,7 +37,7 @@ const Main: React.FC<Props> = ({palette}) => {
 		if (width >= 768)
 			setSquareActive(null);
 		else
-			setSquareActive(1);
+			setSquareActive(0);
 	}, [width])
 
 	useEffect(() => {
@@ -145,12 +147,15 @@ const Main: React.FC<Props> = ({palette}) => {
 				
 			</div>
 			<div className="container-fluid d-flex flex-row justify-content-center">
-				<Square id={0} mode={mode} active={squareActive} setActive={handleSquareClick} />
-				<Square id={1} mode={mode} active={squareActive} setActive={handleSquareClick} />
-				<Square id={2} mode={mode} active={squareActive} setActive={handleSquareClick} />
-				<Square id={3} mode={mode} active={squareActive} setActive={handleSquareClick} />
-				<Square id={4} mode={mode} active={squareActive} setActive={handleSquareClick} />
+				<Square id={0} mode={mode} active={squareActive} setActive={handleSquareClick} shades={squareShades} setShade={setSquareShades} />
+				<Square id={1} mode={mode} active={squareActive} setActive={handleSquareClick} shades={squareShades} setShade={setSquareShades} />
+				<Square id={2} mode={mode} active={squareActive} setActive={handleSquareClick} shades={squareShades} setShade={setSquareShades} />
+				<Square id={3} mode={mode} active={squareActive} setActive={handleSquareClick} shades={squareShades} setShade={setSquareShades} />
+				<Square id={4} mode={mode} active={squareActive} setActive={handleSquareClick} shades={squareShades} setShade={setSquareShades} />
 			</div>
+			{window.innerWidth <= 768 && squareActive!==null &&
+				<SquareControls id={squareActive} mode={mode} shades={squareShades} setShade={setSquareShades} />
+			}
 			<div className="container d-flex flex-column">
 				<h2>Popular patterns</h2>
 				<div className="popularPatterns d-flex flex-row justify-content-start flex-wrap">

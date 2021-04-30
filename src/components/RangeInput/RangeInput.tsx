@@ -3,12 +3,17 @@ import React, { useEffect, useState } from 'react'
 interface Props {
     id: number,
     mode: string,
-    handleRangeInput(value: number): void
+    handleRangeInput(value: number): void,
+    initialValue: number
 }
 
-const RangeInput: React.FC<Props> = ({ id, mode, handleRangeInput }) => {
+const RangeInput: React.FC<Props> = ({ id, mode, handleRangeInput, initialValue }) => {
 
-    const [value, setValue] = useState<number>(100);
+    const [value, setValue] = useState<number>(initialValue);
+
+    useEffect(()=>{
+        setValue(initialValue);
+    }, [initialValue])
 
     useEffect(() => {
         if (mode == "shades") {
