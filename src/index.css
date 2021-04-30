@@ -113,7 +113,6 @@
 
 .main {
   font-family: "Lato", sans-serif;
-  min-height: 100vh;
   background-color: #52616b;
   color: #d7d8d7;
 }
@@ -307,12 +306,12 @@
 .colorWheel_container {
   touch-action: none;
   width: 100%;
-  min-height: 50vh;
 }
 .colorWheel_container .colorWheel_inner_container {
   position: relative;
   width: 514px;
   height: 514px;
+  height: 100%;
 }
 .colorWheel_container canvas {
   border-radius: 50%;
@@ -346,8 +345,8 @@
 }
 @media screen and (max-width: 767px) {
   .colorSquare .square {
-    width: 70px;
-    height: 70px;
+    width: 40px;
+    height: 40px;
   }
 }
 @media screen and (min-width: 1200px) {
