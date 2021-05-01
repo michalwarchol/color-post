@@ -12,6 +12,7 @@ import Button from "../../components/Button/Button";
 import Footer from "../../components/Footer/Footer";
 
 import { StateType, PatternType, ColorType } from "../../reducers/types";
+import Modes from "../../components/modes";
 
 interface Props {
 	palette: ColorType[]
@@ -19,7 +20,7 @@ interface Props {
 
 const Main: React.FC<Props> = ({palette}) => {
 
-	const [mode, setMode] = useState<string>("primary");
+	const [mode, setMode] = useState<Modes>(Modes.PRIMARY);
 	const [customVisible, setCustomVisible] = useState<boolean>(false);
 	const [width, setWidth] = useState<number>(window.innerWidth);
 	const [squareActive, setSquareActive] = useState<number | null>(window.innerWidth >= 768 ? null : 0);
@@ -75,7 +76,7 @@ const Main: React.FC<Props> = ({palette}) => {
 	}
 
 	const handleModeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setMode(e.target.value);
+		setMode(parseInt(e.target.value));
 	}
 
 	const handleSquareClick = (id: number) => {

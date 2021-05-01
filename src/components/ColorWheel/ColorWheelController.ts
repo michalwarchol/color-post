@@ -1,5 +1,6 @@
 import React from 'react'
 import store from "../../reducers/colorStore"
+import Modes from "../modes"
 
 export type Coordinates = {
     x: number,
@@ -166,7 +167,7 @@ export const movePointInCircle = (point: HTMLDivElement) => {
     }
 }
 
-export const setPointerColor = (context: CanvasRenderingContext2D, id: number, x: number, y: number, mode: string) => {
+export const setPointerColor = (context: CanvasRenderingContext2D, id: number, x: number, y: number, mode: Modes) => {
     let pointToCircleCenterLength = Math.floor(Math.sqrt(Math.pow(x - 255, 2) + Math.pow(y - 255, 2)));
     if (radius >= pointToCircleCenterLength) {
         let color;
@@ -183,7 +184,7 @@ export const setPointerColor = (context: CanvasRenderingContext2D, id: number, x
         let red;
         let green;
         let blue;
-        if(mode==="shades"){
+        if(mode===Modes.SHADES){
             let shade = 100 - (id) * 15;
             red = color[0]*shade/100;
             green = color[1]*shade/100;
@@ -203,13 +204,13 @@ export const setPointerColor = (context: CanvasRenderingContext2D, id: number, x
     }
 }
 
-const positionMode = (mode: string, id: number): Coordinates => {
+const positionMode = (mode: Modes, id: number): Coordinates => {
     let mainX = store.getState().x - radius;
     let mainY = store.getState().y - radius;
     let degrees;
     let x, y;
     switch (mode) {
-        case "primary":
+        case Modes.PRIMARY:
             degrees = id % 2 == 0
                 ? -30 * id / 2
                 : 30 * (id + 1) / 2;
@@ -217,7 +218,7 @@ const positionMode = (mode: string, id: number): Coordinates => {
             y = mainX * Math.sin(degreesToRadians(degrees)) + mainY * Math.cos(degreesToRadians(degrees)) + radius;
             return { x, y } as Coordinates;
 
-        case "secondary":
+        case Modes.SECONDARY:
             degrees = id % 2 == 0
                 ? -72 * id / 2
                 : 72 * (id + 1) / 2;
@@ -225,7 +226,7 @@ const positionMode = (mode: string, id: number): Coordinates => {
             y = mainX * Math.sin(degreesToRadians(degrees)) + mainY * Math.cos(degreesToRadians(degrees)) + radius;
             return { x, y } as Coordinates;
 
-        case "triad":
+        case Modes.TRIAD:
             degrees = id % 2 == 0
                 ? -120 * id / 2
                 : 120 * (id + 1) / 2;
@@ -240,7 +241,7 @@ const positionMode = (mode: string, id: number): Coordinates => {
             x += radius;
             y += radius;
             return { x, y } as Coordinates;
-        case "complementary":
+        case Modes.COMPLEMENTARY:
             degrees = 180 * id;
             x = mainX * Math.cos(degreesToRadians(degrees)) - mainY * Math.sin(degreesToRadians(degrees));
             y = mainX * Math.sin(degreesToRadians(degrees)) + mainY * Math.cos(degreesToRadians(degrees));
@@ -256,7 +257,7 @@ const positionMode = (mode: string, id: number): Coordinates => {
             y += radius;
             return { x, y }
 
-        case "shades":
+        case Modes.SHADES:
             return { x: store.getState().x, y: store.getState().y }
         default:
             degrees = id % 2 == 0
@@ -268,7 +269,7 @@ const positionMode = (mode: string, id: number): Coordinates => {
     }
 }
 
-export const moveByVector = (mode: string, id: number, pointer: HTMLDivElement, setColor: (x: number, y: number, id: number) => void) => {
+export const moveByVector = (mode: Modes, id: number, pointer: HTMLDivElement, setColor: (x: number, y: number, id: number) => void) => {
     let { x, y } = positionMode(mode, id);
     pointer.style.left = x - 10 + "px";
     pointer.style.top = y - 10 + "px";

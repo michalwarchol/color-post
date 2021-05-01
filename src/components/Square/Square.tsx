@@ -2,12 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { StateType, ColorType } from "../../reducers/types"
 import { decToHex } from "../ColorWheel/ColorWheelController"
+import Modes from "../modes";
 
 import RangeInput from "../RangeInput/RangeInput"
 
 interface Props {
     id: number,
-    mode: string,
+    mode: Modes,
     colors: ColorType[],
     active: number | null,
     setActive(id: number): void,

@@ -9,9 +9,10 @@ import {
   generateColorWheel,
   setPointerColor
 } from "./ColorWheelController";
+import Modes from "../modes";
 
 interface Props {
-  mode: string,
+  mode: Modes,
   mainPointerX: number,
   mainPointerY: number,
   mouseX: number,

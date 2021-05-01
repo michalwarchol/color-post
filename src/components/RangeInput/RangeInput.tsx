@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import Modes from "../modes";
 
 interface Props {
     id: number,
-    mode: string,
+    mode: Modes,
     handleRangeInput(value: number): void,
     initialValue: number
 }
@@ -16,7 +17,7 @@ const RangeInput: React.FC<Props> = ({ id, mode, handleRangeInput, initialValue 
     }, [initialValue])
 
     useEffect(() => {
-        if (mode == "shades") {
+        if (mode == Modes.SHADES) {
             handleRangeInput(100 - (id) * 15);
             setValue(100 - (id) * 15);
         }else{

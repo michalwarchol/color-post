@@ -2,10 +2,11 @@ import React, { useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import { moveByVector } from "../ColorWheel/ColorWheelController"
 import { StateType, ColorType } from '../../reducers/types';
+import Modes from "../modes";
 
 interface Props {
   id: number,
-  mode: string,
+  mode: Modes,
   mainPointerX: number,
   mainPointerY: number,
   colors: ColorType[],

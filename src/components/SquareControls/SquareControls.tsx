@@ -4,11 +4,12 @@ import {connect} from "react-redux"
 import RangeInput from "../RangeInput/RangeInput"
 import {StateType, ColorType} from "../../reducers/types";
 import {decToHex} from "../ColorWheel/ColorWheelController";
+import Modes from "../modes"
 
 interface Props {
     colors: ColorType[],
     id: number,
-    mode: string,
+    mode: Modes,
     shades: number[],
     setShade: React.Dispatch<React.SetStateAction<number[]>>
 }
