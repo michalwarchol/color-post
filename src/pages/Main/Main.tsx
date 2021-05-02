@@ -75,8 +75,10 @@ const Main: React.FC<Props> = ({palette}) => {
 			.catch(err => console.log(err));
 	}
 
-	const handleModeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setMode(parseInt(e.target.value));
+
+	type Option = {value: Modes, label: string}
+	const handleModeChange = (e: Option) => {
+		setMode(e.value);
 	}
 
 	const handleSquareClick = (id: number) => {
