@@ -1,27 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import {connect} from "react-redux"
 
 import Topbar from "../../components/Topbar/Topbar";
 import ColorWheel from "../../components/ColorWheel/ColorWheel";
 import Square from '../../components/Square/Square';
 import SelectModes from "../../components/SelectModes/SelectModes";
 import SquareControls from "../../components/SquareControls/SquareControls";
-import CustomPattern from "../../components/CustomPattern/CustomPattern";
 import Pattern from "../../components/Pattern/Pattern";
-import Button from "../../components/Button/Button";
 import Footer from "../../components/Footer/Footer";
-
-import { StateType, PatternType, ColorType } from "../../reducers/types";
 import Modes from "../../components/modes";
+import ColorWheelButtons from "../../components/ColorWheelButtons/ColorWheelButtons"
+import { PatternType } from "../../reducers/types";
 
-interface Props {
-	palette: ColorType[]
-}
 
-const Main: React.FC<Props> = ({palette}) => {
+
+const Main: React.FC = () => {
 
 	const [mode, setMode] = useState<Modes>(Modes.PRIMARY);
-	const [customVisible, setCustomVisible] = useState<boolean>(false);
 	const [width, setWidth] = useState<number>(window.innerWidth);
 	const [squareActive, setSquareActive] = useState<number | null>(window.innerWidth >= 768 ? null : 0);
 	const [squareShades, setSquareShades] = useState<number[]>([100, 100, 100, 100, 100]);
@@ -93,48 +87,6 @@ const Main: React.FC<Props> = ({palette}) => {
 		setMorePopular(morePopular + 8);
 	}
 
-	const createCustomPattern = () => {
-		setCustomVisible(!customVisible);
-	}
-
-	const cancelCustomPattern = () => {
-		setCustomVisible(false);
-	}
-
-	const savePattern = () => {
-        fetch("/api/v1/palette/create", {
-			method: "post",
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({
-				palette: palette
-			})
-		}).then(response => {
-			console.log(response)
-			if (response.redirected == true) {
-				location.assign(response.url)
-			}
-		}).catch(err => {
-			console.log(err)
-		})
-    }
-
-	const saveCustom = (palette: ColorType[]) => {
-		fetch("/api/v1/palette/create", {
-			method: "post",
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({
-				palette: palette
-			})
-		}).then(response => {
-			if (response.redirected == true) {
-				location.assign(response.url)
-			}
-			setCustomVisible(false);
-		}).catch(err => {
-			console.log(err)
-		})
-	}
-
 	return (
 		<div className="main">
 			<Topbar />
@@ -142,10 +94,7 @@ const Main: React.FC<Props> = ({palette}) => {
 				<SelectModes handleModeChange={handleModeChange} />
 				<ColorWheel mode={mode} />
 				<div className="modes col-12 col-lg-9 d-flex flex-column flex-md-row justify-content-center" >
-					<div className="d-flex flex-column flex-sm-row align-items-center justify-content-center">
-						<Button text="save pattern" handleClick={savePattern} />
-						<Button text="create custom" handleClick={createCustomPattern} />
-					</div>
+					<ColorWheelButtons />
 				</div>
 				
 			</div>
@@ -187,13 +136,10 @@ const Main: React.FC<Props> = ({palette}) => {
 				</div>
 			</div>
 			<Footer />
-			{customVisible && <CustomPattern cancel={cancelCustomPattern} saveCustom={saveCustom} />}
 		</div>
 	)
 }
 
-const mapStateToProps = (state: StateType) => ({
-	palette: state.colors
-})
 
-export default connect(mapStateToProps)(Main);
+
+export default Main;
