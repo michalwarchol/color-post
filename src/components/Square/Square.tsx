@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import {BiSun} from "react-icons/bi";
 import { StateType, ColorType } from "../../reducers/types"
 import { decToHex } from "../ColorWheel/ColorWheelController"
 import Modes from "../modes";
@@ -49,7 +50,7 @@ const Square: React.FC<Props> = ({ id, mode, colors, active, setActive, shades, 
                     {"rgb(" + Math.floor(colors[id].r * shades[id] / 100) + "," + Math.floor(colors[id].g * shades[id] / 100) + "," + Math.floor(colors[id].b * shades[id] / 100) + ")"}
                 </span>
                 <div className="brightnessValue d-flex align-items-center justify-content-center">
-                    &#9728;<RangeInput id={id} mode={mode} handleRangeInput={handleRangeInput} initialValue={shades[id]}/>
+                    <BiSun /><RangeInput id={id} mode={mode} handleRangeInput={handleRangeInput} initialValue={shades[id]}/>
                 </div>
             </>
             }

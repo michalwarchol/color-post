@@ -1,5 +1,6 @@
 import React from "react"
 import {connect} from "react-redux"
+import {BiSun} from "react-icons/bi";
 
 import RangeInput from "../RangeInput/RangeInput"
 import {StateType, ColorType} from "../../reducers/types";
@@ -32,7 +33,7 @@ const SquareControls:React.FC<Props> = ({colors, id, mode, shades, setShade}) =>
                 <span className="rgbValue">
                     {"rgb(" + Math.floor(colors[id].r * shades[id] / 100) + "," + Math.floor(colors[id].g * shades[id] / 100) + "," + Math.floor(colors[id].b * shades[id] / 100) + ")"}
                 </span>
-                <div className="brightnessValue d-flex align-items-center justify-content-center">&#9728;<RangeInput id={id} mode={mode} handleRangeInput={handleRangeInput} initialValue={shades[id]}/></div>
+                <div className="brightnessValue d-flex align-items-center justify-content-center"><BiSun /><RangeInput id={id} mode={mode} handleRangeInput={handleRangeInput} initialValue={shades[id]}/></div>
 				</div>
     )
 }
