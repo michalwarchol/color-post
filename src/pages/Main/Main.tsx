@@ -161,7 +161,7 @@ const Main: React.FC<Props> = ({palette}) => {
 			}
 			<div className="container d-flex flex-column">
 				<h2>Popular patterns</h2>
-				<div className="popularPatterns d-flex flex-row justify-content-start flex-wrap">
+				<div className="shownPatterns d-flex flex-row justify-content-start flex-wrap">
 					{popularPatterns.map((elem, i) =>
 						<Pattern key={i}
 							id={elem._id}
@@ -174,7 +174,7 @@ const Main: React.FC<Props> = ({palette}) => {
 					<span onClick={showMorePopular}>show more</span>
 				</div>
 				<h2>Latest patterns</h2>
-				<div className="latestPatterns d-flex flex-row justify-content-start flex-wrap">
+				<div className="shownPatterns d-flex flex-row justify-content-start flex-wrap">
 					{latestPatterns.map((elem, i) =>
 						<Pattern key={i} id={elem._id}
 							user={elem.user}

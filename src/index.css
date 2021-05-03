@@ -121,6 +121,7 @@
 }
 .main .showMore {
   text-align: center;
+  margin-bottom: 20px;
 }
 .main .showMore span {
   padding: 5px 15px;
@@ -135,6 +136,9 @@
 }
 .main .showMore span:hover {
   background-color: black;
+}
+.main h2 {
+  margin-top: 40px;
 }
 
 .patterns {
