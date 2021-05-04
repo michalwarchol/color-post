@@ -71,15 +71,13 @@ const Profile: React.FC = () => {
                     <h4>Total patterns liked: {getUserLikedPatternsLength()}</h4>
                 </div>
                 <div className="carouselBox">
-                    <h2>Created patterns</h2>
-                    {createdPatterns && <div className="d-flex flex-row">
-                        <Carousel patterns={createdPatterns} />
+                    {createdPatterns && <div>
+                        <Carousel name="Created patterns" patterns={createdPatterns} />
                     </div>}
                 </div>
                 <div className="carouselBox">
-                    <h2>Liked Pattterns</h2>
                     {likedPatterns && <div>
-                        <Carousel patterns={likedPatterns} />
+                        <Carousel name="Liked patterns" patterns={likedPatterns} />
                     </div>}
                 </div>
             </div>

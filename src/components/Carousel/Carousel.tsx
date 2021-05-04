@@ -4,10 +4,11 @@ import Pattern from "../Pattern/Pattern";
 import { PatternType } from "../../reducers/types";
 
 interface Props {
+    name: string,
     patterns: PatternType[]
 }
 
-const Carousel: React.FC<Props> = ({ patterns }) => {
+const Carousel: React.FC<Props> = ({ name, patterns }) => {
     const [slide, setSlide] = useState<number>(0);
     const [leftVisible, setLeftVisible] = useState<boolean>(false);
     const [rightVisible, setRightVisible] = useState<boolean>(patterns.length > 4 ? true : false);
@@ -44,12 +45,14 @@ const Carousel: React.FC<Props> = ({ patterns }) => {
     }
     return (
         <div className="myCarousel d-flex col-12 flex-nowrap align-items-center">
+            
             <div className="arrow left d-flex align-items-center justify-content-center"
                 onClick={() => moveCarousel(false)}
                 style={{ visibility: leftVisible ? "visible" : "hidden" }}>
                 <BsChevronLeft />
             </div>
-            <div className="carouselWrapper d-flex col-12">
+            <div className="carouselWrapper d-flex col-12 flex-column">
+            <h1>{name}</h1>
                 <div className="carouselInner d-flex col-12" style={{ transform: "translateX(" + slide + "00%)" }}>
                     {processPatterns()}
                 </div>
