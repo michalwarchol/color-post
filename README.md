@@ -17,7 +17,7 @@ Add necessary variables to `.env` file:
 JWT_SECRET=
 ATLAS_URI=mongodb+srv://<login>:<password>@<login>.f7he4.mongodb.net/<database>
 ```
-Replace "<login>" with your login. Replace "<password>" with the password for <login> user. Replace "<database>" with the name of the database that connections will use by default.
+Replace 'login' with your MongoDB Atlas username. Replace "password" with the password for Atlas user. Replace "database" with the name of the database that connections will use by default.
 
 Run:
 ```bash
@@ -28,11 +28,11 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Tech Stack
 
-[React](https://reactjs.org/)
-[Redux](https://redux.js.org/)
-[Typescript](https://www.typescriptlang.org/)
-[Node](https://nodejs.dev/)
-[Express](https://expressjs.com/)
-[Mongoose](https://mongoosejs.com/)
-[Json Web Token](https://jwt.io/)
-[Webpack](https://webpack.js.org/)
+[React](https://reactjs.org/)<br />
+[Redux](https://redux.js.org/)<br />
+[Typescript](https://www.typescriptlang.org/)<br />
+[Node](https://nodejs.dev/)<br />
+[Express](https://expressjs.com/)<br />
+[Mongoose](https://mongoosejs.com/)<br />
+[Json Web Token](https://jwt.io/)<br />
+[Webpack](https://webpack.js.org/)<br />
