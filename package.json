@@ -1,6 +1,8 @@
 {
   "name": "colorpost",
   "version": "1.0.0",
+  "author": "Michał Warchoł",
+  "license": "ISC",
   "description": "Webpage, you can make and save your color palettes on!",
   "repository": {
     "type": "git",
@@ -22,8 +24,6 @@
     "webpack",
     "typescript"
   ],
-  "author": "Michał Warchoł",
-  "license": "ISC",
   "dependencies": {
     "@types/cookie-parser": "^1.4.2",
     "@types/react": "^16.9.46",
@@ -31,7 +31,6 @@
     "@types/react-redux": "^7.1.16",
     "@types/react-router-dom": "^5.1.5",
     "@types/react-select": "^4.0.15",
-    "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.6.0",
