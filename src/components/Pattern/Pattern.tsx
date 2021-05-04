@@ -139,7 +139,7 @@ const Pattern: React.FC<Props> = ({ id, user, palette, likes }) => {
                 <span>Added by <a href={"/user?name="+user}>{writeUsername(user)}</a></span>
             </div>
             <div className="likes" onClick={isLiked ? removeFromFavourites : addToFavourites}>
-                <span style={{background:isLiked?"#ff3d8b":"#1e2022"}}><BsHeartFill /> {writeLikes(likes)}</span>
+                <span style={{background:isLiked?"#e5383b":"#222429"}}><BsHeartFill /> {writeLikes(likes)}</span>
             </div>
         </div>
     )

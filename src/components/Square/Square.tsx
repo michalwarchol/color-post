@@ -37,7 +37,7 @@ const Square: React.FC<Props> = ({ id, mode, colors, active, setActive, shades, 
                     background: "rgb(" + Math.floor(colors[id].r * shades[id] / 100) + "," +
                         Math.floor(colors[id].g * shades[id] / 100) + "," +
                         Math.floor(colors[id].b * shades[id] / 100) + ")",
-                    border: id === active ? "2px solid #1e2022" : undefined
+                    border: id === active ? "2px solid #222429" : undefined
                 }}>
             </div>{active === null && 
             <>
