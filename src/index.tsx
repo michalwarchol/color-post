@@ -12,6 +12,7 @@ import Login from "./pages/Login/Login"
 import SignUp from "./pages/SignUp/SignUp"
 import Patterns from "./pages/Patterns/Patterns"
 import Profile from "./pages/Profile/Profile"
+import Explore from "./pages/Explore/Explore"
 import NotFound from "./pages/404/404"
 
 const Index: React.FC = () => {
@@ -25,6 +26,7 @@ const Index: React.FC = () => {
 						<Route exact path="/signup" component={SignUp} />
 						<Route path="/user" component={Patterns} />
 						<Route path="/profile" component={Profile} />
+						<Route path="/explore" component={Explore} />
 						<Route path="/" component={NotFound} />
 					</Switch>
 				</BrowserRouter>
