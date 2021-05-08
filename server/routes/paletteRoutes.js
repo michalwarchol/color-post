@@ -15,6 +15,7 @@ router.get("/findByUser", paletteController.findByUser);
 router.get("/findLikedByUser", paletteController.findLikedByUser);
 router.get("/findLatest", paletteController.findLatest);
 router.get("/findPopular", paletteController.findMostPopular);
+router.get("/findRandom", paletteController.findRandom);
 router.put("/incrementLikes", paletteController.incrementLikes);
 router.put("/decrementLikes", paletteController.decrementLikes);
 

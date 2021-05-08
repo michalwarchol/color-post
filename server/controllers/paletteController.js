@@ -130,6 +130,19 @@ module.exports.findMostPopular = async (req, res) => {
     })
 }
 
+module.exports.findRandom = async (req, res) => {
+    Palette.countDocuments({}, (err, count)=> {
+        let random = Math.floor(Math.random() * count);
+        Palette.findOne({}, {}, {skip: random}, (err, result)=>{
+            if(err){
+                res.status(500).json({message: "Error 500"})
+                return;
+            }
+            res.status(200).json({palette: result});
+        })
+    })
+}
+
 module.exports.incrementLikes = async (req, res) => {
     const { id } = req.body;
     Palette.updateOne({ _id: id }, { $inc: { likes: 1 } }, (err, result) => {
