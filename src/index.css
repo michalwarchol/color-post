@@ -28,7 +28,7 @@
 }
 .login_page .form_login form input:focus {
   padding-left: 8px;
-  border: 2px solid #1e2022;
+  border: 2px solid #222429;
   box-sizing: border-box;
 }
 .login_page .form_login form span {
@@ -38,8 +38,8 @@
 .login_page .form_login form .submit_button button {
   width: 100px;
   height: 40px;
-  border: 1px solid #1e2022;
-  background-color: #52616b;
+  border: 1px solid #222429;
+  background-color: #4E545E;
   color: white;
   border-radius: 2px;
   box-shadow: #000000 -1px -1px 10px inset;
@@ -84,7 +84,7 @@
 }
 .signup_page .form_signup form input:focus {
   padding-left: 8px;
-  border: 2px solid #1e2022;
+  border: 2px solid #222429;
   box-sizing: border-box;
 }
 .signup_page .form_signup form span {
@@ -94,8 +94,8 @@
 .signup_page .form_signup form .submit_button button {
   width: 100px;
   height: 40px;
-  border: 1px solid #1e2022;
-  background-color: #52616b;
+  border: 1px solid #222429;
+  background-color: #4E545E;
   color: white;
   border-radius: 2px;
   box-shadow: #000000 -1px -1px 10px inset;
@@ -113,8 +113,8 @@
 
 .main {
   font-family: "Lato", sans-serif;
-  background-color: #52616b;
-  color: #d7d8d7;
+  background-color: #4E545E;
+  color: #F2F3F4;
 }
 .main .canvasContainer {
   padding: 20px 0;
@@ -129,8 +129,8 @@
   border-radius: 4px;
   cursor: pointer;
   text-decoration: none;
-  background-color: #1e2022;
-  color: #d7d8d7;
+  background-color: #222429;
+  color: #BDC1C8;
   border-radius: 4px 4px 12px 12px;
   padding: 6px 10px;
 }
@@ -143,8 +143,8 @@
 
 .patterns {
   min-height: 100vh;
-  background-color: #52616b;
-  color: #d7d8d7;
+  background-color: #4E545E;
+  color: #BDC1C8;
 }
 .patterns .content {
   margin-top: 20px;
@@ -152,7 +152,7 @@
 
 .notFound {
   min-height: 100vh;
-  background-color: #52616b;
+  background-color: #4E545E;
 }
 .notFound h1 {
   font-size: 600%;
@@ -160,8 +160,8 @@
 
 .profile {
   min-height: 100vh;
-  background-color: #52616b;
-  color: #d7d8d7;
+  background-color: #4E545E;
+  color: #F2F3F4;
 }
 .profile .content .information {
   margin-bottom: 20px;
@@ -173,14 +173,19 @@
   margin-bottom: 20px;
 }
 
+.explore {
+  min-height: 100vh;
+  background-color: #4E545E;
+}
+
 .button {
   padding: 5px 15px;
   margin: 0 4px;
   border-radius: 4px;
   cursor: pointer;
   text-decoration: none;
-  background-color: #1e2022;
-  color: #d7d8d7;
+  background-color: #222429;
+  color: #BDC1C8;
   text-align: center;
   border-radius: 10px;
   width: 150px;
@@ -193,11 +198,19 @@
 
 .myCarousel {
   padding: 0;
-  background-color: #4e5358;
+  border: 1px solid #BDC1C8;
+  border-radius: 6px;
+  background-color: #424850;
 }
 .myCarousel .carouselWrapper {
   overflow: hidden;
   padding: 0;
+  z-index: 2;
+}
+.myCarousel .carouselWrapper h1 {
+  margin-top: 10px;
+  margin-left: 20px;
+  font-size: 36px;
 }
 .myCarousel .carouselWrapper .carouselInner {
   transition: transform 0.8s ease-in-out;
@@ -210,29 +223,86 @@
 }
 .myCarousel .arrow {
   cursor: pointer;
-  z-index: 2;
+  z-index: 3;
   height: 30%;
   width: 50px;
   font-size: 400%;
-  background-color: #4e5358;
+  background-color: #424850;
 }
 .myCarousel .arrow:hover {
-  background-color: #1e2022;
+  background-color: #4E545E;
 }
 .myCarousel .left {
   border-radius: 10px 0 0 10px;
   transform: rotate(360deg);
   position: absolute;
   left: -50px;
+  border: 1px solid #BDC1C8;
+  border-right: 1px solid #424850;
 }
 .myCarousel .right {
   border-radius: 0 10px 10px 0;
   position: absolute;
   right: -50px;
+  border: 1px solid #BDC1C8;
+  border-left: 1px solid #424850;
+}
+
+.bigCarousel {
+  height: 50vh;
+  padding: 0;
+  border: 1px solid #BDC1C8;
+  border-radius: 6px;
+  background-color: #424850;
+}
+.bigCarousel .carouselWrapper {
+  overflow: hidden;
+  padding: 0;
+  z-index: 2;
+}
+.bigCarousel .carouselWrapper h1 {
+  margin-top: 10px;
+  margin-left: 20px;
+  font-size: 36px;
+}
+.bigCarousel .carouselWrapper .carouselInner {
+  transition: transform 0.8s ease-in-out;
+  padding: 0;
+}
+.bigCarousel .carouselWrapper .myCarouselItem {
+  width: 100%;
+  z-index: 1;
+  padding: 0;
+}
+.bigCarousel .arrow {
+  cursor: pointer;
+  z-index: 3;
+  height: 30%;
+  width: 50px;
+  font-size: 400%;
+  background-color: #424850;
+}
+.bigCarousel .arrow:hover {
+  background-color: #4E545E;
+}
+.bigCarousel .left {
+  border-radius: 10px 0 0 10px;
+  transform: rotate(360deg);
+  position: absolute;
+  left: -50px;
+  border: 1px solid #BDC1C8;
+  border-right: 1px solid #424850;
+}
+.bigCarousel .right {
+  border-radius: 0 10px 10px 0;
+  position: absolute;
+  right: -50px;
+  border: 1px solid #BDC1C8;
+  border-left: 1px solid #424850;
 }
 
 .topbar {
-  background-color: #1e2022;
+  background-color: #222429;
 }
 .topbar .upperTopbar {
   padding: 10px 0;
@@ -243,7 +313,7 @@
 }
 .topbar .upperTopbar .logo a {
   text-decoration: none;
-  color: #d7d8d7;
+  color: #BDC1C8;
 }
 .topbar .upperTopbar .buttons .loginButton, .topbar .upperTopbar .buttons .signupButton, .topbar .upperTopbar .buttons .logoutButton {
   padding: 5px 15px;
@@ -251,15 +321,15 @@
   border-radius: 4px;
   cursor: pointer;
   text-decoration: none;
-  background-color: #d7d8d7;
-  color: #1e2022;
+  background-color: #BDC1C8;
+  color: #222429;
 }
 .topbar .upperTopbar .buttons .loginButton:hover, .topbar .upperTopbar .buttons .signupButton:hover, .topbar .upperTopbar .buttons .logoutButton:hover {
-  background-color: #a3a6a3;
+  background-color: #858d9a;
 }
 .topbar .lowerTopbar {
-  background-color: #52616b;
-  border-bottom: 1px solid #1e2022;
+  background-color: #4E545E;
+  border-bottom: 1px solid #222429;
   padding: 10px 0;
 }
 .topbar .lowerTopbar a {
@@ -268,10 +338,10 @@
   border-radius: 4px;
   cursor: pointer;
   text-decoration: none;
-  background-color: #1e2022;
-  color: #d7d8d7;
+  background-color: #222429;
+  color: #BDC1C8;
   text-decoration: none;
-  color: #d7d8d7;
+  color: #BDC1C8;
 }
 .topbar .lowerTopbar a:hover {
   background-color: black;
@@ -347,8 +417,8 @@
 }
 .modes .customSelect {
   width: 200px;
-  background-color: #52616b;
-  color: #1e2022;
+  background-color: #4E545E;
+  color: #222429;
 }
 
 input[type=range] {
@@ -369,13 +439,13 @@ input[type=range]::-webkit-slider-thumb {
   appearance: none;
   height: 20px;
   width: 20px;
-  background: #1e2022;
+  background: #222429;
   border-radius: 50%;
   cursor: pointer;
   transition: background 0.1s ease-in-out;
 }
 input[type=range]::-webkit-slider-thumb:active {
-  background: #060707;
+  background: #0b0c0d;
 }
 
 .pattern {
@@ -392,7 +462,7 @@ input[type=range]::-webkit-slider-thumb:active {
 .pattern .username a {
   text-decoration: none;
   font-weight: bold;
-  color: #d7d8d7;
+  color: #F2F3F4;
 }
 .pattern .likes {
   margin-left: 15px;
@@ -404,11 +474,21 @@ input[type=range]::-webkit-slider-thumb:active {
   border-radius: 4px;
   cursor: pointer;
   text-decoration: none;
-  background-color: #1e2022;
-  color: #d7d8d7;
+  background-color: #222429;
+  color: #BDC1C8;
 }
 .pattern .likes span:hover {
   background-color: black;
+}
+
+.bigPattern {
+  height: 200px;
+}
+.bigPattern .colors {
+  height: 50vh;
+}
+.bigPattern .color {
+  height: 100%;
 }
 
 @keyframes rotation {
@@ -425,7 +505,7 @@ input[type=range]::-webkit-slider-thumb:active {
   border-bottom: 0;
   border-left: 0;
   border-style: solid;
-  border-color: #1e2022;
+  border-color: #222429;
   border-radius: 50%;
   margin: 0;
   animation-name: rotation;
@@ -442,11 +522,11 @@ input[type=range]::-webkit-slider-thumb:active {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba(30, 32, 34, 0.8);
+  background-color: rgba(34, 36, 41, 0.8);
   z-index: 5;
 }
 .customPattern .innerCustomPattern {
-  background-color: #1e2022;
+  background-color: #222429;
   width: 60%;
   height: 92%;
   border-radius: 10px;
@@ -485,12 +565,12 @@ input[type=range]::-webkit-slider-thumb:active {
   margin-top: 20px;
 }
 .customPattern .innerCustomPattern .buttons .button:nth-child(1) {
-  border: 1px solid #060707;
+  border: 1px solid #0b0c0d;
 }
 .customPattern .innerCustomPattern .buttons .button:nth-child(2) {
-  border: 1px solid #1e2022;
-  background-color: #d7d8d7;
-  color: #1e2022;
+  border: 1px solid #222429;
+  background-color: #BDC1C8;
+  color: #222429;
 }
 .customPattern .innerCustomPattern .buttons .button:nth-child(2):hover {
   background-color: white;
@@ -500,8 +580,8 @@ input[type=range]::-webkit-slider-thumb:active {
 }
 
 .footer {
-  background-color: #1e2022;
-  color: #d7d8d7;
+  background-color: #222429;
+  color: #BDC1C8;
   width: 100%;
 }
 .footer .innerFooter p {
