@@ -44,6 +44,7 @@ const Topbar = () => {
 					<div className="container d-flex flex-row justify-content-end">
 						<a href="/">Home</a>
 						<a href="/profile">Profile</a>
+						<a href="/explore">Explore</a>
 						<a onClick={logout}>Logout</a>
 					</div>
 				</div>
