@@ -101,18 +101,24 @@ export const writeUsername = (username: string) => {
 export const writeLikes = (
   likes: number,
   isLiked: boolean,
-  likeHasBeenClicked: React.Dispatch<React.SetStateAction<boolean>>
+  likeHasBeenClicked: boolean
 ) => {
-  if (isLiked && likeHasBeenClicked) return likes + 1;
-  else if (isLiked && !likeHasBeenClicked) return likes;
-  else if (!isLiked && likeHasBeenClicked) return likes - 1;
-  else return likes;
+  if (isLiked && likeHasBeenClicked) {
+      console.log("lubian i klikniety")
+    return likes+1};
+  if (isLiked && !likeHasBeenClicked) {
+    console.log("lubiany i nie klikniety")  
+    return likes};
+  if (!isLiked && likeHasBeenClicked) {
+        console.log("nie lubiany i klikniety")  
+    return likes-1};
+
+    console.log("nie lubiany i nie klikniety")
+  return likes;
 };
 
 export const setTextColor = (i: number, palette: ColorType[]) => {
-    let value = palette[i].r + palette[i].g + palette[i].b;
-    if (value >= (256 * 3) / 2)
-        return "#1e2022";
-    else
-        return "#d7d8d7";
-}
+  let value = palette[i].r + palette[i].g + palette[i].b;
+  if (value >= (256 * 3) / 2) return "#1e2022";
+  else return "#d7d8d7";
+};
