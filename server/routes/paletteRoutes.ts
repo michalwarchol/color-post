@@ -1,8 +1,8 @@
-const {Router} = require("express");
-const {requireAuth} =require("../middleware/authMiddleware");
-const paletteController = require("../controllers/paletteController");
+import {Router} from "express";
+import {requireAuth} from "../middleware/authMiddleware";
+import * as paletteController from "../controllers/paletteController";
 
-const router = Router();
+const router: Router = Router();
 router.use("/create", requireAuth);
 router.use("/incrementLikes", requireAuth);
 router.use("/decrementLikes", requireAuth);
@@ -19,4 +19,4 @@ router.get("/findRandom", paletteController.findRandom);
 router.put("/incrementLikes", paletteController.incrementLikes);
 router.put("/decrementLikes", paletteController.decrementLikes);
 
-module.exports = router;
+export default router;

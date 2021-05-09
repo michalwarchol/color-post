@@ -1,12 +1,10 @@
-const mongoose = require("mongoose");
+import {Model, Schema, model} from 'mongoose';
+import {IPalette} from "./model";
 
-const Schema = mongoose.Schema;
-
-const paletteSchema = new Schema({
+const paletteSchema: Schema = new Schema({
     user: {
         type: String,
         required: false,
-        default: "Guest"
     },
     palette: {
         type: Array,
@@ -24,5 +22,4 @@ const paletteSchema = new Schema({
     }
 })
 
-
-module.exports = mongoose.model("Palette", paletteSchema, "palettes");
+export const Palette: Model<IPalette> = model<IPalette>("Palette", paletteSchema, "palettes");
