@@ -1,12 +1,13 @@
-const mongoose = require('mongoose');
-const bcrypt = require("bcrypt");
-const Schema = mongoose.Schema;
+import {Schema, model} from 'mongoose';
+import {IUser, IUserModel} from "./model";
+import bcrypt from "bcrypt";
 
-const userSchema = new Schema({
+const userSchema: Schema<IUser> = new Schema({
     name: {
         type: String,
         required: [true, "Please enter your first name"],
-        minlength: [5, "User name is too short"]
+        minlength: [5, "User name is too short"],
+        unique: [true, "User already exists"]
     },
     password: {
         type: String,
@@ -26,14 +27,14 @@ const userSchema = new Schema({
 })
 
 //hashes password
-userSchema.pre("save", async function(next){
+userSchema.pre("save", async function(this: IUser, next){
     const salt = await bcrypt.genSalt();
     this.password = await bcrypt.hash(this.password, salt);
     next();
 })
 
 //static method to login user
-userSchema.statics.login = async function(name, password){
+userSchema.statics.login = async function(name: string, password: string): Promise<IUser>{
     const user = await this.findOne({name});
     if(user){
         const result = await bcrypt.compare(password, user.password)
@@ -45,4 +46,4 @@ userSchema.statics.login = async function(name, password){
     throw Error("incorrect name")
 }
 
-module.exports = mongoose.model("User", userSchema, "users");
+export const User: IUserModel = model<IUser, IUserModel>("User", userSchema, "users");

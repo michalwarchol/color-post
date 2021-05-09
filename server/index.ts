@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 
 import authRoutes from "./routes/authRoutes";
+import userRoutes from "./routes/userRoutes";
 import paletteRoutes from "./routes/paletteRoutes";
 
 const app: Application = express();
@@ -30,6 +31,7 @@ app.use(cookieParser());
 
 //routes
 app.use("/", authRoutes);
+app.use("/user", userRoutes);
 app.use("/api/v1/palette", paletteRoutes);
 
 //responds index.html from dist folder
