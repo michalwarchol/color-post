@@ -12,11 +12,10 @@
   "main": "index.js",
   "scripts": {
     "bundle": "webpack",
-    "start": "webpack-dev-server --mode development --open --hot",
-    "watch": "webpack --watch --mode production",
-    "dev": "webpack --mode development && node server/index.js",
-    "build": "webpack --mode production",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node dist/index.js",
+    "watch": "tsc -w",
+    "dev": "nodemon --exec ts-node server/index.ts",
+    "build": "tsc",
     "check-types": "tsc"
   },
   "keywords": [
@@ -26,6 +25,7 @@
   ],
   "dependencies": {
     "@types/cookie-parser": "^1.4.2",
+    "@types/express": "^4.17.11",
     "@types/react": "^16.9.46",
     "@types/react-dom": "^16.9.8",
     "@types/react-redux": "^7.1.16",
@@ -37,6 +37,7 @@
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "dotenv-safe": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.6",
@@ -49,6 +50,7 @@
     "react-router-dom": "^5.2.0",
     "react-select": "^4.3.0",
     "redux": "^4.0.5",
+    "ts-node": "^9.1.1",
     "webpack-dev-server": "^3.11.0"
   },
   "devDependencies": {
