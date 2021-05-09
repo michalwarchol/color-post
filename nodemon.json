@@ -1,0 +1,6 @@
+{
+    "ignore": [".gitignore", "node_modules", "dist"],
+    "watch": ["server","src"],
+    "ext": "ts,tsx,css",
+    "exec": "npm run dev"
+}
