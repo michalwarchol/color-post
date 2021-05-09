@@ -15,9 +15,8 @@ npm install
 Add necessary variables to `.env` file:
 ```
 JWT_SECRET=
-ATLAS_URI=mongodb+srv://<login>:<password>@<login>.f7he4.mongodb.net/<database>
+ATLAS_URI=
 ```
-Replace 'login' with your MongoDB Atlas username. Replace "password" with the password for Atlas user. Replace "database" with the name of the database that connections will use by default.
 
 Run:
 ```bash
