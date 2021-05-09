@@ -24,8 +24,11 @@
     "typescript"
   ],
   "dependencies": {
+    "@types/bcrypt": "^3.0.1",
     "@types/cookie-parser": "^1.4.2",
     "@types/express": "^4.17.11",
+    "@types/jsonwebtoken": "^8.5.1",
+    "@types/mongoose": "^5.10.5",
     "@types/react": "^16.9.46",
     "@types/react-dom": "^16.9.8",
     "@types/react-redux": "^7.1.16",
