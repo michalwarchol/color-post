@@ -103,17 +103,10 @@ export const writeLikes = (
   isLiked: boolean,
   likeHasBeenClicked: boolean
 ) => {
-  if (isLiked && likeHasBeenClicked) {
-      console.log("lubian i klikniety")
-    return likes+1};
-  if (isLiked && !likeHasBeenClicked) {
-    console.log("lubiany i nie klikniety")  
-    return likes};
-  if (!isLiked && likeHasBeenClicked) {
-        console.log("nie lubiany i klikniety")  
-    return likes-1};
+  if (isLiked && likeHasBeenClicked) return likes + 1;
+  if (isLiked && !likeHasBeenClicked) return likes;
+  if (!isLiked && likeHasBeenClicked) return likes - 1;
 
-    console.log("nie lubiany i nie klikniety")
   return likes;
 };
 
