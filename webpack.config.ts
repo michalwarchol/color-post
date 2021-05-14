@@ -1,12 +1,16 @@
 import HtmlWebPackPlugin from "html-webpack-plugin";
 import path from 'path';
-import nodeExternals from "webpack-node-externals"
 const htmlPlugin = new HtmlWebPackPlugin({
   template: "./src/index.html", 
   filename: "./index.html"
 });
 
-const common = {
+export = {
+  entry: "./src/index.tsx",
+    output: { 
+        path: path.join(__dirname, 'dist'),
+        filename: "[name].js"
+    },
   watch: true,
   resolve: {
     extensions: ['.ts', '.tsx', '.js']
@@ -49,26 +53,3 @@ const common = {
     },
   }
 }
-
-const frontend = {
-    entry: "./src/index.tsx",
-    output: { 
-        path: path.join(__dirname, 'dist'),
-        filename: "[name].js"
-    },
-  };
-
-  const backend = {
-    entry: "./server/index.ts",
-    output: {
-      path: path.join(__dirname, "dist"),
-      filename: "backend-output.js"
-    },
-    target: 'node',
-    externals: [nodeExternals()]
-  }
-
-  export = [
-    Object.assign({}, common, frontend),
-    Object.assign({}, common, backend)
-  ];
