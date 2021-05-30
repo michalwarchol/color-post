@@ -1,0 +1,30 @@
+.notificationBadge{
+    position: fixed;
+    left: 10px;
+    bottom: -100px;
+    animation-name: animate;
+    animation-duration: 3s;
+    animation-timing-function: ease-in-out;
+    width: 250px;
+    padding: 15px;
+    background-color: $color_1;
+    z-index: 10;
+}
+
+@keyframes animate {
+    from {
+        bottom: -100px;
+    }
+
+    20% {
+        bottom: 10px;
+    }
+
+    80% {
+        bottom: 10px;
+    }
+
+    to {
+        bottom: -100px;
+    }
+}
