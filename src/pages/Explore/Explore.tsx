@@ -5,7 +5,7 @@ import BigCarousel from "../../components/BigCarousel/BigCarousel";
 
 const Explore:React.FC = () => {
     return(
-        <div className="explore">
+        <div className="explore d-flex flex-column">
             <Topbar />
             <div className="content container d-flex flex-column">
                 <h1>Explore</h1>
