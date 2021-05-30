@@ -3,6 +3,7 @@ import {connect} from "react-redux"
 import Button from "../Button/Button"
 import CustomPattern from "../CustomPattern/CustomPattern"
 import {ColorType, StateType} from "../../reducers/types"
+import NotificationBadge from "../NotificationBadge/NotificationBadge"
 
 interface Props {
 	palette: ColorType[]
@@ -11,6 +12,7 @@ interface Props {
 const ColorWheelButtons: React.FC<Props> = ({palette}) => {
 
     const [customVisible, setCustomVisible] = useState<boolean>(false);
+    const [showNotification, setShowNotification] = useState<boolean|null>(null);
 
     const createCustomPattern = () => {
         setCustomVisible(!customVisible);
@@ -32,6 +34,7 @@ const ColorWheelButtons: React.FC<Props> = ({palette}) => {
             if (response.redirected == true) {
                 location.assign(response.url)
             }
+            setShowNotification(!showNotification);
         }).catch(err => {
             console.log(err)
         })
@@ -49,6 +52,7 @@ const ColorWheelButtons: React.FC<Props> = ({palette}) => {
 				location.assign(response.url)
 			}
 			setCustomVisible(false);
+            setShowNotification(!showNotification);
 		}).catch(err => {
 			console.log(err)
 		})
@@ -59,6 +63,7 @@ const ColorWheelButtons: React.FC<Props> = ({palette}) => {
             <Button text="save pattern" handleClick={savePattern} />
             <Button text="create custom" handleClick={createCustomPattern} />
             {customVisible && <CustomPattern cancel={cancelCustomPattern} saveCustom={saveCustom} />}
+            {(showNotification || !showNotification) && typeof(showNotification)==="boolean" && <NotificationBadge text="Pattern saved" />}
         </div>
     )
 }

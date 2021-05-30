@@ -53,7 +53,7 @@ const Carousel: React.FC<Props> = ({ name, patterns }) => {
             </div>
             <div className="carouselWrapper d-flex col-12 flex-column">
             <h1>{name}</h1>
-                <div className="carouselInner d-flex col-12" style={{ transform: "translateX(" + slide + "00%)" }}>
+                <div className="carouselInner d-flex col-12" style={{ left: `${slide}00%` }}>
                     {processPatterns()}
                 </div>
             </div>

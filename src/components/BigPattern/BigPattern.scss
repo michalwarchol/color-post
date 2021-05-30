@@ -1,9 +1,22 @@
 .bigPattern{
-    height: 200px;
-    .colors{
-        height: 50vh;
-    }
+    margin: 20px 0;
     .color{
-        height: 100%;
+        height: 100px;
+        width: 300px;
+    }
+    .username{
+        color: $color_5;
+        a{
+            color: $color_5;
+            font-weight: bold;
+            text-decoration: none;
+        }
+    }
+    .likes{
+        margin-left: 15px;
+        span{
+            margin: 0;
+            @include button(2);
+        }
     }
 }
