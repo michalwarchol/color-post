@@ -11,6 +11,10 @@
             margin-top: 10px;
             margin-left: 20px;
             font-size: 36px;
+            text-align: center;
+            @media screen and (max-width: 767px){
+                font-size: 26px;
+            }
         }
         .carouselInner{
             position: relative;
@@ -35,19 +39,21 @@
         }
     }
     .left{
-        border-radius: 10px 0 0 10px;
         transform: rotate(360deg);
         position: absolute;
-        left: -50px;
-        border: 1px solid $color_3;
-        border-right: 1px solid darken($color: $color_2, $amount: 5);
+        border-radius: 6px 0 0 6px;
+        border: none;
+        height: 20%;
+        top: 0;
+        left: 0;
     }
 
     .right{
-        border-radius: 0 10px 10px 0;
         position: absolute;
-        right: -50px;
-        border: 1px solid $color_3;
-        border-left: 1px solid darken($color: $color_2, $amount: 5);
+        border-radius: 0 6px 6px 0;
+        border: none;
+        height: 20%;
+        top: 0;
+        right: 0;
     }
 }

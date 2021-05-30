@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import {BsChevronRight, BsChevronLeft} from "react-icons/bs";
 import Pattern from "../Pattern/Pattern";
 import { PatternType } from "../../reducers/types";
@@ -12,18 +12,23 @@ const Carousel: React.FC<Props> = ({ name, patterns }) => {
     const [slide, setSlide] = useState<number>(0);
     const [leftVisible, setLeftVisible] = useState<boolean>(false);
     const [rightVisible, setRightVisible] = useState<boolean>(patterns.length > 4 ? true : false);
+    const [width, setWidth] = useState<number>(window.innerWidth);
+
+    useEffect(() => {
+        window.addEventListener("resize", () => setWidth(window.innerWidth));
+      }, []);
 
     const processPatterns = () => {
         let carouselItems = [];
         let i = 0;
         while (i < patterns.length) {
-            let itemPatterns = patterns.slice(i, i + 4);
+            let itemPatterns = patterns.slice(i, i + (width<767?2:4));
             carouselItems.push(
                 <div className="myCarouselItem col-12 d-flex flex-row" key={i}>
                     {itemPatterns.map((elem) => <Pattern key={elem._id} id={elem._id} user={elem.user} palette={elem.palette} likes={elem.likes} />)}
                 </div>
             )
-            i += 4;
+            i += (width<767?2:4);
         }
         return carouselItems;
     }
@@ -31,7 +36,7 @@ const Carousel: React.FC<Props> = ({ name, patterns }) => {
     const moveCarousel = (direction: boolean) => {
         if (direction) {
             setSlide(slide - 1);
-            if (-slide + 3 > patterns.length / 4) {
+            if (-slide + 3 > patterns.length / (width<767?2:4)) {
                 setRightVisible(false);
             }
             setLeftVisible(true);

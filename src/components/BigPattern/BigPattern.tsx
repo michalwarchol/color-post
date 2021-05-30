@@ -48,7 +48,7 @@ const BigPattern: React.FC<Props> = ({ k, pattern }) => {
     const colors = palette.map((elem, i, colors) => (
       <div
         key={i}
-        className="color col-2 d-flex justify-content-center align-items-center"
+        className="color col-6 col-md-2 d-flex justify-content-center align-items-center"
         style={{
           background: "rgb(" + elem.r + "," + elem.g + "," + elem.b + ")",
           color: setTextColor(i, colors)
@@ -71,7 +71,7 @@ const BigPattern: React.FC<Props> = ({ k, pattern }) => {
 
   return (
     <div key={k} className="bigPattern d-flex col-12 flex-column">
-      <div className="colors d-flex flex-row justify-content-center">
+      <div className="colors d-flex flex-column flex-md-row align-items-center justify-content-center">
         {colorInit()}
       </div>
       <div className="username d-flex justify-content-center">

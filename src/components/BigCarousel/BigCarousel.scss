@@ -34,19 +34,16 @@
         }
     }
     .left{
-        border-radius: 10px 0 0 10px;
+        
+        border-radius: 0 10px 10px 0;
         transform: rotate(360deg);
         position: absolute;
-        left: -50px;
-        border: 1px solid $color_3;
-        border-right: 1px solid darken($color: $color_2, $amount: 5);
+        left: 0;
     }
 
     .right{
-        border-radius: 0 10px 10px 0;
+        border-radius: 10px 0 0 10px;
         position: absolute;
-        right: -50px;
-        border: 1px solid $color_3;
-        border-left: 1px solid darken($color: $color_2, $amount: 5);
+        right: 0;
     }
 }
