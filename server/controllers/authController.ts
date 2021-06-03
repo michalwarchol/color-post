@@ -1,7 +1,7 @@
 import "dotenv-safe/config";
 import {Request, Response} from "express";
 import {User} from '../models/user';
-import {sign} from "jsonwebtoken";
+import {sign, verify} from "jsonwebtoken";
 
 interface IPossibleErrors {
     name: string,
@@ -104,6 +104,31 @@ export const login_post = async (req: Request, res: Response) => {
         res.status(400).json({errors})
     }
     
+}
+
+export const reset_password = async (req: Request, res: Response) => {
+    const token = req.cookies.jwt;
+    const decodedToken: any = verify(token, process.env.JWT_SECRET as string);
+
+    let responseObject = {message: "", error: "", passwordError: ""}
+
+    if(decodedToken){
+        const result = await User.resetPassword(decodedToken.id, 
+        req.body.oldPassword as string,
+        req.body.newPassword as string,
+        responseObject);
+
+        if(result){
+            responseObject.message="success!";
+            res.status(200).json({responseObject})
+        }else{
+            responseObject.message="Failed to update document!";
+            res.status(400).json({responseObject});
+        }
+    }else{
+        responseObject.message="No user!";
+        res.status(400).json({...responseObject});
+    }
 }
 
 export const logout_get = (_: Request, res: Response) => {

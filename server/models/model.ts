@@ -6,11 +6,11 @@ export interface IUser extends Document {
     name: string,
     password: string,
     likedPalettes: ObjectId[],
-    
 }
 
 export interface IUserModel extends Model<IUser>{
     login(name: string, password: string): Promise<IUser>
+    resetPassword(name:string, oldPassword: string, newPassword: string, responseObject: any): Promise<boolean>
 }
 
 export interface IPalette extends Document {
