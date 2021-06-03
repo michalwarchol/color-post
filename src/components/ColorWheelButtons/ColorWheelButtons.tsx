@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import {connect} from "react-redux"
 import Button from "../Button/Button"
 import CustomPattern from "../CustomPattern/CustomPattern"
@@ -13,6 +13,14 @@ const ColorWheelButtons: React.FC<Props> = ({palette}) => {
 
     const [customVisible, setCustomVisible] = useState<boolean>(false);
     const [showNotification, setShowNotification] = useState<boolean|null>(null);
+
+    useEffect(()=>{
+        if(typeof showNotification === "boolean"){
+            setTimeout(()=>{
+                setShowNotification(null);
+            }, 3000)
+        }
+    }, [showNotification])
 
     const createCustomPattern = () => {
         setCustomVisible(!customVisible);
