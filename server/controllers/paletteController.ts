@@ -141,7 +141,7 @@ export const findMostPopular = async (req: Request, res: Response) => {
     const more: string|undefined = req.query.more?.toString();
     if(more){
         let limit = parseInt(more) + 4;
-        Palette.find({}, {}, { sort: { likes: -1 }, limit: limit }, (err: Error, result: IPalette[]) => {
+        Palette.find({}, {}, { sort: { likes: -1, created_at: -1}, limit: limit }, (err: Error, result: IPalette[]) => {
             if (err) {
                 res.status(404).json({ message: "resource not found" });
             }
