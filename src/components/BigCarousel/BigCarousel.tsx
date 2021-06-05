@@ -12,7 +12,6 @@ const BigCarousel: React.FC = () => {
   useEffect(() => {
     getRandomPalette();
   }, []);
-
   const getRandomPalette = () => {
     fetch("/api/v1/palette/findRandom", {
       method: "get",
@@ -37,7 +36,7 @@ const BigCarousel: React.FC = () => {
   };
 
   const processPatterns = () => {
-    return patterns.map((elem, i) => <BigPattern k={i} pattern={elem} />);
+    return patterns.map((elem, i) => <BigPattern k={i} pattern={elem} key={i} />);
   };
 
   const moveCarousel = (direction: boolean) => {

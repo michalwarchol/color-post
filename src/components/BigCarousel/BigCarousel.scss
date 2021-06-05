@@ -3,6 +3,8 @@
     border: 1px solid $color_3;
     border-radius: 6px;
     background-color: darken($color: $color_2, $amount: 5);
+    margin-bottom: 20px;
+    position: relative;
     .carouselWrapper{
         overflow: hidden;
         padding: 0;
