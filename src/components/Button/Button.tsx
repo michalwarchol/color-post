@@ -1,15 +1,22 @@
 import React from "react"
 
+type ButtonType = 
+    "button" |
+    "submit" |
+    "reset" |
+    undefined
+
 interface Props {
     text: string,
+    type: ButtonType,
     handleClick: () => void
 }
 
-const Button:React.FC<Props> = ({text, handleClick}) => {
+const Button:React.FC<Props> = ({text, type, handleClick}) => {
     return (
-        <div className="button" onClick={handleClick}>
+        <button className="button" type={type} onClick={handleClick}>
             <span>{text}</span>
-        </div>
+        </button>
     )
 }
 
