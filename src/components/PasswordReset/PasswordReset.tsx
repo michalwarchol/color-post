@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Button from "../Button/Button";
+import InputField from "../../components/InputField/InputField";
 
 interface Props {
   cancel(): void;
@@ -14,39 +15,54 @@ const PasswordReset: React.FC<Props> = ({ cancel, onSuccess }) => {
   const [repeatNewPassword, setRepeatNewPassword] = useState<string>("");
   const [repeatPasswordError, setRepeatPasswordError] = useState<string>("");
 
-  const passwordReset = () => {
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     if (newPassword !== repeatNewPassword) {
       setOldPasswordError("");
       setNewPasswordError("");
       setRepeatPasswordError("Password confirmation doesn't match!");
       return;
     }
-
     if (newPassword.length < 8) {
       setOldPasswordError("");
       setNewPasswordError("New password is too short!");
       setRepeatPasswordError("");
       return;
     }
-
     fetch("/reset", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ oldPassword, newPassword }),
+      body: JSON.stringify({
+        oldPassword,
+        newPassword,
+      }),
     })
       .then((response) => response.json())
       .then((res) => {
-        if(res.responseObject.passwordError!==""){
+        if (res.responseObject.passwordError !== "") {
           setOldPasswordError(res.responseObject.passwordError);
           setNewPasswordError("");
           setRepeatPasswordError("");
-        }else{
+        } else {
           onSuccess();
           cancel();
         }
       })
       .catch((err) => console.log(err));
-  };
+  }
+
+  const onOldPasswordChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setOldPassword(e.currentTarget.value);
+  }
+
+  const onNewPasswordChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setNewPassword(e.currentTarget.value);
+  }
+
+  const onRepeatPasswordChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setRepeatNewPassword(e.currentTarget.value);
+  }
 
   return (
     <div className="passwordReset d-flex align-items-center justify-content-center">
@@ -59,40 +75,38 @@ const PasswordReset: React.FC<Props> = ({ cancel, onSuccess }) => {
           To reset your password, please enter your current password and a new
           password.
         </p>
-        <form
-          className="d-flex align-items-center flex-column"
-          onSubmit={passwordReset}
-        >
-          <div className="inputField d-flex flex-column">
-            <label>Current password</label>
-            <input
-              type="password"
-              name="name"
-              onChange={(e) => setOldPassword(e.target.value)}
-            />
-            <span>{oldPasswordError}</span>
-          </div>
-          <div className="inputField d-flex flex-column">
-            <label>New password</label>
-            <input
-              type="password"
-              name="name"
-              onChange={(e) => setNewPassword(e.target.value)}
-            />
-            <span>{newPasswordError}</span>
-          </div>
-          <div className="inputField d-flex flex-column">
-            <label>Repeat new password</label>
-            <input
-              type="password"
-              name="name"
-              onChange={(e) => setRepeatNewPassword(e.target.value)}
-            />
-            <span>{repeatPasswordError}</span>
-          </div>
+        <form onSubmit={handleSubmit} className="d-flex align-items-center flex-column">
+          <InputField 
+            name="oldPassword" 
+            label="password" 
+            type="password" 
+            error={oldPasswordError}
+            value={oldPassword}
+            onChange={onOldPasswordChange}
+          />
+          <InputField 
+            name="newPassword" 
+            label="new password" 
+            type="password" 
+            error={newPasswordError}
+            value={newPassword}
+            onChange={onNewPasswordChange}
+          />
+          <InputField
+            name="repeatNewPassword"
+            label="repeat new password"
+            type="password"
+            error={repeatPasswordError}
+            value={repeatNewPassword}
+            onChange={onRepeatPasswordChange}
+          />
           <div className="d-flex flex-row">
-            <Button text="Reset" handleClick={passwordReset} />
-            <Button text="Cancel" handleClick={cancel} />
+            <Button
+              text="Reset"
+              type="submit"
+              handleClick={() => {}}
+            />
+            <Button text="Cancel" type="button" handleClick={cancel} />
           </div>
         </form>
       </div>
