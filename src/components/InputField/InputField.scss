@@ -1,0 +1,17 @@
+.inputField {
+    margin-bottom: 20px;
+    width: 50%;
+    
+    input{
+      @include textInput();
+      padding-left: 8px;
+      border: 2px solid $color_1;
+      box-sizing: border-box;
+      &:focus{
+          border: 2px solid $color_2;
+      }
+    }
+    span{
+        color: $color_4;
+    }
+  }
