@@ -47,9 +47,9 @@ userSchema.statics.login = async function (
     if (result) {
       return user;
     }
-    throw Error("incorrect password");
+    throw new Error("Incorrect password");
   }
-  throw Error("incorrect name");
+  throw new Error("User doesn't exist");
 };
 
 //static method to reset password
@@ -57,10 +57,8 @@ userSchema.statics.resetPassword = async function (
   id: string,
   oldPassword: string,
   newPassword: string,
-  responseObject: any
 ): Promise<boolean> {
   const user: IUser = await this.findOne({ _id: id });
-  let res: boolean = true;
   if (user) {
     const comparison = await bcrypt.compare(oldPassword, user.password);
     if (comparison) {
@@ -72,20 +70,15 @@ userSchema.statics.resetPassword = async function (
         {},
         (err: CallbackError, _: any) => {
           if (err) {
-            res = false;
-            responseObject.error = "Failed to update document!";
+            throw new Error("Failed to update document!");
             }
+            return true;
         }
       );
-    } else {
-      res = false;
-      responseObject.passwordError = "Incorrect password!";
     }
-  } else {
-    res = false;
-    responseObject.error = "Cannot find user!";
+    throw new Error("Incorrect password");
   }
-  return res;
+    throw new Error("Failed to find user");
 };
 
 export const User: IUserModel = model<IUser, IUserModel>(
