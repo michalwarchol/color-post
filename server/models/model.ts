@@ -10,7 +10,7 @@ export interface IUser extends Document {
 
 export interface IUserModel extends Model<IUser>{
     login(name: string, password: string): Promise<IUser>
-    resetPassword(name:string, oldPassword: string, newPassword: string, responseObject: any): Promise<boolean>
+    resetPassword(name:string, oldPassword: string, newPassword: string): Promise<boolean>
 }
 
 export interface IPalette extends Document {
