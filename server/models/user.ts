@@ -57,7 +57,8 @@ userSchema.statics.resetPassword = async function (
   id: string,
   oldPassword: string,
   newPassword: string,
-): Promise<boolean> {
+  callback: () => void
+): Promise<void> {
   const user: IUser = await this.findOne({ _id: id });
   if (user) {
     const comparison = await bcrypt.compare(oldPassword, user.password);
@@ -72,13 +73,11 @@ userSchema.statics.resetPassword = async function (
           if (err) {
             throw new Error("Failed to update document!");
             }
-            return true;
+            callback();
         }
       );
-    }
-    throw new Error("Incorrect password");
-  }
-    throw new Error("Failed to find user");
+    }else throw new Error("Incorrect password");
+  }else throw new Error("Failed to find user");
 };
 
 export const User: IUserModel = model<IUser, IUserModel>(

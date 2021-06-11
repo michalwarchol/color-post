@@ -130,16 +130,14 @@ export const reset_password = async (req: Request, res: Response) => {
         if(token){
             const decodedToken: any = verify(token, process.env.JWT_SECRET as string);
             if(decodedToken){
-                const result = await User.resetPassword(decodedToken.id, 
+                await User.resetPassword(decodedToken.id, 
                 req.body.oldPassword as string,
-                req.body.newPassword as string);
-                if(result){
+                req.body.newPassword as string,
+                ()=>{
                     res.status(200).json({message: "success"});
-                }
+                });
             }
-            throw new Error("JWT token not verified");
-        }
-        throw new Error("JWT token expired");
+        }else throw new Error("JWT token expired");
     }catch(err){
         const errors = handlePasswordResetErrors(err);
         res.status(400).json({errors})
