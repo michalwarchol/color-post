@@ -9,7 +9,12 @@ const Topbar = () => {
 			method: "get",
 			headers: { 'Content-Type': 'application/json' },
 		}).then(response => response.json())
-			.then(res => setUsername(res.user.name))
+			.then(res => {
+				if(res.user)
+					setUsername(res.user.name);
+				if(res.error)
+					setUsername(null);
+			})
 			.catch(err => console.log(err))
 	}, [])
 
