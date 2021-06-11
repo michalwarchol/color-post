@@ -40,11 +40,24 @@ const PasswordReset: React.FC<Props> = ({ cancel, onSuccess }) => {
     })
       .then((response) => response.json())
       .then((res) => {
-        if (res.responseObject.passwordError !== "") {
-          setOldPasswordError(res.responseObject.passwordError);
-          setNewPasswordError("");
-          setRepeatPasswordError("");
-        } else {
+        if(res?.errors){
+          if(res.errors.name){
+            setOldPasswordError("");
+            setNewPasswordError("");
+            setRepeatPasswordError(res.errors.name);
+          }
+          if(res.errors.password){
+            setOldPasswordError(res.errors.password);
+            setNewPasswordError("");
+            setRepeatPasswordError("");
+          }
+          if(res.errors.password_c){
+            setOldPasswordError("");
+            setNewPasswordError("");
+            setRepeatPasswordError(res.errors.password_c);
+          }
+        }
+        else{
           onSuccess();
           cancel();
         }
