@@ -10,17 +10,12 @@
     box-shadow: none;
     outline: none;
     font-weight: 400;
-    &:focus{
-        padding-left: 8px;
-        border: 2px solid $color_1;
-        box-sizing: border-box;
-    }
 }
 
 @mixin submitButton {
     border: 1px solid $color_1;
     background-color: $color_2;
-    color: white;
+    color: $color_5;
     border-radius: 2px;
     box-shadow: #000000 -1px -1px 10px inset;
     &:active{
@@ -34,19 +29,78 @@
     border-radius: 4px;
     cursor: pointer;
     text-decoration: none;
-    
+    border: none;
     @if $variation==1 {
-        background-color: $color_3;
+        background-color: $color_5;
         color: $color_1;
         &:hover{
-            background-color: darken($color: $color_3, $amount: 20);
+            background-color: darken($color: $color_5, $amount: 20);
         }
     }
     @else if $variation==2 {
         background-color: $color_1;
-        color: $color_3;
+        color: $color_5;
         &:hover{
             background-color: darken($color: $color_1, $amount: 20);
+        }
+    }
+}
+
+@mixin loginAndSingup(){
+    color: $color_6;
+    min-height: 100vh;
+    overflow: hidden;
+    .form{
+        background-color: rgba($color: #000000, $alpha: 0.4);
+        z-index: 2;
+        form{
+            width: 100%;
+            padding: 0 20px;
+            label{
+                font-weight: 500;
+            }
+            .inputField{
+                width: 100%;
+            }
+            span{
+                height: 20px;
+                margin-bottom: 20px;
+            }
+            .submit_button{
+                button{
+                    height: 40px;
+                    width:100%;
+                    margin-bottom: 20px;
+                    @include button(2);
+                }
+                span{
+                    text-align: center;
+                    margin: 0;
+                    margin-top: 20px;
+                    a{
+                        color: $color_1;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+        .info{
+            a{
+                color: $color_1;
+                font-weight: bold;
+            }
+        }
+    }
+    img{
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+        @media screen and (max-width: 991px){
+            object-fit: cover;
         }
     }
 }
