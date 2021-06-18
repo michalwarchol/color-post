@@ -32,7 +32,6 @@ export const addToFavourites = (
     }),
   })
     .then((response) => {
-      console.log("response");
       if (response.redirected == true) {
         location.assign(response.url);
         return;
@@ -45,9 +44,10 @@ export const addToFavourites = (
           }),
         })
           .then((response) => response.json())
-          .then((_) => {
+          .then((res) => {
             setIsLiked(true);
             setLikeHasBeenClicked(!likeHasBeenClicked);
+            localStorage.setItem("user", JSON.stringify(res.user))
           })
           .catch((err) => console.log(err));
       }
@@ -81,9 +81,10 @@ export const removeFromFavourites = (
           }),
         })
           .then((response) => response.json())
-          .then((_) => {
+          .then((res) => {
             setIsLiked(false);
             setLikeHasBeenClicked(!likeHasBeenClicked);
+            localStorage.setItem("user", JSON.stringify(res.user))
           })
           .catch((err) => console.log(err));
       }
