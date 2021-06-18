@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { User } from "../models/user";
 import { verify } from "jsonwebtoken";
 import { IUser } from "../models/model";
+import { FindAndModifyWriteOpResultObject } from "mongodb";
 
 const errorHandler = (err: Error) => {
   return err.message;
@@ -30,15 +31,18 @@ export const addLikedPattern = async (req: Request, res: Response) => {
   try {
     if (token) {
       const decodedToken: any = verify(token, process.env.JWT_SECRET as string);
-      User.updateOne(
+      User.findOneAndUpdate(
         { _id: decodedToken.id },
         { $push: { likedPalettes: req.body.pattern } },
-        {},
-        (err: Error, _: IUser) => {
+        {rawResult: true},
+        (err: Error, user: FindAndModifyWriteOpResultObject<IUser>) => {
           if (err) {
             throw new Error("Failed to update a record");
           }
-          res.status(200).json({ message: "Document updated" });
+          User.findById(user.value?._id, (_: Error, doc: IUser)=>{
+            console.log(doc);
+            res.status(200).json({ message: "Document updated", user: doc });
+          })
         }
       );
     } else throw new Error("JWT token expired");
@@ -53,15 +57,17 @@ export const removeLikedPattern = async (req: Request, res: Response) => {
   try {
     if (token) {
       const decodedToken: any = verify(token, process.env.JWT_SECRET as string);
-      User.updateOne(
+      User.findOneAndUpdate(
         { _id: decodedToken.id },
         { $pull: { likedPalettes: req.body.pattern } },
-        {},
-        (err: Error, _: IUser) => {
+        {rawResult: true},
+        (err: Error, user: FindAndModifyWriteOpResultObject<IUser>) => {
           if (err) {
             throw new Error("Failed to update a record");
           }
-          res.status(200).json({ message: "Document updated" });
+          User.findById(user.value?._id, (_: Error, doc: IUser)=>{
+            res.status(200).json({ message: "Document updated", user: doc });
+          })
         }
       );
     } else throw new Error("JWT token expired");
