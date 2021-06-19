@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { BsHeartFill } from "react-icons/bs";
 import { PatternType } from "reducers/types";
-import {decToHex} from "../ColorWheel/ColorWheelController";
+import { decToHex } from "../ColorWheel/ColorWheelController";
 import NotificationBadge from "../NotificationBadge/NotificationBadge";
 import {
   isPatternLiked,
@@ -9,9 +9,8 @@ import {
   removeFromFavourites,
   writeUsername,
   writeLikes,
-  setTextColor
+  setTextColor,
 } from "../PatternFunctions";
-
 
 interface Props {
   pattern: PatternType;
@@ -24,12 +23,11 @@ const BigPattern: React.FC<Props> = ({ k, pattern }) => {
 
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [likeHasBeenClicked, setLikeHasBeenClicked] = useState<boolean>(false);
-  const [showNotification, setShowNotificaction] = useState<boolean | null>(
-    null
-  );
+  const [showNotification, setShowNotificaction] =
+    useState<boolean | null>(null);
 
   const didMount = useRef(false);
-  
+
   useEffect(() => {
     isPatternLiked(id, setIsLiked);
   }, []);
@@ -38,9 +36,8 @@ const BigPattern: React.FC<Props> = ({ k, pattern }) => {
     if (didMount.current) {
       if (isLiked) setShowNotificaction(true);
       if (!isLiked) setShowNotificaction(false);
-    }
-    else{
-      didMount.current=true;
+    } else {
+      didMount.current = true;
     }
   }, [likeHasBeenClicked]);
 
@@ -51,10 +48,13 @@ const BigPattern: React.FC<Props> = ({ k, pattern }) => {
         className="color col-6 col-md-2 d-flex justify-content-center align-items-center"
         style={{
           background: "rgb(" + elem.r + "," + elem.g + "," + elem.b + ")",
-          color: setTextColor(i, colors)
+          color: setTextColor(i, colors),
         }}
-      ><span>
-          #{decToHex(elem.r)}{decToHex(elem.g)}{decToHex(elem.b)}
+      >
+        <span>
+          #{decToHex(elem.r)}
+          {decToHex(elem.g)}
+          {decToHex(elem.b)}
         </span>
       </div>
     ));
@@ -62,12 +62,17 @@ const BigPattern: React.FC<Props> = ({ k, pattern }) => {
   };
 
   const handleClickLike = () => {
-    if(isLiked){
-      removeFromFavourites(id, likeHasBeenClicked, setIsLiked, setLikeHasBeenClicked);
+    if (isLiked) {
+      removeFromFavourites(
+        id,
+        likeHasBeenClicked,
+        setIsLiked,
+        setLikeHasBeenClicked
+      );
       return;
     }
     addToFavourites(id, likeHasBeenClicked, setIsLiked, setLikeHasBeenClicked);
-  }
+  };
 
   return (
     <div key={k} className="bigPattern d-flex col-12 flex-column">
