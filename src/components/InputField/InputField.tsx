@@ -18,6 +18,7 @@ const InputField: React.FC<Props> = ({label, name, type, error, value, onChange}
               type={type}
               value={value}
               onChange={onChange}
+              placeholder={label}
               style={error.length>0?{borderColor: "#e5383b"}:{borderColor: "#222429"}}
             />
             <span>{error}</span>
