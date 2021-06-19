@@ -29,7 +29,6 @@ const Patterns = () => {
 		})
         .then(response=>response.json())
         .then(res=>{
-            console.log(res)
             if(res.redirect){
                 location.assign(res.url)
             }else{
