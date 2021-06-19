@@ -7,12 +7,15 @@
             font-size: 130%;
             a{
                 text-decoration: none;
-                color: $color_3;
+                color: $color_5;
             }
         }
         .buttons{
             .loginButton, .signupButton, .logoutButton{
                 @include button(1);
+            }
+            .welcomeBox{
+                margin-right: 20px;
             }
         }
     }
@@ -23,7 +26,22 @@
         a{
             @include button(2);
             text-decoration: none;
-            color: $color_3;
+            color: $color_5;
+        }
+    }
+    .settings{
+        background-color: $color_2;
+        border-bottom: 1px solid $color_1;
+        padding: 0 15px;
+        span{
+            text-align: end;
+            margin: 0 5px 10px 5px;
+        }
+        .buttons{
+            margin-bottom: 10px;
+            button{
+                margin: 0;
+            }
         }
     }
 }
