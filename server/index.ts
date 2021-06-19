@@ -16,7 +16,7 @@ const HTML_FILE = path.join(DIST_DIR, 'index.html');
 //connection to MongoDB Atlas
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri as string,
- {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true}).catch((err: Error) =>console.log('Error message: '+err)
+ {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false}).catch((err: Error) =>console.log('Error message: '+err)
  );
 
 const connection = mongoose.connection;
