@@ -31,9 +31,16 @@ export = {
       },
       {
           test: /\.(png|svg|jpg|gif)$/,
-          loader: "file-loader",
-          options: { name: '/static/[name].[ext]' }
-      }
+          use: [
+            {
+              loader: "file-loader",
+              options: { 
+                name: '/[name].[ext]',
+                outputPath: "img/",
+              }
+            }
+          ]
+      },
     ]
   },
   devServer: {
