@@ -91,7 +91,7 @@ const PasswordReset: React.FC<Props> = ({ cancel, onSuccess }) => {
         <form onSubmit={handleSubmit} className="d-flex align-items-center flex-column">
           <InputField 
             name="oldPassword" 
-            label="password" 
+            label="Password" 
             type="password" 
             error={oldPasswordError}
             value={oldPassword}
@@ -99,7 +99,7 @@ const PasswordReset: React.FC<Props> = ({ cancel, onSuccess }) => {
           />
           <InputField 
             name="newPassword" 
-            label="new password" 
+            label="New password" 
             type="password" 
             error={newPasswordError}
             value={newPassword}
@@ -107,19 +107,19 @@ const PasswordReset: React.FC<Props> = ({ cancel, onSuccess }) => {
           />
           <InputField
             name="repeatNewPassword"
-            label="repeat new password"
+            label="Repeat new password"
             type="password"
             error={repeatPasswordError}
             value={repeatNewPassword}
             onChange={onRepeatPasswordChange}
           />
           <div className="d-flex flex-row">
+          <Button text="CANCEL" type="button" handleClick={cancel} />
             <Button
-              text="Reset"
+              text="RESET"
               type="submit"
               handleClick={() => {}}
             />
-            <Button text="Cancel" type="button" handleClick={cancel} />
           </div>
         </form>
       </div>
