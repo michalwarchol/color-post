@@ -68,10 +68,10 @@ const handlePasswordChanged = () => {
           ) : (
             <>
               <a href="/login" className="loginButton">
-                Login
+                LOGIN
               </a>
               <a href="/signup" className="signupButton">
-                Sign up
+                SIGN UP
               </a>
             </>
           )}
@@ -81,10 +81,10 @@ const handlePasswordChanged = () => {
         <>
           <div className="lowerTopbar">
             <div className="container d-flex flex-row justify-content-end">
-              <a href="/">Home</a>
-              <a href="/profile">Profile</a>
-              <a href="/explore">Explore</a>
-              <a onClick={logout}>Logout</a>
+              <a href="/">HOME</a>
+              <a href="/profile">PROFILE</a>
+              <a href="/explore">EXPLORE</a>
+              <a onClick={logout}>LOGOUT</a>
             </div>
           </div>
           {showSettings && (
@@ -93,7 +93,7 @@ const handlePasswordChanged = () => {
                 <span>Settings</span>
                 <div className="buttons d-flex flex-row justify-content-end">
                   <Button
-                    text="Reset password"
+                    text="PASSWORD RESET"
                     handleClick={passwordReset}
                     type="button"
                   />

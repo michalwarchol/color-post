@@ -92,7 +92,7 @@ const Pattern: React.FC<Props> = ({ id, user, palette, likes }) => {
                 )
         }
       >
-        <span style={{ background: isLiked ? "#e5383b" : "#222429" }}>
+        <span style={{ background: isLiked ? "#e5383b" : "#282828" }}>
           <BsHeartFill /> {writeLikes(likes, isLiked, likeHasBeenClicked)}
         </span>
       </div>

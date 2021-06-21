@@ -88,7 +88,7 @@ const BigPattern: React.FC<Props> = ({ k, pattern }) => {
         className="likes d-flex justify-content-center"
         onClick={handleClickLike}
       >
-        <span style={{ background: isLiked ? "#e5383b" : "#222429" }}>
+        <span style={{ background: isLiked ? "#e5383b" : "#282828" }}>
           <BsHeartFill /> {writeLikes(likes, isLiked, likeHasBeenClicked)}
         </span>
       </div>

@@ -25,6 +25,7 @@
         padding: 10px 0;
         a{
             @include button(2);
+            line-height: 2;
             text-decoration: none;
             color: $color_5;
         }
@@ -40,6 +41,9 @@
         .buttons{
             margin-bottom: 10px;
             button{
+                @include button(2);
+                line-height: 2;
+                width: auto;
                 margin: 0;
             }
         }
