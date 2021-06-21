@@ -13,6 +13,7 @@ const ColorWheelButtons: React.FC<Props> = ({palette}) => {
 
     const [customVisible, setCustomVisible] = useState<boolean>(false);
     const [showNotification, setShowNotification] = useState<boolean|null>(null);
+    const [notLoggedInNotification, setNotLoggedInNotification] = useState<boolean>(false);
 
     useEffect(()=>{
         if(typeof showNotification === "boolean"){
@@ -21,6 +22,14 @@ const ColorWheelButtons: React.FC<Props> = ({palette}) => {
             }, 3000)
         }
     }, [showNotification])
+
+    useEffect(()=>{
+        if(notLoggedInNotification === true){
+            setTimeout(()=>{
+                setNotLoggedInNotification(false);
+            }, 3000)
+        }
+    }, [notLoggedInNotification])
 
     const createCustomPattern = () => {
         setCustomVisible(!customVisible);
@@ -38,9 +47,8 @@ const ColorWheelButtons: React.FC<Props> = ({palette}) => {
                 palette: palette
             })
         }).then(response => {
-            console.log(response)
             if (response.redirected == true) {
-                location.assign(response.url)
+                setNotLoggedInNotification(true);
             }
             setShowNotification(!showNotification);
         }).catch(err => {
@@ -57,7 +65,8 @@ const ColorWheelButtons: React.FC<Props> = ({palette}) => {
 			})
 		}).then(response => {
 			if (response.redirected == true) {
-				location.assign(response.url)
+				setNotLoggedInNotification(true);
+                return;
 			}
 			setCustomVisible(false);
             setShowNotification(!showNotification);
@@ -68,10 +77,11 @@ const ColorWheelButtons: React.FC<Props> = ({palette}) => {
 
     return (
         <div className="d-flex flex-column flex-sm-row align-items-center justify-content-center">
-            <Button text="save pattern" handleClick={savePattern} />
-            <Button text="create custom" handleClick={createCustomPattern} />
+            <Button text="SAVE" handleClick={savePattern} type="button" />
+            <Button text="CREATE CUSTOM" handleClick={createCustomPattern} type="button" />
             {customVisible && <CustomPattern cancel={cancelCustomPattern} saveCustom={saveCustom} />}
             {(showNotification || !showNotification) && typeof(showNotification)==="boolean" && <NotificationBadge text="Pattern saved" />}
+            {notLoggedInNotification && <NotificationBadge text="You must be logged in user!" />}
         </div>
     )
 }
