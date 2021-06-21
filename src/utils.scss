@@ -12,23 +12,15 @@
     font-weight: 400;
 }
 
-@mixin submitButton {
-    border: 1px solid $color_1;
-    background-color: $color_2;
-    color: $color_5;
-    border-radius: 2px;
-    box-shadow: #000000 -1px -1px 10px inset;
-    &:active{
-        box-shadow: #000000 1px 1px 10px inset;
-    }
-}
-
 @mixin button($variation) {
     padding: 5px 15px;
+    height: 40px;
     margin: 0 4px;
     border-radius: 4px;
     cursor: pointer;
     text-decoration: none;
+    font-family: 'Mukta', sans-serif;
+    line-height: 2;
     border: none;
     @if $variation==1 {
         background-color: $color_5;
@@ -42,6 +34,13 @@
         color: $color_5;
         &:hover{
             background-color: darken($color: $color_1, $amount: 20);
+        }
+    }
+    @else if $variation==3 {
+        background-color: $color_2;
+        color: $color_5;
+        &:hover{
+            background-color: darken($color: $color_2, $amount: 20);
         }
     }
 }
