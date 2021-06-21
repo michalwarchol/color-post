@@ -4,12 +4,9 @@
     position: fixed;
     top: 0;
     left: 0;
-    background-color: rgba($color_1, 0.8);
+    background-color: $color_1;
     z-index: 5;
     .innerCustomPattern{
-        background-color: $color_1;
-        width: 60%;
-        height: 92%;
         border-radius: 10px;
         @media screen and (max-width: 991px){
             width: 80%;
@@ -46,15 +43,10 @@
             margin-top: 20px;
             .button{
                 &:nth-child(1){
-                    border: 1px solid darken($color: $color_1, $amount: 10);
+                    @include button(3);
                 }
                 &:nth-child(2){
-                    border: 1px solid $color_1;
-                    background-color: $color_3;
-                    color: $color_1;
-                    &:hover{
-                        background-color: lighten($color: $color_3, $amount: 30);
-                    }
+                    @include button(1);
                 }
             }
         }

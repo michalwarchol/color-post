@@ -11,7 +11,7 @@ interface ColorSelectorProps {
 //input color component with important data
 const ColorSelector: React.FC<ColorSelectorProps> = ({name, color, setColor}) => {
     return (
-        <div className="color col-6 d-flex flex-row justify-content-around">
+        <div className="color col-8 d-flex flex-row justify-content-around">
             <div className="d-flex flex-column align-items-center col-6">
                 <span>{name}</span>
                 <input type="color" onChange={e => setColor(e.target.value)} />
@@ -65,8 +65,8 @@ const CustomPattern: React.FC<Props> = ({ cancel, saveCustom }) => {
                     
                 </div>
                 <div className="buttons d-flex flex-row justify-content-center">
-                    <Button text="Cancel" handleClick={cancel} />
-                    <Button text="Save" handleClick={save} />
+                    <Button text="Cancel" handleClick={cancel} type="button" />
+                    <Button text="Save" handleClick={save} type="button" />
                 </div>
                 <div className="warning"><span>You need to be logged in to add a custom pattern.</span></div>
             </div>
