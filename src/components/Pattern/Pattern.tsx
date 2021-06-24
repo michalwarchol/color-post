@@ -17,9 +17,11 @@ interface Props {
   user: string;
   palette: ColorType[];
   likes: number;
+  focusedPattern: string;
+  focus(id: string): void;
 }
 
-const Pattern: React.FC<Props> = ({ id, user, palette, likes }) => {
+const Pattern: React.FC<Props> = ({ id, user, palette, likes, focusedPattern, focus }) => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [likeHasBeenClicked, setLikeHasBeenClicked] = useState<boolean>(false);
   const [showNotification, setShowNotificaction] = useState<boolean | null>(
@@ -42,8 +44,17 @@ const Pattern: React.FC<Props> = ({ id, user, palette, likes }) => {
     }
   }, [likeHasBeenClicked]);
 
+  const handleClick = () => {
+    focus(id);
+    if(isLiked)
+        removeFromFavourites(id, likeHasBeenClicked, setIsLiked, setLikeHasBeenClicked)
+    else
+        addToFavourites(id, likeHasBeenClicked, setIsLiked, setLikeHasBeenClicked)
+  }
+
   return (
-    <div className="pattern d-flex col-6 col-md-3 flex-column">
+    <div className="pattern d-flex col-6 col-md-3 flex-column"
+    style={focusedPattern==id?{zIndex:20}:undefined}>
       <div className="colors">
         {palette.map((color, i) => (
           <div
@@ -74,23 +85,7 @@ const Pattern: React.FC<Props> = ({ id, user, palette, likes }) => {
       </div>
       <div
         className="likes"
-        onClick={
-          isLiked
-            ? () =>
-                removeFromFavourites(
-                  id,
-                  likeHasBeenClicked,
-                  setIsLiked,
-                  setLikeHasBeenClicked
-                )
-            : () =>
-                addToFavourites(
-                  id,
-                  likeHasBeenClicked,
-                  setIsLiked,
-                  setLikeHasBeenClicked
-                )
-        }
+        onClick={handleClick}
       >
         <span style={{ background: isLiked ? "#e5383b" : "#282828" }}>
           <BsHeartFill /> {writeLikes(likes, isLiked, likeHasBeenClicked)}

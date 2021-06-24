@@ -28,6 +28,7 @@ const Main: React.FC = () => {
   const [moreLatest, setMoreLatest] = useState<number>(0);
   const [popularPatterns, setPopularPatterns] = useState<PatternType[]>([]);
   const [morePopular, setMorePopular] = useState<number>(0);
+  const [focuedPattern, setFocusedPattern] = useState<string>("");
 
   useEffect(() => {
     window.addEventListener("resize", () => setWidth(window.innerWidth));
@@ -86,6 +87,10 @@ const Main: React.FC = () => {
   const showMorePopular = () => {
     setMorePopular(morePopular + 8);
   };
+
+  const focusPattern = (id: string) => {
+    setFocusedPattern(id);
+  }
 
   return (
     <div className="main">
@@ -157,6 +162,8 @@ const Main: React.FC = () => {
               user={elem.user}
               likes={elem.likes}
               palette={elem.palette}
+              focusedPattern={focuedPattern}
+              focus={focusPattern}
             />
           ))}
         </div>
@@ -172,6 +179,8 @@ const Main: React.FC = () => {
               user={elem.user}
               likes={elem.likes}
               palette={elem.palette}
+              focusedPattern={focuedPattern}
+              focus={focusPattern}
             />
           ))}
         </div>
