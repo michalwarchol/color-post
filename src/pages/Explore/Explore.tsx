@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Topbar from "../../components/Topbar/Topbar";
 import Footer from "../../components/Footer/Footer";
 import BigCarousel from "../../components/BigCarousel/BigCarousel";
 
 const Explore:React.FC = () => {
+
+    useEffect(()=>{
+        const data = localStorage.getItem("user");
+        if (!data) {
+            location.assign("/login");
+        }   
+    }, [])
+
     return(
         <div className="explore d-flex flex-column">
             <Topbar />
