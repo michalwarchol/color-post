@@ -15,9 +15,11 @@ import {
 interface Props {
   pattern: PatternType;
   k: number;
+  carouselId: number,
+  focus(id: number): void
 }
 
-const BigPattern: React.FC<Props> = ({ k, pattern }) => {
+const BigPattern: React.FC<Props> = ({ k, pattern, carouselId, focus }) => {
   const { user, palette, likes } = pattern;
   const id = pattern._id;
 
@@ -62,6 +64,7 @@ const BigPattern: React.FC<Props> = ({ k, pattern }) => {
   };
 
   const handleClickLike = () => {
+    focus(carouselId);
     if (isLiked) {
       removeFromFavourites(
         id,

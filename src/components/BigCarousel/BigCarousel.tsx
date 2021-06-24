@@ -4,7 +4,13 @@ import { PatternType } from "../../reducers/types";
 import BigPattern from "../BigPattern/BigPattern";
 
 
-const BigCarousel: React.FC = () => {
+interface Props {
+  id: number
+  focused: number
+  focus(id: number): void
+}
+
+const BigCarousel: React.FC<Props> = ({id, focused, focus}) => {
   const [patterns, setPatterns] = useState<PatternType[]>([]);
   const [slide, setSlide] = useState<number>(0);
   const [leftVisible, setLeftVisible] = useState<boolean>(false);
@@ -36,7 +42,7 @@ const BigCarousel: React.FC = () => {
   };
 
   const processPatterns = () => {
-    return patterns.map((elem, i) => <BigPattern k={i} pattern={elem} key={i} />);
+    return patterns.map((elem, i) => <BigPattern k={i} pattern={elem} key={i} focus={focus} carouselId={id}/>);
   };
 
   const moveCarousel = (direction: boolean) => {
@@ -52,7 +58,8 @@ const BigCarousel: React.FC = () => {
     }
   };
   return (
-    <div className="bigCarousel d-flex col-12 flex-nowrap align-items-center">
+    <div className="bigCarousel d-flex col-12 flex-nowrap align-items-center"
+    style={id==focused?{zIndex: 20}:undefined}>
       <div
         className="arrow left d-flex align-items-center justify-content-center"
         onClick={() => moveCarousel(false)}
