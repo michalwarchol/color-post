@@ -7,7 +7,7 @@ import Button from "../../components/Button/Button"
 const NotFound = () => {
 
     const goHome = () => {
-        window.location.href="/";
+        location.assign("/");
     }
 
     return (
@@ -17,7 +17,7 @@ const NotFound = () => {
                     <h2>Oops! Something went wrong</h2>
                     <h2>Page not found</h2>
                     <h1>404</h1>
-                    <Button text="Go home" handleClick={goHome} />
+                    <Button text="Go home" handleClick={goHome} type="button" />
                 
             </div>
             <Footer />
