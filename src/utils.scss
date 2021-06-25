@@ -49,6 +49,9 @@
     color: $color_6;
     min-height: 100vh;
     overflow: hidden;
+    background-image: url("./img/background1920x1080.jpg");
+    background-size: cover;
+    background-position: center center;
     .form{
         background-color: rgba($color: #000000, $alpha: 0.4);
         z-index: 2;
@@ -94,18 +97,6 @@
                 color: $color_1;
                 font-weight: bold;
             }
-        }
-    }
-    img{
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 1;
-        width: 100%;
-        height: 100%;
-        object-fit: fill;
-        @media screen and (max-width: 991px){
-            object-fit: cover;
         }
     }
 }

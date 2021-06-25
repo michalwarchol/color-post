@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import InputField from "../../components/InputField/InputField";
 import Button from "../../components/Button/Button";
-import Image from "../../img/background1920x1080.jpg";
 
 const Login = () => {
   const [name, setName] = useState<string>("");
@@ -33,7 +32,6 @@ const Login = () => {
 
   return (
     <div className="login_page d-flex">
-      <img src={Image} alt="not found" />
       <div className="form d-flex col-12 col-md-6 col-xl-4 align-items-center justify-content-center flex-column">
         <h1 className="mt-auto">
           <a href="/">Color Post</a>

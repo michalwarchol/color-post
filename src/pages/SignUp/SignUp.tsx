@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import InputField from "../../components/InputField/InputField";
 import Button from "../../components/Button/Button";
-import Image from "../../img/background1920x1080.jpg";
 
 const SignUp = () => {
   const [name, setName] = useState<string>("");
@@ -23,9 +22,9 @@ const SignUp = () => {
       .then((res) => {
         console.log(res);
         if (res.errors) {
-          setNameError(res.errors.name);
-          setPasswordError(res.errors.password);
-          setPassword_cError(res.errors.password_c);
+          if(res.errors.name) setNameError(res.errors.name);
+          if(res.errors.password) setPasswordError(res.errors.password);
+          if(res.errors.password_c) setPassword_cError(res.errors.password_c);
         } else {
           location.assign("/");
         }
@@ -37,7 +36,6 @@ const SignUp = () => {
 
   return (
     <div className="login_page d-flex">
-      <img src={Image} alt="not found" />
       <div className="form d-flex col-12 col-md-6 col-xl-4 align-items-center justify-content-center flex-column">
         <h1 className="mt-auto">
           <a href="/">Color Post</a>
