@@ -37,12 +37,18 @@ const SignUp = () => {
 
   return (
     <div className="login_page d-flex">
-            <img src={Image} alt="not found" />
-            <div className="form d-flex col-12 col-md-6 col-xl-4 align-items-center justify-content-center flex-column">
-                <h1 className="mt-auto">Color Post</h1>
-                <h2>Sign up</h2>
-                <form className="d-flex flex-column" action="/login" onSubmit={signupSubmit}>
-                <InputField
+      <img src={Image} alt="not found" />
+      <div className="form d-flex col-12 col-md-6 col-xl-4 align-items-center justify-content-center flex-column">
+        <h1 className="mt-auto">
+          <a href="/">Color Post</a>
+        </h1>
+        <h2>Sign up</h2>
+        <form
+          className="d-flex flex-column"
+          action="/login"
+          onSubmit={signupSubmit}
+        >
+          <InputField
             name="Name"
             label="Name"
             type="text"
@@ -66,19 +72,27 @@ const SignUp = () => {
             value={password_c}
             onChange={(e) => setPassword_c(e.currentTarget.value)}
           />
-                    <div className="submit_button d-flex justify-content-around flex-column align-items-center">
-                        <Button type="submit" text="Sign up" handleClick={()=>{}}/>
-                        <span className="d-flex align-self-center">Don't have an account?&nbsp;<a href="/login">Log in</a></span>
-                    </div>
-                </form>
-                <div className="info d-flex mt-auto justify-content-center">
-                    <div className="">
-                        <p>You can find code of this project at <a href="https://github.com/michalwarchol/color-post">Github</a></p>
-                        <p>Copyright &copy; {new Date().getFullYear()} Michał Warchoł. All rights reserved</p>
-                    </div>
-                </div>
-            </div>
+          <div className="submit_button d-flex justify-content-around flex-column align-items-center">
+            <Button type="submit" text="Sign up" handleClick={() => {}} />
+            <span className="d-flex align-self-center">
+              Don't have an account?&nbsp;<a href="/login">Log in</a>
+            </span>
+          </div>
+        </form>
+        <div className="info d-flex mt-auto justify-content-center">
+          <div className="">
+            <p>
+              You can find code of this project at{" "}
+              <a href="https://github.com/michalwarchol/color-post">Github</a>
+            </p>
+            <p>
+              Copyright &copy; {new Date().getFullYear()} Michał Warchoł. All
+              rights reserved
+            </p>
+          </div>
         </div>
+      </div>
+    </div>
   );
 };
 
