@@ -13,8 +13,25 @@ interface IPossibleErrors {
 const handleSignUpErrors = (err: Error) => {
     let errors: IPossibleErrors= {};
     //validation errors
+    console.log(err)
     if(err.message.includes("User already exists")){
         errors.name=err.message;
+    }
+
+    if(err.message.includes("Please enter your first name")){
+        errors.name="Please enter your name";
+    }
+
+    if(err.message.includes("Please enter your first name")){
+        errors.name="User name is too short";
+    }
+
+    if(err.message.includes("Please enter a password")){
+        errors.password="Please enter a password";
+    }
+
+    if(err.message.includes("Password is too short")){
+        errors.password="Password is too short";
     }
 
     if(err.message.includes("Password confirmation doesn't match")){
