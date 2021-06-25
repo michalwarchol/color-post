@@ -23,8 +23,11 @@ const SignUp = () => {
         console.log(res);
         if (res.errors) {
           if(res.errors.name) setNameError(res.errors.name);
+          else setNameError("");
           if(res.errors.password) setPasswordError(res.errors.password);
+          else setPasswordError("")
           if(res.errors.password_c) setPassword_cError(res.errors.password_c);
+          else setPassword_cError("");
         } else {
           location.assign("/");
         }
@@ -47,7 +50,7 @@ const SignUp = () => {
           onSubmit={signupSubmit}
         >
           <InputField
-            name="Name"
+            name="name"
             label="Name"
             type="text"
             error={nameError}
@@ -55,7 +58,7 @@ const SignUp = () => {
             onChange={(e) => setName(e.currentTarget.value)}
           />
           <InputField
-            name="Password"
+            name="password"
             label="Password"
             type="password"
             error={passwordError}

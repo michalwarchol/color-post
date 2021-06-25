@@ -19,7 +19,9 @@ const Login = () => {
       .then((res) => {
         if (res.errors) {
           if (res.errors.name) setNameError(res.errors.name);
+          else setNameError("");
           if (res.errors.password) setPasswordError(res.errors.password);
+          else setPasswordError("");
         } else {
           localStorage.setItem("user", JSON.stringify(res.user));
           location.assign("/");
