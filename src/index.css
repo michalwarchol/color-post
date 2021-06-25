@@ -4,10 +4,17 @@
   color: #ebf6ff;
   min-height: 100vh;
   overflow: hidden;
+  background-image: url("./img/background1920x1080.jpg");
+  background-size: cover;
+  background-position: center center;
 }
 .login_page .form {
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 2;
+}
+.login_page .form h1 a {
+  text-decoration: none;
+  color: #ebf6ff;
 }
 .login_page .form form {
   width: 100%;
@@ -55,29 +62,22 @@
   color: #282828;
   font-weight: bold;
 }
-.login_page img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  object-fit: fill;
-}
-@media screen and (max-width: 991px) {
-  .login_page img {
-    object-fit: cover;
-  }
-}
 
 .signup_page {
   color: #ebf6ff;
   min-height: 100vh;
   overflow: hidden;
+  background-image: url("./img/background1920x1080.jpg");
+  background-size: cover;
+  background-position: center center;
 }
 .signup_page .form {
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 2;
+}
+.signup_page .form h1 a {
+  text-decoration: none;
+  color: #ebf6ff;
 }
 .signup_page .form form {
   width: 100%;
@@ -124,20 +124,6 @@
 .signup_page .form .info a {
   color: #282828;
   font-weight: bold;
-}
-.signup_page img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  object-fit: fill;
-}
-@media screen and (max-width: 991px) {
-  .signup_page img {
-    object-fit: cover;
-  }
 }
 
 .main {
