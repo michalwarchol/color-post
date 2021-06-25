@@ -1,4 +1,5 @@
 import React from "react";
+import {MdError} from "react-icons/md"
 
 type Props = {
     label: string;
@@ -21,7 +22,7 @@ const InputField: React.FC<Props> = ({label, name, type, error, value, onChange}
               placeholder={label}
               style={error.length>0?{borderColor: "#e5383b"}:{borderColor: "#222429"}}
             />
-            <span>{error}</span>
+            {!!error&&<span><MdError />{error}</span>}
         </div>
     )
 }
