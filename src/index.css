@@ -394,6 +394,14 @@
 .topbar .lowerTopbar a:hover {
   background-color: black;
 }
+@media screen and (max-width: 575px) {
+  .topbar .lowerTopbar a {
+    font-size: small;
+    padding: 5px;
+    height: 30px;
+    line-height: 1.5;
+  }
+}
 .topbar .settings {
   background-color: #434343;
   border-bottom: 1px solid #282828;
@@ -424,6 +432,14 @@
 }
 .topbar .settings .buttons button:hover {
   background-color: black;
+}
+@media screen and (max-width: 575px) {
+  .topbar .settings .buttons button {
+    font-size: small;
+    padding: 5px;
+    height: 30px;
+    line-height: 1.5;
+  }
 }
 
 .colorWheel_container {
